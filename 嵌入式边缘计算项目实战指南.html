@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嵌入式/边缘计算项目实战指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* 固定导航栏 */
+        .nav-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #165DFF;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        .nav-container a {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 15px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .nav-container a:hover {
+            background-color: #4080FF;
+        }
+        /* 主体容器 */
+        .container {
+            max-width: 1400px;
+            margin: 80px auto 30px;
+            padding: 0 20px;
+        }
+        /* 头部标题 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header h1 {
+            color: #165DFF;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        /* 章节模块 */
+        .section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .section h2 {
+            color: #165DFF;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #E8F3FF;
+            font-size: 22px;
+        }
+        .section h3 {
+            color: #333;
+            margin: 20px 0 15px;
+            font-size: 18px;
+        }
+        /* 项目详情样式 */
+        .project-detail {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .project-detail h4 {
+            color: #165DFF;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .project-detail h5 {
+            color: #165DFF;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .project-detail h6 {
+            color: #333;
+            margin: 15px 0 10px;
+            font-size: 14px;
+        }
+        .requirement-box {
+            background-color: #fff;
+            border-left: 4px solid #165DFF;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .tech-scheme {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .tech-scheme pre {
+            background-color: #f5f7fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .code-standard {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .code-standard pre {
+            background-color: #f5f7fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .code-standard code {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        table th, table td {
+            border: 1px solid #E8F3FF;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #F0F7FF;
+            color: #165DFF;
+            font-weight: 600;
+        }
+        table tr:hover {
+            background-color: #F8FAFF;
+        }
+        /* 列表样式 */
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .nav-container {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            .nav-container a {
+                padding: 10px 8px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+            .container {
+                margin-top: 60px;
+                padding: 0 10px;
+            }
+            .section {
+                padding: 20px 15px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            table {
+                font-size: 12px;
+            }
+            table th, table td {
+                padding: 8px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定导航栏 -->
+    <div class="nav-fixed">
+        <div class="nav-container">
+            <a href="#header">首页</a>
+            <a href="#basic">基础项目</a>
+            <a href="#advanced">进阶项目</a>
+            <a href="#expert">高级项目</a>
+        </div>
+    </div>
+
+    <!-- 主体容器 -->
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header" id="header">
+            <h1>嵌入式/边缘计算项目实战指南</h1>
+            <p>可直接执行的项目需求、技术方案与代码规范 | 适配ESP32-P4/香橙派3B/STM32F103</p>
+        </div>
+
+        <!-- 基础项目 -->
+        <div class="section" id="basic">
+            <h2>一、基础项目</h2>
+
+            <!-- 项目一 -->
+            <div class="project-detail">
+                <h4>项目一：ESP32-P4 智能人脸识别门禁</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>人脸识别功能：支持100+人脸库，识别准确率≥95%，识别时间≤1秒</li>
+                        <li>门禁控制：识别成功后触发继电器开门，开门时间可配置（默认5秒）</li>
+                        <li>用户管理：支持通过Web界面添加/删除用户，上传人脸照片</li>
+                        <li>记录查询：保存最近1000条开门记录，支持按时间、用户查询</li>
+                        <li>显示功能：7寸MIPI屏显示实时画面、识别结果、时间日期</li>
+                        <li>网络功能：支持WiFi/以太网连接，支持远程访问Web管理界面</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>系统启动时间≤10秒</li>
+                        <li>人脸识别响应时间≤1秒</li>
+                        <li>Web界面响应时间≤2秒</li>
+                        <li>7×24小时稳定运行</li>
+                    </ul>
+                </div>
+
+                <h5>二、硬件清单</h5>
+                <table>
+                    <tr>
+                        <th>硬件</th>
+                        <th>型号/规格</th>
+                        <th>数量</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td>核心开发板</td>
+                        <td>ESP32-P4-WIFI6-POE-ETH</td>
+                        <td>1</td>
+                        <td>主控制器</td>
+                    </tr>
+                    <tr>
+                        <td>摄像头</td>
+                        <td>OV5647摄像头模组</td>
+                        <td>1</td>
+                        <td>500万像素，MIPI接口</td>
+                    </tr>
+                    <tr>
+                        <td>显示屏</td>
+                        <td>7寸MIPI接口触摸屏</td>
+                        <td>1</td>
+                        <td>800×480分辨率</td>
+                    </tr>
+                    <tr>
+                        <td>继电器模块</td>
+                        <td>5V继电器模块</td>
+                        <td>1</td>
+                        <td>控制门锁</td>
+                    </tr>
+                    <tr>
+                        <td>电源</td>
+                        <td>12V/2A电源适配器</td>
+                        <td>1</td>
+                        <td>系统供电</td>
+                    </tr>
+                    <tr>
+                        <td>其他</td>
+                        <td>杜邦线、面包板、外壳</td>
+                        <td>若干</td>
+                        <td>连接和固定</td>
+                    </tr>
+                </table>
+
+                <h5>三、技术方案</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    Web管理界面                           │
+│              (用户管理/记录查询/系统配置)                │
+└────────────────────┬────────────────────────────────────┘
+                     │ HTTP/WebSocket
+┌────────────────────▼────────────────────────────────────┐
+│              ESP32-P4 主控制器                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐ │
+│  │  Web服务器   │  │  人脸识别    │  │  门禁控制   │ │
+│  │  (ESP-IDF)  │  │  (MobileNet) │  │  (GPIO/继电器)│ │
+│  └──────────────┘  └──────────────┘  └─────────────┘ │
+│  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐ │
+│  │  显示驱动    │  │  存储管理    │  │  网络管理   │ │
+│  │  (LVGL/MIPI) │  │  (SPIFFS)    │  │  (WiFi/ETH) │ │
+│  └──────────────┘  └──────────────┘  └─────────────┘ │
+└────────────────────┬────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ 摄像头  │  │ 显示屏  │  │ 继电器  │
+   └────────┘  └────────┘  └────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>开发框架：ESP-IDF v5.1+</li>
+                        <li>显示库：LVGL v8.3+</li>
+                        <li>人脸识别：MobileNetV2轻量级模型，使用ESP-NN加速</li>
+                        <li>Web服务器：ESP-IDF内置HTTP服务器</li>
+                        <li>文件系统：SPIFFS</li>
+                        <li>网络协议：HTTP、WebSocket、MQTT（可选）</li>
+                    </ul>
+
+                    <h6>关键技术实现</h6>
+                    <ol>
+                        <li><strong>人脸识别实现</strong>：
+                            <ul>
+                                <li>使用ESP32-P4的NPU加速推理</li>
+                                <li>人脸检测：使用MTCNN或Ultra-Light-Fast-Generic-Face-Detector</li>
+                                <li>特征提取：使用MobileNetV2或FaceNet轻量级版本</li>
+                                <li>人脸比对：计算余弦相似度，阈值可配置</li>
+                            </ul>
+                        </li>
+                        <li><strong>显示界面实现</strong>：
+                            <ul>
+                                <li>使用LVGL创建主界面，包含实时摄像头画面、识别结果、时间日期</li>
+                                <li>实现触摸交互，支持本地配置</li>
+                                <li>优化画面刷新帧率，确保流畅显示</li>
+                            </ul>
+                        </li>
+                        <li><strong>Web管理界面实现</strong>：
+                            <ul>
+                                <li>使用HTML/CSS/JavaScript创建响应式界面</li>
+                                <li>实现用户管理API：添加用户、删除用户、获取用户列表</li>
+                                <li>实现记录查询API：按时间范围查询、按用户查询</li>
+                                <li>实现系统配置API：修改开门时间、识别阈值等</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h5>四、代码规范</h5>
+                <div class="code-standard">
+                    <h6>命名规范</h6>
+                    <ul>
+                        <li>文件名：小写字母+下划线，如 <code>face_recognition.c</code></li>
+                        <li>函数名：小写字母+下划线，如 <code>fr_detect_face()</code></li>
+                        <li>变量名：小写字母+下划线，如 <code>face_count</code></li>
+                        <li>宏定义：大写字母+下划线，如 <code>FR_MAX_FACE_NUM</code></li>
+                        <li>结构体名：小写字母+下划线+_t，如 <code>face_info_t</code></li>
+                    </ul>
+
+                    <h6>注释规范</h6>
+                    <ul>
+                        <li>文件头注释：包含文件名、功能描述、作者、创建日期</li>
+                        <li>函数注释：包含功能描述、参数说明、返回值说明</li>
+                        <li>关键代码注释：解释复杂逻辑的实现思路</li>
+                    </ul>
+
+                    <h6>代码结构</h6>
+                    <pre>
+project/
+├── CMakeLists.txt
+├── sdkconfig
+├── main/
+│   ├── CMakeLists.txt
+│   ├── main.c                 # 主程序入口
+│   ├── face_recognition/      # 人脸识别模块
+│   │   ├── face_recognition.c
+│   │   ├── face_recognition.h
+│   │   └── models/            # 模型文件
+│   ├── display/               # 显示模块
+│   │   ├── display.c
+│   │   ├── display.h
+│   │   └── ui/                # LVGL界面
+│   ├── web_server/            # Web服务器模块
+│   │   ├── web_server.c
+│   │   ├── web_server.h
+│   │   └── www/               # Web前端文件
+│   ├── storage/               # 存储模块
+│   │   ├── storage.c
+│   │   └── storage.h
+│   └── door_control/          # 门禁控制模块
+│       ├── door_control.c
+│       └── door_control.h
+├── components/                # 第三方组件
+├── hardware/                  # 硬件相关文件
+│   ├── schematic.pdf
+│   └── pcb/
+└── docs/                      # 文档
+    ├── README.md
+    ├── user_manual.md
+    └── developer_guide.md
+                    </pre>
+                </div>
+
+                <h5>五、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1-2周</td>
+                        <td>硬件搭建、ESP-IDF环境配置、基础驱动调试</td>
+                        <td>硬件连接完成、摄像头/显示屏驱动正常</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第3-4周</td>
+                        <li>人脸识别模块集成、基础识别功能实现</li>
+                        <td>可完成单人人脸识别</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第5-6周</td>
+                        <li>LVGL显示界面开发、门禁控制功能实现</li>
+                        <td>完整的本地功能实现</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第7-8周</td>
+                        <li>Web服务器开发、用户管理/记录查询功能实现</li>
+                        <td>完整的Web管理功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第9-10周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 项目二 -->
+            <div class="project-detail">
+                <h4>项目二：数控可调电源项目重启</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>电压输出：0-30V可调，步进0.1V，精度±0.05V</li>
+                        <li>电流输出：0-5A可调，步进0.01A，精度±0.01A</li>
+                        <li>恒压/恒流模式：自动切换，支持模式指示</li>
+                        <li>显示功能：SPI屏幕显示输出电压、电流、功率、设定值</li>
+                        <li>控制功能：按键/编码器调节设定值，保存常用预设</li>
+                        <li>保护功能：过压保护、过流保护、过温保护、短路保护</li>
+                        <li>通信功能：可选USB/串口通信，支持PC端控制</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>电压调整率≤0.1%</li>
+                        <li>负载调整率≤0.2%</li>
+                        <li>纹波噪声≤50mV</li>
+                        <li>响应时间≤100ms</li>
+                    </ul>
+                </div>
+
+                <h5>二、硬件方案</h5>
+                <p><strong>方案选择</strong>：购买成熟开源硬件套件（如ESP32数控电源开源项目），专注于软件开发，避免硬件问题。</p>
+                <p><strong>推荐硬件</strong>：基于ESP32-S3的数控电源开源套件，包含完整的电源电路、控制电路、显示模块。</p>
+
+                <h5>三、技术方案</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│              ESP32 主控制器                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐ │
+│  │  用户界面    │  │  控制算法    │  │  通信模块   │ │
+│  │  (SPI屏/按键)│  │  (PID控制)   │  │  (USB/串口) │ │
+│  └──────────────┘  └──────────────┘  └─────────────┘ │
+│  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐ │
+│  │  数据采集    │  │  保护逻辑    │  │  存储管理   │ │
+│  │  (ADC)       │  │  (OVP/OCP/OTP)│  │  (NVS)      │ │
+│  └──────────────┘  └──────────────┘  └─────────────┘ │
+└────────────────────┬────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ DAC/ PWM│  │  ADC    │  │ 保护电路│
+   └────┬───┘  └───┬────┘  └────────┘
+        │            │
+   ┌────▼───┐  ┌───▼────┐
+   │ 电源电路 │  │ 电压/电流│
+   └────────┘  │  采样电路 │
+               └─────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>开发框架：ESP-IDF或Arduino（选择Arduino降低开发难度）</li>
+                        <li>显示库：U8g2或TFT_eSPI（根据屏幕类型选择）</li>
+                        <li>控制算法：PID控制算法</li>
+                        <li>通信协议：Modbus RTU或SCPI（标准仪器控制协议）</li>
+                    </ul>
+
+                    <h6>关键技术实现</h6>
+                    <ol>
+                        <li><strong>PID控制实现</strong>：
+                            <ul>
+                                <li>实现电压环和电流环双PID控制</li>
+                                <li>支持PID参数在线调试和保存</li>
+                                <li>实现恒压/恒流模式自动切换</li>
+                            </ul>
+                        </li>
+                        <li><strong>数据采集与处理</strong>：
+                            <ul>
+                                <li>使用ADC采集电压和电流，实现过采样提高精度</li>
+                                <li>实现数字滤波（滑动平均、卡尔曼滤波）</li>
+                                <li>校准功能：支持零点校准和增益校准</li>
+                            </ul>
+                        </li>
+                        <li><strong>保护功能实现</strong>：
+                            <ul>
+                                <li>过压保护(OVP)：电压超过阈值立即关闭输出</li>
+                                <li>过流保护(OCP)：电流超过阈值立即关闭输出</li>
+                                <li>过温保护(OTP)：温度超过阈值降功率或关闭输出</li>
+                                <li>短路保护：快速响应，硬件+软件双重保护</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h5>四、代码规范</h5>
+                <div class="code-standard">
+                    <h6>代码结构</h6>
+                    <pre>
+project/
+├── src/
+│   ├── main.cpp                 # 主程序
+│   ├── config.h                 # 配置文件
+│   ├── display/                 # 显示模块
+│   │   ├── display.cpp
+│   │   └── display.h
+│   ├── control/                 # 控制模块
+│   │   ├── pid.cpp
+│   │   ├── pid.h
+│   │   ├── power_control.cpp
+│   │   └── power_control.h
+│   ├── protection/              # 保护模块
+│   │   ├── protection.cpp
+│   │   └── protection.h
+│   ├── communication/           # 通信模块
+│   │   ├── modbus.cpp
+│   │   └── modbus.h
+│   └── storage/                 # 存储模块
+│       ├── storage.cpp
+│       └── storage.h
+├── lib/                         # 第三方库
+├── hardware/                    # 硬件文件
+│   ├── schematic.pdf
+│   └── BOM.xlsx
+├── docs/                        # 文档
+│   ├── README.md
+│   ├── user_manual.md
+│   └── calibration_guide.md
+└── test/                        # 测试代码
+    ├── test_adc.cpp
+    ├── test_pid.cpp
+    └── test_protection.cpp
+                    </pre>
+                </div>
+
+                <h5>五、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1周</td>
+                        <td>硬件准备、开发环境搭建、基础驱动调试</td>
+                        <td>硬件正常工作、基础驱动代码</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第2-3周</td>
+                        <li>数据采集、显示界面开发</li>
+                        <td>可显示电压电流、界面完成</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第4-5周</td>
+                        <li>PID控制实现、电压电流输出控制</li>
+                        <td>可正常输出电压电流</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第6-7周</td>
+                        <li>保护功能实现、校准功能</li>
+                        <td>完整的保护功能、校准功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第8周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 项目三 -->
+            <div class="project-detail">
+                <h4>项目三：STM32+ESP32 汽车仪表原型</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>车速显示：0-200km/h，精度±1km/h</li>
+                        <li>转速显示：0-8000rpm，精度±50rpm</li>
+                        <li>油量显示：0-100%，精度±5%</li>
+                        <li>水温显示：40-120℃，精度±2℃</li>
+                        <li>警告指示：远光、近光、转向灯、安全带、手刹、故障灯等</li>
+                        <li>里程统计：总里程、小计里程，支持小计清零</li>
+                        <li>显示界面：模拟仪表盘+数字显示，支持主题切换</li>
+                        <li>数据模拟：STM32模拟车辆数据，ESP32负责显示和网络功能</li>
+                        <li>可选功能：GPS定位、蓝牙连接手机、音乐控制</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>显示刷新率≥30fps</li>
+                        <li>数据更新频率≥10Hz</li>
+                        <li>系统启动时间≤5秒</li>
+                        <li>工作温度-20℃~70℃</li>
+                    </ul>
+                </div>
+
+                <h5>二、硬件清单</h5>
+                <table>
+                    <tr>
+                        <th>硬件</th>
+                        <th>型号/规格</th>
+                        <th>数量</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td>主控制板</td>
+                        <td>STM32F103C8T6最小系统板</td>
+                        <td>1</td>
+                        <td>数据模拟</td>
+                    </tr>
+                    <tr>
+                        <td>副控制板</td>
+                        <td>ESP32-P4-WIFI6-POE-ETH</td>
+                        <td>1</td>
+                        <td>显示和网络</td>
+                    </tr>
+                    <tr>
+                        <td>显示屏</td>
+                        <td>7寸MIPI接口触摸屏</td>
+                        <td>1</td>
+                        <td>800×480分辨率</td>
+                    </tr>
+                    <tr>
+                        <td>通信模块</td>
+                        <td>CAN总线模块（可选）</td>
+                        <td>1</td>
+                        <td>模拟真实车辆通信</td>
+                    </tr>
+                    <tr>
+                        <td>其他</td>
+                        <td>杜邦线、面包板、电源</td>
+                        <td>若干</td>
+                        <td>连接和供电</td>
+                    </tr>
+                </table>
+
+                <h5>三、技术方案</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    汽车仪表系统                          │
+├─────────────────────────────────────────────────────────┤
+│  ┌──────────────────────┐      ┌────────────────────┐  │
+│  │   STM32F103         │      │   ESP32-P4         │  │
+│  │   (数据模拟)         │◄────►│   (显示/网络)      │  │
+│  │                      │ UART │                    │  │
+│  │  • 车速模拟         │      │  • LVGL显示        │  │
+│  │  • 转速模拟         │      │  • 界面渲染        │  │
+│  │  • 油量/水温模拟    │      │  • 触摸交互        │  │
+│  │  • CAN模拟(可选)    │      │  • 网络功能(可选)  │  │
+│  └──────────────────────┘      └──────────┬─────────┘  │
+│                                             │            │
+│                                      ┌──────▼──────┐   │
+│                                      │  7寸MIPI屏  │   │
+│                                      └─────────────┘   │
+└─────────────────────────────────────────────────────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>STM32开发：STM32CubeMX + HAL库</li>
+                        <li>ESP32开发：ESP-IDF v5.1+</li>
+                        <li>显示库：LVGL v8.3+</li>
+                        <li>通信协议：UART（双芯片通信）、CAN（可选）</li>
+                        <li>定位模块：GPS/NMEA（可选）</li>
+                    </ul>
+
+                    <h6>关键技术实现</h6>
+                    <ol>
+                        <li><strong>STM32数据模拟</strong>：
+                            <ul>
+                                <li>使用定时器生成PWM模拟车速和转速信号</li>
+                                <li>使用DAC模拟油量和水温传感器信号</li>
+                                <li>实现按键控制模拟数据增减</li>
+                                <li>通过UART将模拟数据发送给ESP32</li>
+                            </ul>
+                        </li>
+                        <li><strong>LVGL仪表盘界面</strong>：
+                            <ul>
+                                <li>使用LVGL创建模拟仪表盘：速度表、转速表、油量表、水温表</li>
+                                <li>实现指针动画，确保平滑流畅</li>
+                                <li>创建警告指示灯区域</li>
+                                <li>实现主题切换功能：经典主题、运动主题、简约主题</li>
+                            </ul>
+                        </li>
+                        <li><strong>双芯片通信</strong>：
+                            <ul>
+                                <li>定义通信协议：帧头、数据类型、数据长度、校验和</li>
+                                <li>实现数据发送和接收函数</li>
+                                <li>实现数据解析和错误处理</li>
+                                <li>可选：实现CAN总线通信，模拟真实车辆通信</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h5>四、代码规范</h5>
+                <div class="code-standard">
+                    <h6>代码结构</h6>
+                    <pre>
+project/
+├── stm32/                       # STM32代码
+│   ├── Core/
+│   │   ├── Src/
+│   │   │   ├── main.c
+│   │   │   ├── data_sim.c       # 数据模拟
+│   │   │   └── communication.c  # 通信
+│   │   └── Inc/
+│   │       ├── data_sim.h
+│   │       └── communication.h
+│   └── STM32CubeMX/
+├── esp32/                       # ESP32代码
+│   ├── main/
+│   │   ├── main.c
+│   │   ├── display/             # 显示模块
+│   │   │   ├── display.c
+│   │   │   ├── display.h
+│   │   │   └── ui/              # LVGL界面
+│   │   │       ├── dashboard.c
+│   │   │       ├── themes.c
+│   │   │       └── widgets.c
+│   │   ├── communication/       # 通信模块
+│   │   │   ├── communication.c
+│   │   │   └── communication.h
+│   │   └── storage/             # 存储模块
+│   │       ├── storage.c
+│   │       └── storage.h
+│   └── CMakeLists.txt
+├── docs/                        # 文档
+│   ├── README.md
+│   ├── protocol.md              # 通信协议文档
+│   └── ui_design.md             # UI设计文档
+└── hardware/                    # 硬件文件
+    ├── schematic.pdf
+    └── connection_diagram.png
+                    </pre>
+                </div>
+
+                <h5>五、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1周</td>
+                        <td>硬件搭建、开发环境搭建、双芯片通信基础</td>
+                        <td>硬件连接完成、双芯片可通信</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第2-3周</td>
+                        <li>STM32数据模拟实现、通信协议定义</li>
+                        <td>STM32可模拟车辆数据并发送</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第4-5周</td>
+                        <li>LVGL仪表盘界面开发、基础显示功能</li>
+                        <td>完整的仪表盘界面、可显示数据</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第6-7周</td>
+                        <li>动画优化、主题切换、警告指示功能</li>
+                        <td>完整的显示功能、流畅的动画</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第8周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 进阶项目 -->
+        <div class="section" id="advanced">
+            <h2>二、进阶项目</h2>
+
+            <!-- 项目四 -->
+            <div class="project-detail">
+                <h4>项目四：基于ESP32-P4的边缘计算网关</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>多协议接入：支持Modbus RTU/TCP、西门子S7、MQTT、HTTP等协议</li>
+                        <li>数据采集：支持同时采集10+个设备数据，采集频率可配置</li>
+                        <li>数据预处理：支持数据过滤、格式转换、边缘计算</li>
+                        <li>数据存储：本地存储（SQLite）+ 云端同步（可选）</li>
+                        <li>规则引擎：支持简单的规则配置和自动控制</li>
+                        <li>Web管理：支持设备管理、数据查看、规则配置</li>
+                        <li>网络功能：支持WiFi/以太网/4G（可选），支持断线重连</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>数据采集延迟≤100ms</li>
+                        <li>支持同时连接20+个设备</li>
+                        <li>本地数据存储容量≥30天</li>
+                        <li>系统启动时间≤15秒</li>
+                        <li>7×24小时稳定运行</li>
+                    </ul>
+                </div>
+
+                <h5>二、硬件清单</h5>
+                <table>
+                    <tr>
+                        <th>硬件</th>
+                        <th>型号/规格</th>
+                        <th>数量</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td>核心开发板</td>
+                        <td>ESP32-P4-WIFI6-POE-ETH</td>
+                        <td>1</td>
+                        <td>主控制器</td>
+                    </tr>
+                    <tr>
+                        <td>串口模块</td>
+                        <td>RS485模块</td>
+                        <td>2</td>
+                        <td>Modbus RTU通信</td>
+                    </tr>
+                    <tr>
+                        <td>存储</td>
+                        <td>Micro SD卡（32GB+）</td>
+                        <td>1</td>
+                        <td>数据存储</td>
+                    </tr>
+                    <tr>
+                        <td>显示屏</td>
+                        <td>7寸MIPI接口触摸屏（可选）</td>
+                        <td>1</td>
+                        <td>本地显示</td>
+                    </tr>
+                    <tr>
+                        <td>其他</td>
+                        <td>杜邦线、外壳、电源</td>
+                        <td>若干</td>
+                        <td>连接和供电</td>
+                    </tr>
+                </table>
+
+                <h5>三、技术方案</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    云端平台（可选）                       │
+│              (MQTT Broker / 数据可视化)                  │
+└────────────────────┬────────────────────────────────────┘
+                     │ MQTT/HTTP
+┌────────────────────▼────────────────────────────────────┐
+│              ESP32-P4 边缘计算网关                       │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              协议适配层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ Modbus   │ │ S7       │ │ MQTT     │        │  │
+│  │  │ RTU/TCP  │ │ 协议     │ │ 客户端   │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              数据处理层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 数据采集 │ │ 数据预处理│ │ 规则引擎 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              数据存储层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ SQLite   │ │  SD卡    │ │ 云端同步 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              Web管理界面                           │  │
+│  │  (设备管理 / 数据查看 / 规则配置)                  │  │
+│  └───────────────────────────────────────────────────┘  │
+└────────────────────┬────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ Modbus  │  │ S7设备  │  │ 其他设备│
+   │ 设备    │  │        │  │        │
+   └────────┘  └────────┘  └────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>开发框架：ESP-IDF v5.1+</li>
+                        <li>数据库：SQLite3</li>
+                        <li>Web服务器：ESP-IDF HTTP服务器 + 前端框架（Vue.js/React）</li>
+                        <li>通信协议：Modbus RTU/TCP、S7、MQTT、HTTP</li>
+                        <li>文件系统：SPIFFS + FATFS（SD卡）</li>
+                        <li>显示库：LVGL v8.3+（可选）</li>
+                    </ul>
+
+                    <h6>关键技术实现</h6>
+                    <ol>
+                        <li><strong>多协议接入实现</strong>：
+                            <ul>
+                                <li>Modbus RTU/TCP：使用libmodbus库或自行实现</li>
+                                <li>S7协议：使用Snap7库或ESP32适配版本</li>
+                                <li>MQTT：使用ESP-IDF内置MQTT客户端</li>
+                                <li>实现设备管理：支持添加、删除、配置设备</li>
+                            </ul>
+                        </li>
+                        <li><strong>数据处理与规则引擎</strong>：
+                            <ul>
+                                <li>实现数据采集调度器：支持多设备并行采集</li>
+                                <li>数据预处理：数据过滤、格式转换、异常检测</li>
+                                <li>规则引擎：支持简单的条件判断和自动控制</li>
+                                <li>实现数据缓存和批量上传，降低网络负载</li>
+                            </ul>
+                        </li>
+                        <li><strong>数据存储与Web管理</strong>：
+                            <ul>
+                                <li>SQLite数据库：存储设备配置、采集数据、规则配置</li>
+                                <li>SD卡存储：大容量数据存储，支持数据导出</li>
+                                <li>Web管理界面：设备管理、数据可视化、规则配置</li>
+                                <li>实现用户认证和权限管理</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h5>四、代码规范</h5>
+                <div class="code-standard">
+                    <h6>代码结构</h6>
+                    <pre>
+project/
+├── CMakeLists.txt
+├── sdkconfig
+├── main/
+│   ├── CMakeLists.txt
+│   ├── main.c
+│   ├── protocols/               # 协议模块
+│   │   ├── modbus/
+│   │   │   ├── modbus.c
+│   │   │   └── modbus.h
+│   │   ├── s7/
+│   │   │   ├── s7.c
+│   │   │   └── s7.h
+│   │   └── mqtt/
+│   │       ├── mqtt_client.c
+│   │       └── mqtt_client.h
+│   ├── data_processing/         # 数据处理模块
+│   │   ├── data_collector.c
+│   │   ├── data_collector.h
+│   │   ├── data_filter.c
+│   │   ├── data_filter.h
+│   │   ├── rule_engine.c
+│   │   └── rule_engine.h
+│   ├── storage/                 # 存储模块
+│   │   ├── sqlite3/
+│   │   │   ├── sqlite3.c
+│   │   │   └── sqlite3.h
+│   │   ├── sd_card.c
+│   │   └── sd_card.h
+│   ├── web_server/              # Web服务器模块
+│   │   ├── web_server.c
+│   │   ├── web_server.h
+│   │   ├── api/
+│   │   │   ├── device_api.c
+│   │   │   ├── data_api.c
+│   │   │   └── rule_api.c
+│   │   └── www/                 # Web前端
+│   │       ├── index.html
+│   │       ├── css/
+│   │       └── js/
+│   └── display/                 # 显示模块（可选）
+│       ├── display.c
+│       └── display.h
+├── components/
+│   ├── libmodbus/
+│   ├── sqlite3/
+│   └── lvgl/
+├── hardware/
+│   ├── schematic.pdf
+│   └── enclosure/
+└── docs/
+    ├── README.md
+    ├── user_manual.md
+    ├── protocol_definition.md
+    └── api_reference.md
+                    </pre>
+                </div>
+
+                <h5>五、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1-2周</td>
+                        <td>硬件搭建、开发环境搭建、基础驱动调试</td>
+                        <td>硬件连接完成、SD卡/SQLite基础功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第3-4周</td>
+                        <li>Modbus/S7协议实现、基础数据采集</li>
+                        <td>可采集Modbus/S7设备数据</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第5-6周</td>
+                        <li>数据预处理、规则引擎、数据存储</li>
+                        <td>完整的数据处理和存储功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第7-8周</td>
+                        <li>Web管理界面开发、设备管理/数据查看</li>
+                        <td>完整的Web管理功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第9-10周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 项目五 -->
+            <div class="project-detail">
+                <h4>项目五：香橙派3B 医疗数据采集终端</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>生理信号采集：支持心电(ECG)、血氧(SpO2)、血压、体温等信号采集</li>
+                        <li>数据显示：实时波形显示、数值显示、趋势图显示</li>
+                        <li>数据存储：本地存储（SQLite）+ 云端同步（可选）</li>
+                        <li>数据分析：心率计算、血氧计算、异常检测</li>
+                        <li>报警功能：参数超限报警、设备异常报警</li>
+                        <li>用户管理：多用户支持，用户数据隔离</li>
+                        <li>数据导出：支持PDF/Excel格式报告导出</li>
+                        <li>通信功能：WiFi/以太网，支持远程数据查看</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>信号采样率：ECG ≥ 250Hz，SpO2 ≥ 100Hz</li>
+                        <li>数据显示延迟≤100ms</li>
+                        <li>心率计算误差≤±2bpm</li>
+                        <li>血氧计算误差≤±2%</li>
+                        <li>系统启动时间≤20秒</li>
+                        <li>7×24小时稳定运行</li>
+                    </ul>
+                </div>
+
+                <h5>二、硬件清单</h5>
+                <table>
+                    <tr>
+                        <th>硬件</th>
+                        <th>型号/规格</th>
+                        <th>数量</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td>核心开发板</td>
+                        <td>香橙派3B</td>
+                        <td>1</td>
+                        <td>主控制器</td>
+                    </tr>
+                    <tr>
+                        <td>生理信号传感器</td>
+                        <td>ECG模块、SpO2模块、血压模块、体温模块</td>
+                        <td>各1</td>
+                        <td>可使用现成的医疗传感器模块</td>
+                    </tr>
+                    <tr>
+                        <td>显示屏</td>
+                        <td>7寸MIPI接口触摸屏</td>
+                        <td>1</td>
+                        <td>1024×600分辨率</td>
+                    </tr>
+                    <tr>
+                        <td>存储</td>
+                        <td>Micro SD卡（64GB+）</td>
+                        <td>1</td>
+                        <td>数据存储</td>
+                    </tr>
+                    <tr>
+                        <td>其他</td>
+                        <td>杜邦线、外壳、电源、电极片、血氧探头</td>
+                        <td>若干</td>
+                        <td>连接和供电</td>
+                    </tr>
+                </table>
+
+                <h5>三、技术方案</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    云端平台（可选）                       │
+│              (医疗数据平台 / 远程监控)                    │
+└────────────────────┬────────────────────────────────────┘
+                     │ HTTPS/MQTT
+┌────────────────────▼────────────────────────────────────┐
+│              香橙派3B 医疗数据采集终端                    │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              信号采集层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ ECG      │ │ SpO2     │ │ 血压/体温│        │  │
+│  │  │ 采集     │ │ 采集     │ │ 采集     │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              信号处理层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 信号滤波 │ │ 特征提取 │ │ 异常检测 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              应用层                                │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 数据显示 │ │ 数据分析 │ │ 报警管理 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 用户管理 │ │ 数据存储 │ │ 数据导出 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+└────────────────────┬────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ ECG传感器│  │SpO2传感器│  │ 其他传感器│
+   └────────┘  └────────┘  └────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>操作系统：Ubuntu/Debian（香橙派官方系统）</li>
+                        <li>编程语言：C/C++（信号处理）、Python（应用层）</li>
+                        <li>GUI框架：PyQt5或LVGL（Python绑定）</li>
+                        <li>数据库：SQLite3</li>
+                        <li>信号处理：SciPy、NumPy（Python）</li>
+                        <li>Web框架：Flask/FastAPI（远程数据查看）</li>
+                        <li>通信协议：HTTPS、MQTT</li>
+                    </ul>
+
+                    <h6>关键技术实现</h6>
+                    <ol>
+                        <li><strong>生理信号采集与处理</strong>：
+                            <ul>
+                                <li>ECG信号采集：使用ADC或专用ECG模块，采样率≥250Hz</li>
+                                <li>SpO2信号采集：使用专用SpO2模块，采样率≥100Hz</li>
+                                <li>信号滤波：使用数字滤波器（低通、高通、陷波）去除噪声</li>
+                                <li>特征提取：QRS波检测、心率计算、血氧计算</li>
+                            </ul>
+                        </li>
+                        <li><strong>数据显示与报警</strong>：
+                            <ul>
+                                <li>实时波形显示：使用PyQtGraph或Matplotlib</li>
+                                <li>数值显示：心率、血氧、血压、体温等参数实时显示</li>
+                                <li>趋势图显示：历史数据趋势图</li>
+                                <li>报警功能：参数超限报警、设备异常报警，支持声音/视觉报警</li>
+                            </ul>
+                        </li>
+                        <li><strong>数据存储与管理</strong>：
+                            <ul>
+                                <li>SQLite数据库：存储用户信息、采集数据、报警记录</li>
+                                <li>数据隔离：多用户支持，用户数据完全隔离</li>
+                                <li>数据导出：支持PDF/Excel格式报告导出</li>
+                                <li>云端同步：支持HTTPS/MQTT协议上传数据到云端</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h5>四、代码规范</h5>
+                <div class="code-standard">
+                    <h6>代码结构</h6>
+                    <pre>
+project/
+├── src/
+│   ├── main.py                 # 主程序入口
+│   ├── config.py                # 配置文件
+│   ├── signal_acquisition/      # 信号采集模块
+│   │   ├── ecg.py
+│   │   ├── spo2.py
+│   │   ├── blood_pressure.py
+│   │   └── temperature.py
+│   ├── signal_processing/       # 信号处理模块
+│   │   ├── filters.py
+│   │   ├── feature_extraction.py
+│   │   └── anomaly_detection.py
+│   ├── gui/                     # GUI模块
+│   │   ├── main_window.py
+│   │   ├── waveform_display.py
+│   │   ├── parameter_display.py
+│   │   └── alarm_dialog.py
+│   ├── data_management/         # 数据管理模块
+│   │   ├── database.py
+│   │   ├── user_management.py
+│   │   ├── data_export.py
+│   │   └── cloud_sync.py
+│   └── web_server/              # Web服务器模块（可选）
+│       ├── app.py
+│       ├── routes/
+│       │   ├── data.py
+│       │   └── user.py
+│       └── templates/
+├── hardware/
+│   ├── schematic.pdf
+│   ├── sensor_datasheets/
+│   └── enclosure/
+├── docs/
+│   ├── README.md
+│   ├── user_manual.md
+│   ├── signal_processing_algorithm.md
+│   └── api_reference.md
+├── tests/
+│   ├── test_ecg.py
+│   ├── test_signal_processing.py
+│   └── test_database.py
+└── requirements.txt
+                    </pre>
+                </div>
+
+                <h5>五、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1-2周</td>
+                        <td>硬件搭建、系统环境配置、传感器驱动调试</td>
+                        <td>硬件连接完成、传感器数据可读取</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第3-4周</td>
+                        <li>信号处理算法实现、基础数据分析</li>
+                        <td>可完成心率、血氧计算</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第5-6周</td>
+                        <li>GUI界面开发、数据显示、报警功能</li>
+                        <td>完整的显示和报警功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第7-8周</td>
+                        <li>数据管理、用户管理、数据导出</li>
+                        <td>完整的数据管理功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第9-10周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 项目六 -->
+            <div class="project-detail">
+                <h4>项目六：香橙派3B 智能车机中控原型</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>车辆信息显示：车速、转速、油量、水温、里程等车辆信息显示</li>
+                        <li>导航功能：GPS定位、地图显示、路径规划、语音导航</li>
+                        <li>多媒体功能：音乐播放、视频播放、蓝牙连接手机</li>
+                        <li>倒车影像：倒车时自动切换倒车影像，辅助线显示</li>
+                        <li>辅助驾驶：车道偏离预警、前车碰撞预警（基于视觉）</li>
+                        <li>语音交互：语音控制、语音助手</li>
+                        <li>网络功能：WiFi/4G，在线音乐、在线地图、OTA升级</li>
+                        <li>车辆控制：空调控制、车窗控制（可选，需要车辆支持）</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>系统启动时间≤15秒</li>
+                        <li>导航定位精度≤5米</li>
+                        <li>语音识别准确率≥90%</li>
+                        <li>辅助驾驶响应时间≤200ms</li>
+                        <li>显示刷新率≥30fps</li>
+                        <li>工作温度-20℃~70℃</li>
+                    </ul>
+                </div>
+
+                <h5>二、硬件清单</h5>
+                <table>
+                    <tr>
+                        <th>硬件</th>
+                        <th>型号/规格</th>
+                        <th>数量</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td>核心开发板</td>
+                        <td>香橙派3B</td>
+                        <td>1</td>
+                        <td>主控制器</td>
+                    </tr>
+                    <tr>
+                        <td>显示屏</td>
+                        <td>7寸MIPI接口触摸屏</td>
+                        <td>1</td>
+                        <td>1024×600分辨率</td>
+                    </tr>
+                    <tr>
+                        <td>摄像头</td>
+                        <td>OV5647摄像头模组（前视+后视）</td>
+                        <td>2</td>
+                        <td>前视用于辅助驾驶，后视用于倒车影像</td>
+                    </tr>
+                    <tr>
+                        <td>GPS模块</td>
+                        <td>GPS/北斗模块</td>
+                        <td>1</td>
+                        <td>定位导航</td>
+                    </tr>
+                    <tr>
+                        <td>通信模块</td>
+                        <td>4G模块（可选）</td>
+                        <td>1</td>
+                        <td>网络连接</td>
+                    </tr>
+                    <tr>
+                        <td>音频模块</td>
+                        <td>USB声卡+麦克风+扬声器</td>
+                        <td>1套</td>
+                        <td>语音交互、多媒体</td>
+                    </tr>
+                    <tr>
+                        <td>存储</td>
+                        <td>Micro SD卡（64GB+）</td>
+                        <td>1</td>
+                        <td>系统、地图、媒体存储</td>
+                    </tr>
+                    <tr>
+                        <td>其他</td>
+                        <td>杜邦线、外壳、电源、CAN模块（可选）</td>
+                        <td>若干</td>
+                        <td>连接和供电</td>
+                    </tr>
+                </table>
+
+                <h5>三、技术方案</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    云端服务（可选）                       │
+│              (在线地图 / 在线音乐 / OTA)                 │
+└────────────────────┬────────────────────────────────────┘
+                     │ 4G/WiFi
+┌────────────────────▼────────────────────────────────────┐
+│              香橙派3B 智能车机中控                       │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              感知层                                │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ GPS定位  │ │ 前视摄像头│ │ 后视摄像头│        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ CAN总线  │ │ 麦克风   │ │ 车辆传感器│        │  │
+│  │  │ (可选)   │ │          │ │ (可选)   │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              服务层                                │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 导航服务 │ │ 语音服务 │ │ 多媒体服务│        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 辅助驾驶 │ │ 车辆通信 │ │ OTA升级  │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              应用层                                │  │
+│  │  ┌─────────────────────────────────────────────┐  │  │
+│  │  │              车机UI界面                       │  │  │
+│  │  │  (仪表 / 导航 / 多媒体 / 设置)               │  │  │
+│  │  └─────────────────────────────────────────────┘  │  │
+│  └───────────────────────────────────────────────────┘  │
+└────────────────────┬────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ 显示屏  │  │ 扬声器  │  │ 车辆CAN │
+   └────────┘  └────────┘  │  总线    │
+                              └─────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>操作系统：Ubuntu/Debian（香橙派官方系统）或Android（可选）</li>
+                        <li>编程语言：C/C++（性能关键部分）、Python（应用层）</li>
+                        <li>GUI框架：Qt5/Qt6或Flutter</li>
+                        <li>导航地图：OSM（OpenStreetMap）或高德/百度地图SDK</li>
+                        <li>计算机视觉：OpenCV、轻量级目标检测模型（YOLOv5nano）</li>
+                        <li>语音识别：PocketSphinx或百度/讯飞语音SDK</li>
+                        <li>多媒体：GStreamer或FFmpeg</li>
+                        <li>通信协议：CAN总线（可选）、MQTT（可选）</li>
+                    </ul>
+
+                    <h6>关键技术实现</h6>
+                    <ol>
+                        <li><strong>导航与定位</strong>：
+                            <ul>
+                                <li>GPS/北斗定位：使用NMEA协议解析定位数据</li>
+                                <li>地图显示：使用OSM或在线地图SDK</li>
+                                <li>路径规划：使用OSRM或在线地图路径规划API</li>
+                                <li>语音导航：TTS（文本转语音）实现导航语音播报</li>
+                            </ul>
+                        </li>
+                        <li><strong>辅助驾驶与倒车影像</strong>：
+                            <ul>
+                                <li>车道偏离预警：使用OpenCV进行车道线检测</li>
+                                <li>前车碰撞预警：使用轻量级YOLO模型进行车辆检测</li>
+                                <li>倒车影像：倒车时自动切换后视摄像头画面</li>
+                                <li>辅助线显示：动态倒车辅助线绘制</li>
+                            </ul>
+                        </li>
+                        <li><strong>车机UI与多媒体</strong>：
+                            <ul>
+                                <li>车机界面：使用Qt/Flutter创建车机UI，支持主题切换</li>
+                                <li>车辆信息显示：车速、转速、油量、水温等仪表显示</li>
+                                <li>多媒体播放：音乐播放、视频播放，支持蓝牙连接手机</li>
+                                <li>语音交互：语音识别、语音控制、语音助手</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h5>四、代码规范</h5>
+                <div class="code-standard">
+                    <h6>代码结构</h6>
+                    <pre>
+project/
+├── src/
+│   ├── main.py                 # 主程序入口
+│   ├── config.py                # 配置文件
+│   ├── perception/              # 感知层模块
+│   │   ├── gps/
+│   │   │   ├── gps.py
+│   │   │   └── nmea_parser.py
+│   │   ├── camera/
+│   │   │   ├── front_camera.py
+│   │   │   └── rear_camera.py
+│   │   ├── can_bus/
+│   │   │   ├── can_bus.py
+│   │   │   └── vehicle_data.py
+│   │   └── microphone/
+│   │       └── microphone.py
+│   ├── services/                # 服务层模块
+│   │   ├── navigation/
+│   │   │   ├── map_display.py
+│   │   │   ├── path_planning.py
+│   │   │   └── voice_navigation.py
+│   │   ├── voice/
+│   │   │   ├── speech_recognition.py
+│   │   │   ├── tts.py
+│   │   │   └── voice_assistant.py
+│   │   ├── multimedia/
+│   │   │   ├── music_player.py
+│   │   │   ├── video_player.py
+│   │   │   └── bluetooth.py
+│   │   ├── adas/
+│   │   │   ├── lane_detection.py
+│   │   │   ├── vehicle_detection.py
+│   │   │   └── collision_warning.py
+│   │   └── ota/
+│   │       └── ota_update.py
+│   ├── ui/                      # UI层模块
+│   │   ├── main_window.py
+│   │   ├── dashboard/
+│   │   │   ├── speedometer.py
+│   │   │   ├── tachometer.py
+│   │   │   └── vehicle_info.py
+│   │   ├── navigation/
+│   │   │   ├── map_widget.py
+│   │   │   └── search_widget.py
+│   │   ├── multimedia/
+│   │   │   ├── music_widget.py
+│   │   │   └── video_widget.py
+│   │   ├── settings/
+│   │   │   └── settings_widget.py
+│   │   └── reverse_camera/
+│   │       └── reverse_widget.py
+│   └── utils/                   # 工具模块
+│       ├── logger.py
+│       ├── database.py
+│       └── network.py
+├── hardware/
+│   ├── schematic.pdf
+│   ├── can_bus_spec.md
+│   └── enclosure/
+├── models/
+│   ├── yolov5nano/
+│   └── lane_detection/
+├── maps/
+│   └── (地图数据)
+├── docs/
+│   ├── README.md
+│   ├── user_manual.md
+│   ├── api_reference.md
+│   └── can_bus_protocol.md
+├── tests/
+│   ├── test_gps.py
+│   ├── test_adas.py
+│   └── test_ui.py
+└── requirements.txt
+                    </pre>
+                </div>
+
+                <h5>五、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1-2周</td>
+                        <td>硬件搭建、系统环境配置、基础驱动调试</td>
+                        <td>硬件连接完成、摄像头/GPS驱动正常</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第3-4周</td>
+                        <li>车机UI基础框架、车辆信息显示</li>
+                        <td>基础车机界面、可显示车辆信息</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第5-6周</td>
+                        <li>导航功能、多媒体功能实现</li>
+                        <td>完整的导航和多媒体功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第7-8周</td>
+                        <li>辅助驾驶、倒车影像、语音交互</li>
+                        <td>完整的辅助驾驶和语音交互功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第9-10周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 高级项目 -->
+        <div class="section" id="expert">
+            <h2>三、高级项目</h2>
+
+            <!-- 项目七 -->
+            <div class="project-detail">
+                <h4>项目七：基于边缘计算的AIoT全屋智能系统</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>多设备接入：支持智能灯、智能插座、智能窗帘、智能门锁、温湿度传感器等多种设备</li>
+                        <li>设备控制：本地控制、远程控制、定时控制、场景联动</li>
+                        <li>语音控制：本地语音控制、语音助手集成</li>
+                        <li>边缘AI：人脸识别门禁、人体检测、行为分析</li>
+                        <li>数据采集：环境数据采集、能耗数据采集、设备状态采集</li>
+                        <li>数据分析：能耗分析、环境分析、用户行为分析</li>
+                        <li>自动化：基于规则的自动化、基于AI的智能自动化</li>
+                        <li>安全：设备认证、数据加密、本地优先（断网可用）</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>设备控制响应时间≤500ms</li>
+                        <li>支持同时接入50+个设备</li>
+                        <li>人脸识别准确率≥95%，识别时间≤1秒</li>
+                        <li>系统启动时间≤20秒</li>
+                        <li>7×24小时稳定运行</li>
+                        <li>断网情况下本地功能完全可用</li>
+                    </ul>
+                </div>
+
+                <h5>二、技术方案（概要）</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    云端平台（可选）                       │
+│              (远程控制 / 数据同步 / AI服务)              │
+└────────────────────┬────────────────────────────────────┘
+                     │ MQTT/HTTPS
+┌────────────────────▼────────────────────────────────────┐
+│              香橙派3B 智能家居边缘网关                    │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              设备接入层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ WiFi设备 │ │ Zigbee   │ │ Bluetooth│        │  │
+│  │  │         │ │ 设备     │ │ 设备     │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              边缘AI层                              │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 人脸识别 │ │ 人体检测 │ │ 行为分析 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              服务层                                │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 设备管理 │ │ 自动化引擎│ │ 语音服务 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 数据采集 │ │ 数据分析 │ │ 安全管理 │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              应用层                                │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ Web界面  │ │ 移动端APP│ │ 本地UI   │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+└────────────────────┬────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ 智能设备 │  │ 传感器  │  │ 摄像头  │
+   └────────┘  └────────┘  └────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>操作系统：Ubuntu/Debian（香橙派官方系统）或Home Assistant OS</li>
+                        <li>智能家居框架：Home Assistant（可选，作为基础）</li>
+                        <li>编程语言：Python（应用层）、C/C++（性能关键部分）</li>
+                        <li>设备通信：WiFi、Zigbee、Bluetooth、MQTT</li>
+                        <li>边缘AI：OpenCV、MediaPipe、轻量级模型</li>
+                        <li>Web框架：FastAPI或Flask</li>
+                        <li>前端框架：Vue.js或React</li>
+                        <li>数据库：SQLite3、InfluxDB（时序数据）</li>
+                    </ul>
+                </div>
+
+                <h5>三、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1-2周</td>
+                        <td>系统架构设计、基础框架搭建、设备接入基础</td>
+                        <td>系统框架、基础设备接入功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第3-4周</td>
+                        <li>设备管理、数据采集、基础UI</li>
+                        <td>完整的设备管理和数据采集功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第5-6周</td>
+                        <li>边缘AI功能、自动化引擎</li>
+                        <td>人脸识别、人体检测、自动化功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第7-8周</td>
+                        <li>语音控制、数据分析、安全功能</li>
+                        <td>完整的语音控制和数据分析功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第9-10周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 项目八 -->
+            <div class="project-detail">
+                <h4>项目八：车规级汽车域控制器原型</h4>
+                
+                <h5>一、项目需求</h5>
+                <div class="requirement-box">
+                    <h6>功能需求</h6>
+                    <ul>
+                        <li>多域融合：集成车身域、动力域、座舱域、辅助驾驶域功能</li>
+                        <li>车载通信：支持CAN/CAN FD、Ethernet、LIN等车载通信协议</li>
+                        <li>功能安全：符合ISO 26262 ASIL-B/D等级要求（概念验证）</li>
+                        <li>实时性：硬实时操作系统，任务调度延迟≤1ms</li>
+                        <li>辅助驾驶：车道保持、自适应巡航、自动泊车辅助</li>
+                        <li>座舱功能：仪表显示、信息娱乐、语音交互</li>
+                        <li>OTA升级：支持安全的固件OTA升级</li>
+                        <li>网络安全：车载网络安全、入侵检测、安全启动</li>
+                    </ul>
+                    <h6>性能需求</h6>
+                    <ul>
+                        <li>系统启动时间≤10秒（快速启动）</li>
+                        <li>任务调度延迟≤1ms（硬实时）</li>
+                        <li>辅助驾驶响应时间≤100ms</li>
+                        <li>CAN总线通信延迟≤100μs</li>
+                        <li>功能安全：符合ISO 26262概念验证</li>
+                        <li>工作温度-40℃~85℃（概念验证）</li>
+                    </ul>
+                </div>
+
+                <h5>二、技术方案（概要）</h5>
+                <div class="tech-scheme">
+                    <h6>系统架构</h6>
+                    <pre>
+┌─────────────────────────────────────────────────────────┐
+│              车规级汽车域控制器                          │
+├─────────────────────────────────────────────────────────┤
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              硬件层                                │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 主MCU   │ │ 安全MCU  │ │ 通信芯片 │        │  │
+│  │  │ (高性能) │ │ (安全岛) │ │ (CAN/ETH)│        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 传感器  │ │ 执行器  │ │ 存储/电源│        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              系统软件层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 硬实时OS │ │ 安全OS  │ │ 虚拟机管理│        │  │
+│  │  │ (RTOS)   │ │ (安全岛) │ │ (Hypervisor)│        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │              功能服务层                            │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 车身域   │ │ 动力域   │ │ 座舱域   │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐        │  │
+│  │  │ 辅助驾驶 │ │ 网络安全 │ │ OTA升级  │        │  │
+│  │  └──────────┘ └──────────┘ └──────────┘        │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼───┐  ┌───▼────┐  ┌──▼─────┐
+   │ CAN总线  │  │ 以太网  │  │ 传感器/ │
+   │ 网络    │  │ 网络    │  │ 执行器  │
+   └────────┘  └────────┘  └─────────┘
+                    </pre>
+
+                    <h6>技术栈</h6>
+                    <ul>
+                        <li>硬件平台：NXP S32G399或德州仪器TDA4VM（概念验证可用开发板）</li>
+                        <li>实时操作系统：FreeRTOS、Zephyr或AUTOSAR OS</li>
+                        <li>汽车框架：AUTOSAR Classic/Adaptive（概念验证）</li>
+                        <li>编程语言：C/C++（符合MISRA C规范）</li>
+                        <li>车载通信：CAN/CAN FD、Ethernet SOME/IP、LIN</li>
+                        <li>功能安全：ISO 26262概念验证、安全机制</li>
+                        <li>辅助驾驶：OpenCV、轻量级感知模型</li>
+                    </ul>
+                </div>
+
+                <h5>三、开发里程碑</h5>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>时间</th>
+                        <th>核心任务</th>
+                        <th>交付物</th>
+                    </tr>
+                    <tr>
+                        <td>阶段一</td>
+                        <td>第1-2周</td>
+                        <td>硬件平台搭建、RTOS移植、基础驱动</td>
+                        <td>硬件平台、RTOS运行、基础驱动</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二</td>
+                        <td>第3-4周</td>
+                        <li>车载通信实现、基础功能</li>
+                        <td>CAN/CAN FD通信、基础车身功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段三</td>
+                        <td>第5-6周</td>
+                        <li>座舱功能、仪表显示</li>
+                        <td>完整的座舱和仪表功能</td>
+                    </tr>
+                    <tr>
+                        <td>阶段四</td>
+                        <td>第7-8周</td>
+                        <li>辅助驾驶功能、安全机制</li>
+                        <td>基础辅助驾驶功能、安全机制概念验证</td>
+                    </tr>
+                    <tr>
+                        <td>阶段五</td>
+                        <td>第9-10周</td>
+                        <li>系统优化、测试、文档编写</li>
+                        <td>完整项目、GitHub仓库、文档</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>嵌入式/边缘计算项目实战指南 | 适配ESP32-P4/香橙派3B/STM32F103</p>
+        </div>
+    </div>
+</body>
+</html>
