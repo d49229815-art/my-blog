@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32+EG1163S 便携式数控可调电源产品设计方案</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
+        :root{
+            --main:#1677ff;
+            --sec:#722ed1;
+            --success:#00b42a;
+            --warn:#ff7d00;
+            --danger:#f53f3f;
+            --text:#1f2937;
+            --text2:#6b7280;
+            --bg:#f5f7fa;
+            --card:#ffffff;
+            --border:#e5e7eb;
+        }
+        body{background:var(--bg);color:var(--text);line-height:1.8;padding-bottom:80px;}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+        header{background:linear-gradient(135deg,var(--main),var(--sec));color:#fff;padding:40px 0;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+        header h1{font-size:32px;margin-bottom:10px;}
+        header p{font-size:16px;opacity:0.95;}
+        .nav-wrap{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:99;}
+        .nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:15px 0;}
+        .nav a{display:block;padding:8px 16px;border-radius:20px;color:var(--text2);text-decoration:none;font-size:14px;transition:all 0.3s;}
+        .nav a:hover,.nav a.active{background:var(--main);color:#fff;}
+        .main-box{display:grid;grid-template-columns:220px 1fr;gap:25px;margin-top:30px;}
+        .sidebar{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.06);height:fit-content;position:sticky;top:80px;}
+        .sidebar h3{font-size:16px;color:var(--main);margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+        .sidebar ul{list-style:none;}
+        .sidebar li{margin:8px 0;}
+        .sidebar a{color:var(--text2);text-decoration:none;font-size:14px;display:block;padding:6px 10px;border-radius:6px;transition:0.2s;}
+        .sidebar a:hover{background:#e8f3ff;color:var(--main);}
+        .content{background:transparent;}
+        .card{background:var(--card);border-radius:12px;padding:25px;margin-bottom:25px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+        .card h2{font-size:22px;color:var(--text);margin-bottom:18px;border-left:4px solid var(--main);padding-left:12px;}
+        .card h3{font-size:17px;margin:16px 0 10px;color:#272e3b;}
+        .card p{color:var(--text2);margin-bottom:12px;}
+        .card ul,.card ol{padding-left:22px;color:var(--text2);margin-bottom:12px;}
+        .info-row{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:15px 0;}
+        .info-item{padding:15px;border-radius:8px;background:#f0f7ff;border:1px solid #d6e8ff;}
+        .info-item h4{color:var(--main);margin-bottom:6px;font-size:15px;}
+        table{width:100%;border-collapse:collapse;margin:15px 0;}
+        table th,table td{border:1px solid var(--border);padding:10px 12px;font-size:14px;}
+        table th{background:#f7f8fa;font-weight:600;}
+        .code-box{background:#1f2937;color:#e5e7eb;padding:15px;border-radius:8px;margin:15px 0;overflow-x:auto;font-size:13px;}
+        .tip{padding:12px;border-radius:8px;background:#fff7e6;border:1px solid #ffd591;color:#ad6800;margin:15px 0;}
+        .success-tip{background:#e6ffed;border:1px solid #b7eb8f;color:#1f8736;}
+        @media (max-width:900px){
+            .main-box{grid-template-columns:1fr;}
+            .info-row{grid-template-columns:1fr;}
+            header h1{font-size:24px;}
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>基于ESP32-S3 + EG1163S 便携式数控可调电源</h1>
+        <p>完整产品级设计方案 | 双路输入 | 高精度稳压稳流 | 智能温控 | 远程通信</p>
+    </div>
+</header>
+
+<div class="nav-wrap">
+    <div class="container nav">
+        <a href="#demand" class="active">项目需求</a>
+        <a href="#hardware">硬件整体架构</a>
+        <a href="#power">电源功率设计</a>
+        <a href="#sample">采样控制系统</a>
+        <a href="#ui">人机交互</a>
+        <a href="#protect">全维度保护</a>
+        <a href="#software">软件系统</a>
+        <a href="#heat">散热结构</a>
+        <a href="#plan">开发进度</a>
+        <a href="#cost">成本管控</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="main-box">
+        <aside class="sidebar">
+            <h3>方案快速目录</h3>
+            <ul>
+                <li><a href="#demand">一、项目整体需求规格</a></li>
+                <li><a href="#select">二、核心芯片选型</a></li>
+                <li><a href="#hardware">三、整体硬件架构</a></li>
+                <li><a href="#input">四、双输入电源电路</a></li>
+                <li><a href="#power">五、EG1163S功率主回路</a></li>
+                <li><a href="#sample">六、高精度电压电流采样</a></li>
+                <li><a href="#ui">七、屏幕与按键编码器</a></li>
+                <li><a href="#comm">八、WiFi/蓝牙远程通信</a></li>
+                <li><a href="#protect">九、全功能保护电路</a></li>
+                <li><a href="#logic">十、功率智能限制逻辑</a></li>
+                <li><a href="#software">十一、ESP32软件分层架构</a></li>
+                <li><a href="#heat">十二、散热+外壳结构设计</a></li>
+                <li><a href="#plan">十三、正式产品开发流程</a></li>
+                <li><a href="#cost">十四、BOM成本与供应链</a></li>
+                <li><a href="#test">十五、整机测试验收标准</a></li>
+            </ul>
+        </aside>
+
+        <div class="content">
+            <!-- 1 项目需求 -->
+            <div class="card" id="demand">
+                <h2>一、项目整体需求规格</h2>
+                <h3>1.1 电源输入规格</h3>
+                <ul>
+                    <li>输入1：220V 家用交流电市电输入</li>
+                    <li>输入2：Type-C 接口 PD3.1 快充输入，最高28V/5A</li>
+                    <li>逻辑：防多路电源同时接入，自动优先级切换</li>
+                </ul>
+                <h3>1.2 输出参数区分</h3>
+                <div class="info-row">
+                    <div class="info-item">
+                        <h4>220V市电输入模式</h4>
+                        <p>电压：0~60V连续可调，步进0.1V，精度±0.05V</p>
+                        <p>电流：0~10A连续可调，步进0.01A，精度±0.01A</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Type-C PD输入模式</h4>
+                        <p>电压：0~60V可调，步进0.1V，精度一致</p>
+                        <p>电流：0~5A可调，步进0.01A，精度±0.01A</p>
+                    </div>
+                </div>
+                <h3>1.3 核心功能需求</h3>
+                <ul>
+                    <li>恒压CV / 恒流CC 模式全自动切换，带指示灯提示</li>
+                    <li>屏幕：2.4寸及以上 SPI/RGB 触摸彩屏，实时显示电压/电流/功率/设定值</li>
+                    <li>操控：实体按键+旋转编码器快速调压调流，支持多组参数预设保存调用</li>
+                    <li>智能功率约束：输出功率不大于输入功率，电压电流线性限流</li>
+                    <li>全保护：过压、过流、过温、短路、防反接、防倒灌</li>
+                </ul>
+                <h3>1.4 结构与外观约束</h3>
+                <ul>
+                    <li>整机外壳最大尺寸：88*39*120mm，极致紧凑轻量化</li>
+                    <li>防护等级：防尘、防溅水、抗摔便携设计</li>
+                    <li>散热：主动风扇+被动散热组合风道设计</li>
+                    <li>开发优先级：性价比高、器件通用易采购、替换方便</li>
+                </ul>
+                <h3>1.5 项目开发时间规划</h3>
+                <div class="tip">
+                    5月完成全部原理图设计 → 6月20日前完成PCB绘制、打板、贴片 → 7月完成全套固件程序调试与整机量产测试
+                </div>
+            </div>
+
+            <!-- 2 芯片选型 -->
+            <div class="card" id="select">
+                <h2>二、核心主控与电源芯片选型</h2>
+                <h3>2.1 主控芯片：乐鑫 ESP32-S3</h3>
+                <ul>
+                    <li>双核高主频，算力充足，同时处理PID稳压、采样、屏幕、蓝牙WiFi多任务</li>
+                    <li>内置多路12位ADC，满足高精度电压电流采样需求</li>
+                    <li>自带WiFi+BLE蓝牙，无需额外外设，直接实现远程控制</li>
+                    <li>丰富SPI/I2C/GPIO，完美驱动彩屏、编码器、风扇、保护电路</li>
+                    <li>ESP-IDF生态成熟，开发速度快，固件升级便捷</li>
+                </ul>
+                <h3>2.2 功率主控芯片：屹晶微 EG1163S</h3>
+                <ul>
+                    <li>高压大电流专用降压电源芯片，适配本项目0~60V大功率输出场景</li>
+                    <li>支持宽压输入，适配市电整流高压与PD低压双输入场景</li>
+                    <li>支持外部闭环反馈，可由ESP32精准调节输出电压电流</li>
+                    <li>内置逐周期限流，硬件级别基础过流保护，搭配软件双重防护</li>
+                    <li>市面货源稳定，性价比高，适合批量量产</li>
+                </ul>
+            </div>
+
+            <!-- 3 整体硬件架构 -->
+            <div class="card" id="hardware">
+                <h2>三、整机硬件系统总架构</h2>
+                <p>整体架构分为七大独立模块，模块化设计，故障易排查，开发分层清晰：</p>
+                <ol>
+                    <li>双路电源输入模块（220V AC整流 + Type-C PD协议诱骗）</li>
+                    <li>输入智能切换+防互斥保护模块</li>
+                    <li>EG1163S核心DC-DC功率变换主回路</li>
+                    <li>高精度电压、电流、温度采样反馈模块</li>
+                    <li>ESP32-S3主控逻辑控制单元</li>
+                    <li>人机交互单元（彩屏+按键+编码器）</li>
+                    <li>驱动执行单元（风扇驱动、保护切断、指示灯、通信外设）</li>
+                </ol>
+                <p>控制逻辑：ESP32采集实时输出参数 → 运行双闭环PID算法 → 调节EG1163S反馈基准 → 稳定输出电压电流，同时实时判定工作模式与功率上限。</p>
+            </div>
+
+            <!-- 4 双输入电路 -->
+            <div class="card" id="input">
+                <h2>四、双路电源输入电路详细设计</h2>
+                <h3>4.1 220V交流市电输入支路</h3>
+                <p>流程：220V市电 → EMI滤波电路 → 全桥整流桥 → 高压直流母线 → 预稳压电路 → 接入EG1163S主功率输入端</p>
+                <ul>
+                    <li>增加压敏电阻、TVS管，抑制电网浪涌冲击</li>
+                    <li>整流后预留大容量电解电容储能，降低纹波</li>
+                    <li>增加软上电电路，避免上电大电流冲击</li>
+                </ul>
+                <h3>4.2 Type-C PD3.1快充输入支路</h3>
+                <ul>
+                    <li>采用PD协议诱骗芯片，自动握手5V/9V/12V/15V/20V/28V全档位</li>
+                    <li>最高支持28V5A输入功率140W</li>
+                    <li>输入端配置自恢复保险丝+ESD防护</li>
+                    <li>支持识别E-Marker线缆，自动限制输入电流</li>
+                </ul>
+                <h3>4.3 双输入互斥防冲突电路</h3>
+                <ul>
+                    <li>硬件二极管隔离 + ESP32逻辑检测双重防护</li>
+                    <li>禁止220V与Type-C同时供电，杜绝倒灌烧毁电源</li>
+                    <li>优先级设定：默认优先Type-C便携输入，功率不足自动切市电</li>
+                    <li>多路同时接入时蜂鸣器报警提示</li>
+                </ul>
+            </div>
+
+            <!-- 5 EG1163S功率回路 -->
+            <div class="card" id="power">
+                <h2>五、EG1163S主功率回路设计</h2>
+                <h3>5.1 芯片外围基础电路</h3>
+                <ul>
+                    <li>配置芯片使能引脚、频率设定引脚、基准电压引脚</li>
+                    <li>预留频率可调点位，适配不同功率下效率优化</li>
+                    <li>电源供电独立LDO稳压，避免功率纹波干扰控制端</li>
+                </ul>
+                <h3>5.2 同步整流功率管选型</h3>
+                <ul>
+                    <li>耐压选型大于75V，预留安全余量</li>
+                    <li>低内阻大电流MOS管，降低导通发热损耗</li>
+                    <li>搭配续流功率电感+高低频组合滤波电容</li>
+                    <li>输出端预留防反接大功率肖特基二极管</li>
+                </ul>
+                <h3>5.3 数控可调闭环反馈设计</h3>
+                <p>传统固定反馈改为**ESP32数控可调基准反馈**：</p>
+                <ul>
+                    <li>ESP32通过DAC/精密分压电路动态修改EG1163S FB反馈电压</li>
+                    <li>实现0~60V无级精细调压，满足0.1V步进精度</li>
+                    <li>电流采样信号送入主控，实现恒流限流闭环控制</li>
+                </ul>
+            </div>
+
+            <!-- 6 高精度采样 -->
+            <div class="card" id="sample">
+                <h2>六、高精度电压&电流采样系统</h2>
+                <h3>6.1 电压采样电路</h3>
+                <ul>
+                    <li>采用低温漂高精度金属膜电阻分压，阻抗匹配优化</li>
+                    <li>RC二阶滤波滤除开关电源高频杂波</li>
+                    <li>送入ESP32-S3 ADC采集，软件多点均值滤波</li>
+                    <li>校准后精度稳定达到 ±0.05V 满足设计指标</li>
+                </ul>
+                <h3>6.2 大电流高精度采样电路</h3>
+                <ul>
+                    <li>串联大功率毫欧级锰铜采样电阻，温漂极低</li>
+                    <li>搭配精密差分运放放大微弱电流信号</li>
+                    <li>消除共模干扰，满载10A下依旧保证0.01A步进与精度</li>
+                    <li>采样信号同时用于硬件限流+软件限流双重判定</li>
+                </ul>
+                <h3>6.3 温度采样电路</h3>
+                <ul>
+                    <li>NTC热敏电阻紧贴功率MOS与EG1163S热源布局</li>
+                    <li>实时采集内部温度，作为散热与过温保护依据</li>
+                </ul>
+            </div>
+
+            <!-- 7 人机交互 -->
+            <div class="card" id="ui">
+                <h2>七、人机交互系统设计</h2>
+                <h3>7.1 显示屏幕配置</h3>
+                <ul>
+                    <li>规格：2.4寸及以上 TFT 彩屏，支持SPI/RGB两种接口任选</li>
+                    <li>选配触摸屏，支持点击菜单设置参数</li>
+                    <li>界面布局：大字体实时电压、实时电流、实时功率、设定电压、设定电流、工作模式、输入源状态、温度状态</li>
+                    <li>支持界面亮度调节、息屏省电</li>
+                </ul>
+                <h3>7.2 操控方式</h3>
+                <ul>
+                    <li>旋转编码器：快速增减电压电流数值，调节顺滑</li>
+                    <li>实体功能按键：菜单、确认、切换、预设调用</li>
+                    <li>软件功能：支持存储多组常用输出参数，一键调取</li>
+                </ul>
+                <h3>7.3 状态指示灯</h3>
+                <ul>
+                    <li>CV恒压模式绿灯亮起</li>
+                    <li>CC恒流模式红灯亮起</li>
+                    <li>故障保护状态双色灯闪烁报警</li>
+                </ul>
+            </div>
+
+            <!-- 8 通信功能 -->
+            <div class="card" id="comm">
+                <h2>八、WiFi+蓝牙远程通信功能</h2>
+                <ul>
+                    <li>依托ESP32-S3原生无线模块，无需额外加装模块</li>
+                    <li>BLE蓝牙：手机小程序/APP近距离无线改参数、读数据</li>
+                    <li>WiFi联网：局域网网页端远程控制、电脑上位机调试</li>
+                    <li>支持OTA无线固件升级，后期功能迭代免拆壳</li>
+                    <li>通信数据加密校验，防止误指令与干扰</li>
+                </ul>
+            </div>
+
+            <!-- 9 保护电路 -->
+            <div class="card" id="protect">
+                <h2>九、整机全维度安全保护体系</h2>
+                <table>
+                    <tr>
+                        <th>保护类型</th>
+                        <th>触发条件</th>
+                        <th>执行动作</th>
+                    </tr>
+                    <tr>
+                        <td>输出过压保护OVP</td>
+                        <td>输出电压超出设定阈值</td>
+                        <td>立即关断输出，屏幕弹窗告警</td>
+                    </tr>
+                    <tr>
+                        <td>输出过流保护OCP</td>
+                        <td>电流超过设定限流值</td>
+                        <td>自动切入恒流模式，超限直接关停</td>
+                    </tr>
+                    <tr>
+                        <td>短路保护SCP</td>
+                        <td>输出正负极直接短路</td>
+                        <td>打嗝式间歇保护，防炸机</td>
+                    </tr>
+                    <tr>
+                        <td>过温保护OTP</td>
+                        <td>内部热源温度超标</td>
+                        <td>全速风扇散热，超温直接切断输出</td>
+                    </tr>
+                    <tr>
+                        <td>输出防反接保护</td>
+                        <td>负载正负极接反</td>
+                        <td>硬件阻断，无电流输出</td>
+                    </tr>
+                    <tr>
+                        <td>双输入互斥保护</td>
+                        <td>AC+Type-C同时插入</td>
+                        <td>锁定单路输入，声光提示</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 10 智能功率限流逻辑 -->
+            <div class="card" id="logic">
+                <h2>十、智能功率线性限制算法（核心需求实现）</h2>
+                <p>实现规则：输出总功率永远不超过当前输入最大可提供功率，电压与输出电流呈线性约束关系</p>
+                <ul>
+                    <li>示例1：输入24V/5A，总输入功率固定上限</li>
+                    <li>设定输出10V时，允许最大输出电流自动放宽</li>
+                    <li>设定输出20V时，自动压低最大允许输出电流</li>
+                    <li>全局硬限制：无论任何工况，整机最大输出电流不超过20A（软件死限）</li>
+                    <li>降压架构严格遵循：输出功率 ≤ 输入功率×转换效率</li>
+                    <li>主控实时计算剩余功率余量，动态刷新最大可输出电流值</li>
+                </ul>
+                <p class="success-tip">该逻辑完全由ESP32软件算法实现，无需改动硬件，后期可自由修改功率曲线参数。</p>
+            </div>
+
+            <!-- 11 软件架构 -->
+            <div class="card" id="software">
+                <h2>十一、ESP32-S3 整套软件分层架构</h2>
+                <h3>1.底层驱动层</h3>
+                <p>ADC采样驱动、DAC调压驱动、屏幕驱动、编码器按键驱动、风扇PWM驱动、温度读取驱动、PD检测驱动</p>
+                <h3>2.设备驱动管理层</h3>
+                <p>电源芯片EG1163S使能控制、输出使能开关、各路保护硬件触发检测</p>
+                <h3>3.算法控制层</h3>
+                <ul>
+                    <li>电压外环+电流内环 双闭环PID稳压稳流算法</li>
+                    <li>CV/CC模式自动判定与平滑切换算法</li>
+                    <li>软启动缓升电压控制算法</li>
+                    <li>输入功率匹配线性限流算法</li>
+                </ul>
+                <h3>4.业务逻辑层</h3>
+                <p>参数存储读取、预设参数管理、故障码记录、输入源自动切换逻辑</p>
+                <h3>5.人机界面层</h3>
+                <p>基于LVGL轻量化图形界面，实现菜单滑动、参数修改、状态显示、触摸控制</p>
+                <h3>6.无线通信层</h3>
+                <p>蓝牙透传协议、WiFi串口协议、远程指令解析、上行数据打包上传</p>
+            </div>
+
+            <!-- 12 散热与结构 -->
+            <div class="card" id="heat">
+                <h2>十二、散热风道+外壳结构整体设计</h2>
+                <h3>12.1 散热组合方案</h3>
+                <ul>
+                    <li>被动散热：大功率MOS管、EG1163S紧贴小型铝制散热片，PCB大面积铺铜导热</li>
+                    <li>主动散热：微型超薄静音风扇，温控启停</li>
+                    <li>温控逻辑：低温停转节能，中温低速，高温满速</li>
+                </ul>
+                <h3>12.2 整机风道布局</h3>
+                <ul>
+                    <li>底部进冷风，背部/顶部出热风，直吹核心发热器件</li>
+                    <li>风道直线化设计，减小风阻提升散热效率</li>
+                    <li>进出风口加装防尘网，兼顾防尘与通风</li>
+                </ul>
+                <h3>12.3 外壳结构设计</h3>
+                <ul>
+                    <li>材质：高强度轻量化ABS塑胶，表面防滑磨砂</li>
+                    <li>尺寸严格控制：88*39*120mm以内</li>
+                    <li>结构加强筋设计，提升抗摔性能</li>
+                    <li>接口开孔精准：市电插座、Type-C、输出接线柱、按键屏幕预留位</li>
+                    <li>密封结构实现日常防泼溅、防尘</li>
+                </ul>
+            </div>
+
+            <!-- 13 产品正规设计流程 -->
+            <div class="card" id="plan">
+                <h2>十三、正规电子产品完整开发设计流程</h2>
+                <ol>
+                    <li><strong>需求评审阶段</strong>：整理全部电气参数、结构尺寸、功能、成本、量产数量、认证需求</li>
+                    <li><strong>方案架构论证</strong>：拓扑选型、主控选型、电源芯片选型、整体框图确认</li>
+                    <li><strong>器件详细选型</strong>：BOM筛选、参数核对、货源交期确认、替代料备案</li>
+                    <li><strong>电路原理图设计</strong>：分模块绘制、规则检查、功能仿真验证</li>
+                    <li><strong>PCB布局布线设计</strong>：功率区与数字区分区、强弱电分离、散热优化、阻抗匹配</li>
+                    <li><strong>PCB评审与改版</strong>：EMC整改、散热整改、走线优化、结构开孔核对</li>
+                    <li><strong>样板打板+SMT贴片焊接</strong></li>
+                    <li><strong>硬件单板调试</strong>：电源通路、采样电路、驱动电路、保护电路单独调试</li>
+                    <li><strong>底层驱动软件开发调试</strong></li>
+                    <li><strong>核心控制算法移植与整定（PID/限流/模式切换）</strong></li>
+                    <li><strong>人机界面+交互逻辑开发</strong></li>
+                    <li><strong>无线通信功能联调</strong></li>
+                    <li><strong>整机联调、全功能压力测试</strong></li>
+                    <li><strong>精度校准、电压电流零点与满点校准</strong></li>
+                    <li><strong>散热实测、高低温环境实测</strong></li>
+                    <li><strong>可靠性测试：老化、短路冲击、长时间满载</strong></li>
+                    <li><strong>结构外壳开模/定制外壳装配调试</strong></li>
+                    <li><strong>量产资料整理：原理图、PCB、BOM、固件、调试手册、生产手册</strong></li>
+                    <li><strong>小批量试产 → 问题整改 → 大批量量产</strong></li>
+                </ol>
+            </div>
+
+            <!-- 14 成本 -->
+            <div class="card" id="cost">
+                <h2>十四、项目BOM成本与供应链管控</h2>
+                <h3>成本设计原则</h3>
+                <ul>
+                    <li>优先选用通用量产通用料，少用冷门专用芯片</li>
+                    <li>功率器件预留替代型号，防止缺货断供</li>
+                    <li>分层成本控制：主控、电源、屏幕、结构、外设分开管控</li>
+                </ul>
+                <h3>批量量产成本区间</h3>
+                <p>整机不含外壳固件：百元级别低成本方案，性价比极高，创客/商用批量均可落地</p>
+                <h3>供应链建议</h3>
+                <ul>
+                    <li>ESP32系列走乐鑫正规代理渠道，保障货源稳定</li>
+                    <li>EG1163S直接对接屹晶微授权经销商</li>
+                    <li>阻容感、接插件、屏幕通用物料走一站式电子商城备货</li>
+                    <li>建立2套以上备选器件方案，应对涨价与断货风险</li>
+                </ul>
+            </div>
+
+            <!-- 15 测试标准 -->
+            <div class="card" id="test">
+                <h2>十五、整机验收测试标准</h2>
+                <h3>电气精度测试</h3>
+                <ul>
+                    <li>电压全段0~60V输出误差 ≤ ±0.05V</li>
+                    <li>电流0~10A/0~5A输出误差 ≤ ±0.01A</li>
+                    <li>调节步进响应流畅无卡顿</li>
+                </ul>
+                <h3>模式切换测试</h3>
+                <p>满载轻载切换下CV/CC切换平稳，无电压电流跳变、无震荡</p>
+                <h3>保护功能全测</h3>
+                <p>短路、过流、过压、反接、过温全部触发正常，不误保护、不拒保护</p>
+                <h3>长时间老化测试</h3>
+                <p>满载连续工作4小时以上，温度正常、参数无漂移、无异常发热</p>
+                <h3>通信与交互测试</h3>
+                <p>屏幕触控灵敏、编码器调节顺畅、蓝牙WiFi连接稳定、预设参数保存不掉电丢失</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
