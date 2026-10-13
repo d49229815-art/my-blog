@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import rawFeels from '../data/feels.json';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { site, sitePath, postPath, resourcePath } from '../data/site';
+
+interface Feel { id: string | number; title: string; content: string; date: string; type?: string }
+const feels = rawFeels as Feel[];
+const all = await getCollection('posts');
+const posts = all.filter(post => post.data.kind === 'article');
+const ordered = [...posts].sort((a, b) =>
+  a.data.category.localeCompare(b.data.category, 'zh-CN') ||
+  a.data.title.localeCompare(b.data.title, 'zh-CN'));
+const featured = ordered.slice(0, 6);
+const topics = [
+  { title: '项目实战', desc: '设备方案、硬件平台与调试记录', icon: 'fa-microchip', href: sitePath('archives/项目实战/') },
+  { title: 'C 与嵌入式基础', desc: 'C 语言、Linux 与系统知识', icon: 'fa-code', href: sitePath('archives/编程语言/') },
+  { title: 'Python 学习', desc: '分章节笔记与示例代码', icon: 'fa-terminal', href: sitePath('archives/编程语言/Python/') }
+];
+---
+<SiteLayout title={site.name}>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="hero-kicker">EMBEDDED SOFTWARE · FIELD NOTES</p>
+      <h1>从板级调试，<br />到系统实践。</h1>
+      <p class="hero-lead">{site.description}需要回看时，可以按项目、平台或关键词进入。</p>
+      <div class="hero-actions">
+        <a class="button" href={resourcePath('项目实战/嵌入式边缘计算项目实战指南.html')}>查看项目资料 <span>↗</span></a>
+        <a class="button button--outline" href={sitePath('archives/')}>浏览全部笔记 <span>↗</span></a>
+      </div>
+    </div>
+    <div class="hero-stamp" aria-hidden="true"><i class="fa fa-microchip"></i></div>
+  </section>
+  <div class="home-search-card"><i class="fa fa-search" aria-hidden="true"></i><input id="home-search" type="search" placeholder="搜索芯片型号、外设、函数或问题关键词…" autocomplete="off" aria-label="搜索文章与说说" /><kbd>Ctrl K</kbd></div>
+  <p class="home-search-hint" id="home-search-hint">搜索范围：文章、学习笔记与说说</p>
+  <div class="home-search-results" id="home-search-results"></div>
+
+  <section class="section-block">
+    <div class="section-heading"><div><span class="section-eyebrow">FIELD NOTE · 近况</span><h2>最近更新</h2><p>短动态以说说形式显示在这里。</p></div></div>
+    {feels.length ? <div class="note-list">{feels.slice(0, 4).map(note => <a class="note-card" href={sitePath('feel/' + encodeURIComponent(String(note.id)) + '/')}><span class="note-symbol"><i class="fa fa-commenting-o"></i></span><div><h3>{note.title}</h3><p>{note.content.slice(0, 120)}</p></div><span class="note-badge">FIELD NOTE</span></a>)}</div> : <div class="empty-state">目前没有可迁移的说说记录。添加真实动态后，这里会自动显示。</div>}
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading"><div><span class="section-eyebrow">ARTICLE · 笔记</span><h2>文章与学习记录</h2><p>从现有项目资料与学习笔记中整理而来。</p></div><a class="text-link" href={sitePath('archives/')}>查看归档 <span>↗</span></a></div>
+    <div class="post-grid">{featured.map(post => <a class="post-card" href={postPath(post.data.slug)}><div class="post-meta"><span class="category-pill">{post.data.category}</span><span>日期未记录</span></div><h3>{post.data.title}</h3><p>{post.data.summary}</p><span class="card-arrow">阅读全文 ↗</span></a>)}</div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading"><div><span class="section-eyebrow">BROWSE BY TOPIC</span><h2>内容分区</h2></div><a class="text-link" href={sitePath('categories/')}>打开分类 <span>↗</span></a></div>
+    <div class="topic-grid">{topics.map(topic => <a class="topic-card" href={topic.href}><span class="topic-icon"><i class={'fa ' + topic.icon}></i></span><span><strong>{topic.title}</strong><small>{topic.desc}</small></span></a>)}</div>
+  </section>
+</SiteLayout>

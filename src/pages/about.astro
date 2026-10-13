@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { site, sitePath, resourcePath } from '../data/site';
+---
+<SiteLayout title="关于">
+  <header class="page-header"><nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><span>关于</span></nav><h1>关于本站</h1><p>一份面向日常开发检索的嵌入式学习与项目记录。</p></header>
+  <article class="content-panel plain-prose">
+    <h2>{site.name}</h2>
+    <p>{site.description}</p>
+    <p>内容按项目实战、C 语言、Python、Linux 与职业成长分类。原有 Markdown 笔记由 Astro 内容集合生成页面，代码示例和 HTML 项目文档作为静态资料保留。</p>
+    <h2>阅读与使用</h2>
+    <ul><li>从归档、分类或标签进入文章。</li><li>使用顶部搜索框检索函数名、芯片型号、外设与问题关键词。</li><li>文章内代码块可直接复制；含目录的文章可从左侧目录跳转。</li></ul>
+    <h2>项目资料</h2>
+    <p><a href={resourcePath('职业成长/嵌入式职业成长路线_公开版.html')}>嵌入式职业成长路线（公开版）</a></p>
+    <p><a href={resourcePath('职业成长/embedded_career_plan_V3_2026_2029.html')}>职业规划原始页面</a></p>
+    <p><a href={site.github} target="_blank" rel="noreferrer">GitHub 项目仓库 ↗</a></p>
+  </article>
+</SiteLayout>

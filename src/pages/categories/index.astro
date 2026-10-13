@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { sitePath, postPath } from '../../data/site';
+
+const posts = await getCollection('posts', ({ data }) => data.kind === 'article');
+const groups = [...new Set(posts.map(post => post.data.category))]
+  .sort((a, b) => a.localeCompare(b, 'zh-CN'))
+  .map(category => ({ category, posts: posts.filter(post => post.data.category === category).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh-CN')) }));
+---
+<SiteLayout title="分类">
+  <header class="page-header"><nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><span>分类</span></nav><h1>按主题浏览</h1><p>分类根据原资料所在主题目录整理，文章正文和示例代码仍保留原有内容。</p></header>
+  <div class="content-panel">
+    {groups.map(group => <section class="category-section" id={group.category}>
+      <h2>{group.category}<small>{group.posts.length} 篇</small></h2>
+      <div class="archive-list">{group.posts.map(post => <article class="archive-item"><div><h2><a href={postPath(post.data.slug)}>{post.data.title}</a></h2><p>{post.data.summary}</p></div><div class="archive-meta">学习笔记</div></article>)}</div>
+    </section>)}
+  </div>
+</SiteLayout>

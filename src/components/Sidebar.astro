@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import { site, sitePath, postPath } from '../data/site';
+
+interface TocItem { depth: number; slug: string; text: string }
+const { toc = [] } = Astro.props as { toc?: TocItem[] };
+const current = Astro.url.pathname;
+const posts = await getCollection('posts', ({ data }) => data.kind === 'article');
+const recent = posts.slice(0, 5);
+const categories = [...new Set(posts.map(post => post.data.category))];
+const active = (path: string) => current.replace(/\/+$/, '/') === path.replace(/\/+$/, '/');
+---
+<aside class="sidebar" id="site-sidebar" aria-label="站点侧栏">
+  <div class="sidebar-scroll">
+    <a class="brand-mark" href={sitePath('')} aria-label={site.name + '首页'}>
+      <span class="avatar">阿</span>
+      <span class="brand-copy"><strong>{site.name}</strong><small>{site.subtitle}</small></span>
+    </a>
+
+    <section class="profile-card">
+      <span class="profile-kicker">PERSONAL NOTES</span>
+      <p class="profile-motto">{site.intro}</p>
+      <p class="profile-description">{site.description}</p>
+      <div class="social-row">
+        <a href={site.github} aria-label="GitHub" title="GitHub" target="_blank" rel="noreferrer"><i class="fa fa-github"></i></a>
+        <a href={sitePath('rss.xml')} aria-label="RSS 订阅" title="RSS"><i class="fa fa-rss"></i></a>
+        {site.email && <a href={'mailto:' + site.email} aria-label="邮件" title="邮件"><i class="fa fa-envelope"></i></a>}
+      </div>
+    </section>
+
+    <nav class="primary-nav" aria-label="主导航">
+      <a class:list={['nav-link', active(sitePath('')) && 'is-active']} href={sitePath('')}><i class="fa fa-home"></i><span>首页</span></a>
+      <a class:list={['nav-link', current.includes('/archives') && 'is-active']} href={sitePath('archives/')}><i class="fa fa-archive"></i><span>归档</span></a>
+      <a class:list={['nav-link', current.includes('/categories') && 'is-active']} href={sitePath('categories/')}><i class="fa fa-folder-open-o"></i><span>分类</span></a>
+      <a class:list={['nav-link', current.includes('/tags') && 'is-active']} href={sitePath('tags/')}><i class="fa fa-tags"></i><span>标签</span></a>
+      <a class:list={['nav-link', current.includes('/about') && 'is-active']} href={sitePath('about/')}><i class="fa fa-user-o"></i><span>关于</span></a>
+      <a class:list={['nav-link', current.includes('/links') && 'is-active']} href={sitePath('links/')}><i class="fa fa-link"></i><span>友链</span></a>
+    </nav>
+
+    {toc.length > 0 ? (
+      <section class="sidebar-widget toc-widget">
+        <div class="widget-heading"><span>本文目录</span><small>ON THIS PAGE</small></div>
+        <nav class="toc-list" aria-label="文章目录">
+          {toc.map(item => <a class:list={['toc-link', item.depth === 3 && 'toc-child']} href={'#' + item.slug}><span>{item.text}</span></a>)}
+        </nav>
+      </section>
+    ) : (
+      <section class="sidebar-widget">
+        <div class="widget-tabs" role="tablist" aria-label="侧栏内容">
+          <button class="widget-tab is-current" type="button" data-tab="recent" role="tab" aria-selected="true">最近文章</button>
+          <button class="widget-tab" type="button" data-tab="categories" role="tab" aria-selected="false">分类</button>
+        </div>
+        <div class="widget-panel is-visible" data-panel="recent">
+          {recent.map(post => <a class="widget-post" href={postPath(post.data.slug)}>{post.data.title}<small>{post.data.category}</small></a>)}
+        </div>
+        <div class="widget-panel" data-panel="categories" hidden>
+          {categories.map(category => <a class="widget-post" href={sitePath('categories/#' + encodeURIComponent(category))}>{category}<small>浏览分类</small></a>)}
+        </div>
+      </section>
+    )}
+    <div class="sidebar-footnote"><span class="status-dot"></span>静态生成 · 持续记录</div>
+  </div>
+</aside>

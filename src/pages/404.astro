@@ -1,0 +1,7 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { sitePath } from '../data/site';
+---
+<SiteLayout title="页面未找到">
+  <section class="hero"><div class="hero-copy"><p class="hero-kicker">404 · PAGE NOT FOUND</p><h1>这条路径暂时<br />没有内容。</h1><p class="hero-lead">检查地址是否正确，或回到首页继续查找。</p><div class="hero-actions"><a class="button" href={sitePath('')}>返回首页 ↗</a><a class="button button--outline" href={sitePath('archives/')}>打开归档 ↗</a></div></div></section>
+</SiteLayout>

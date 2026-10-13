@@ -1,0 +1,8 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { sitePath } from '../data/site';
+---
+<SiteLayout title="友链">
+  <header class="page-header"><nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><span>友链</span></nav><h1>友链</h1><p>记录值得分享的个人站点与技术社区。</p></header>
+  <section class="content-panel"><div class="empty-state">友链列表尚未整理。后续可在 src/data/links.json 中添加站点名称、地址和简介。</div></section>
+</SiteLayout>

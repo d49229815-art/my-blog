@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { sitePath, postPath } from '../../data/site';
+
+const posts = (await getCollection('posts', ({ data }) => data.kind === 'article'))
+  .sort((a, b) => a.data.category.localeCompare(b.data.category, 'zh-CN') || a.data.title.localeCompare(b.data.title, 'zh-CN'));
+---
+<SiteLayout title="文章归档" description="按内容分类浏览阿德小屋中的文章与学习笔记。">
+  <header class="page-header">
+    <nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><span>归档</span></nav>
+    <h1>文章归档</h1><p>按主题浏览现有笔记。原始资料没有记录发布日期的条目会明确标注，不补写日期。</p>
+  </header>
+  <section class="content-panel archive-list">
+    {posts.map(post => <article class="archive-item">
+      <div><h2><a href={postPath(post.data.slug)}>{post.data.title}</a></h2><p>{post.data.summary}</p><div class="archive-tags"><a href={sitePath('categories/#' + encodeURIComponent(post.data.category))}>{post.data.category}</a>{post.data.tags.filter(tag => tag !== post.data.category).map(tag => <a href={sitePath('tags/' + encodeURIComponent(tag) + '/')}>{tag}</a>)}</div></div>
+      <div class="archive-meta">日期未记录</div>
+    </article>)}
+  </section>
+</SiteLayout>

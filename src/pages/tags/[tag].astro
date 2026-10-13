@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { sitePath, postPath } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => data.kind === 'article');
+  const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+  return tags.map(tag => ({ params: { tag }, props: { tag, posts: posts.filter(post => post.data.tags.includes(tag)) } }));
+}
+const { tag, posts } = Astro.props;
+---
+<SiteLayout title={'标签：' + tag}>
+  <header class="page-header"><nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><a href={sitePath('tags/')}>标签</a><span>/</span><span>{tag}</span></nav><h1># {tag}</h1><p>找到 {posts.length} 篇相关内容。</p></header>
+  <section class="content-panel archive-list">{posts.map(post => <article class="archive-item"><div><h2><a href={postPath(post.data.slug)}>{post.data.title}</a></h2><p>{post.data.summary}</p></div><div class="archive-meta">{post.data.category}</div></article>)}</section>
+</SiteLayout>

@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { sitePath } from '../../data/site';
+
+const posts = await getCollection('posts', ({ data }) => data.kind === 'article');
+const counts = new Map();
+for (const post of posts) for (const tag of post.data.tags) counts.set(tag, (counts.get(tag) || 0) + 1);
+const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-CN'));
+---
+<SiteLayout title="标签">
+  <header class="page-header"><nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><span>标签</span></nav><h1>关键词</h1><p>用语言、系统与项目关键词快速缩小检索范围。</p></header>
+  <section class="content-panel"><div class="tag-cloud">{tags.map(([tag, count]) => <a href={sitePath('tags/' + encodeURIComponent(tag) + '/')}><span># {tag}</span><small>{count}</small></a>)}</div></section>
+</SiteLayout>

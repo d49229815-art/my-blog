@@ -1,0 +1,80 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import { site, sitePath } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  toc?: { depth: number; slug: string; text: string }[];
+  hasAside?: boolean;
+}
+const { title = site.name, description = site.description, toc = [], hasAside = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f7fa" />
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title + ' · ' + site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={site.name + ' RSS'} href={sitePath('rss.xml')} />
+    <ClientRouter />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <title>{title} · {site.name}</title>
+    <script is:inline>
+      try {
+        const mode = localStorage.getItem('argon-mode');
+        if (mode === 'dark' || (!mode && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <Sidebar toc={toc} />
+    <div class="main-area">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航菜单" aria-expanded="false"><i class="fa fa-bars"></i></button>
+        <a class="topbar-brand" href={sitePath('')}>{site.name}<span> / {site.subtitle}</span></a>
+        <div class="topbar-actions">
+          <button class="search-launch" id="search-open" aria-label="打开搜索"><i class="fa fa-search"></i><span>搜索文章与笔记</span><kbd>Ctrl K</kbd></button>
+          <button class="icon-button" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题"><i class="fa fa-moon-o"></i></button>
+        </div>
+      </header>
+      <main class:list={['page-content', hasAside && 'has-aside']}>
+        <div class="content-column"><slot /></div>
+        {hasAside && <aside class="right-rail"><slot name="aside" /></aside>}
+      </main>
+      <footer class="site-footer">
+        <span>© {new Date().getFullYear()} {site.name}</span>
+        <span>用清晰的记录，留住解决问题的过程。</span>
+      </footer>
+    </div>
+
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+    <dialog class="search-dialog" id="search-dialog" aria-label="站内搜索">
+      <div class="search-dialog-head">
+        <i class="fa fa-search"></i>
+        <input id="global-search" type="search" placeholder="搜索标题、芯片、外设、函数或关键词…" autocomplete="off" />
+        <button class="dialog-close" id="search-close" type="button" aria-label="关闭搜索">ESC</button>
+      </div>
+      <div class="search-hint" id="search-hint">输入关键词，搜索文章和学习笔记</div>
+      <div class="search-results" id="global-results"></div>
+    </dialog>
+
+    <button class="back-to-top" id="back-to-top" aria-label="回到顶部"><i class="fa fa-arrow-up"></i></button>
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

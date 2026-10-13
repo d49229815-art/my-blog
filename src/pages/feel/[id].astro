@@ -1,0 +1,17 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import CommentBox from '../../components/CommentBox.astro';
+import rawFeels from '../../data/feels.json';
+import { sitePath } from '../../data/site';
+
+interface Feel { id: string | number; title: string; content: string; date: string; type?: string }
+export function getStaticPaths() {
+  return (rawFeels as Feel[]).map(note => ({ params: { id: String(note.id) }, props: { note } }));
+}
+const { note } = Astro.props as { note: Feel };
+---
+<SiteLayout title={note.title}>
+  <header class="page-header"><nav class="breadcrumb"><a href={sitePath('')}>首页</a><span>/</span><span>说说</span></nav><h1>{note.title}</h1><p>{note.date} · FIELD NOTE</p></header>
+  <article class="content-panel plain-prose" set:html={note.content}></article>
+  <CommentBox pathname={Astro.url.pathname} />
+</SiteLayout>

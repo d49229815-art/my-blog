@@ -1,0 +1,31 @@
+{
+  "name": "ade-astro-blog",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "migrate:content": "node scripts/migrate-content.mjs",
+    "copy:assets": "node scripts/copy-doc-assets.mjs",
+    "write:cname": "node scripts/write-cname.mjs",
+    "prebuild": "npm run migrate:content && npm run copy:assets && npm run write:cname",
+    "build": "astro build",
+    "build:serv00": "node scripts/build-serv00.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.0.0",
+    "fuse.js": "^7.0.0",
+    "katex": "^0.16.22",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "sharp": "^0.34.0"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "esbuild@0.25.12": true,
+    "sharp@0.34.5": true
+  }
+}

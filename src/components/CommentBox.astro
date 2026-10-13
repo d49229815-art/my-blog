@@ -1,0 +1,16 @@
+---
+const { pathname } = Astro.props;
+---
+<section class="comments-section">
+  <div class="section-eyebrow">DISCUSSION</div>
+  <h2>留言讨论</h2>
+  <p>留言通过 GitHub Issues 维护。首次使用时，GitHub 可能会要求授权 Utterances 应用访问此公开仓库。</p>
+  <script src="https://utteranc.es/client.js"
+    repo="d49229815-art/my-blog"
+    issue-term={pathname}
+    label="blog-comment"
+    theme="github-light"
+    crossorigin="anonymous"
+    async>
+  </script>
+</section>
