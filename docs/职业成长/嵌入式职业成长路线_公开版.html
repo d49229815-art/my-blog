@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向嵌入式软件开发的 C、MCU、RTOS 与 Embedded Linux 工程实践路线。">
+  <title>嵌入式与 Embedded Linux 工程实践路线｜公开版</title>
+  <style>
+    :root{color-scheme:light;--ink:#172033;--muted:#5c687b;--line:#dce3ed;--paper:#fff;--canvas:#f3f6fa;--blue:#1d4ed8;--blue-soft:#eaf1ff;--teal:#087e8b;--amber:#a85608}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+    a{color:var(--blue)}
+    .page{max-width:1120px;margin:auto;padding:30px 22px 64px}
+    .hero{padding:34px clamp(22px,5vw,54px);border-radius:22px;background:linear-gradient(130deg,#101c38,#174ea6 62%,#087e8b);color:#fff;box-shadow:0 16px 42px #1e3a8a26}
+    .eyebrow{margin:0 0 9px;color:#c7dcff;font-size:.9rem;font-weight:700;letter-spacing:.08em}
+    h1{max-width:850px;margin:0;font-size:clamp(2rem,5vw,3.2rem);line-height:1.2}
+    .hero p{max-width:800px;color:#e4edff;margin:14px 0 0}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+    .tag{border:1px solid #ffffff55;border-radius:999px;padding:4px 11px;color:#f5f8ff;font-size:.88rem}
+    .privacy{margin:18px 0 24px;padding:13px 16px;border:1px solid #f2cd83;border-left:5px solid #df9b1a;border-radius:10px;background:#fff8e8;color:#603d00}
+    nav{position:sticky;top:0;z-index:2;display:flex;gap:8px;overflow:auto;padding:10px 0;background:#f3f6faeF}
+    nav a{white-space:nowrap;padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;text-decoration:none;font-size:.9rem}
+    section{margin-top:18px;padding:24px clamp(18px,3vw,30px);border:1px solid var(--line);border-radius:16px;background:var(--paper);box-shadow:0 5px 18px #17203308;scroll-margin-top:74px}
+    h2{margin:0 0 14px;font-size:1.55rem;line-height:1.35}
+    h3{margin:0 0 7px;font-size:1.1rem}
+    p{margin:8px 0}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+    .card{padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+    .card p:last-child,.card ul:last-child{margin-bottom:0}
+    .stage{display:inline-block;margin-bottom:9px;color:var(--teal);font-size:.82rem;font-weight:800;letter-spacing:.04em}
+    ul,ol{padding-left:22px}
+    li{margin:5px 0}
+    .callout{margin:14px 0 0;padding:12px 15px;border-left:4px solid var(--blue);border-radius:0 9px 9px 0;background:var(--blue-soft)}
+    .warning{border-color:#dfa02e;background:#fff8e8}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+    table{width:100%;border-collapse:collapse;min-width:650px}
+    th,td{padding:11px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    th{background:#f1f5f9;font-size:.9rem}
+    tr:last-child td{border-bottom:0}
+    code{padding:1px 5px;border-radius:4px;background:#eef2f7;font-family:Consolas,"Cascadia Code",monospace}
+    footer{padding:24px 4px 0;color:var(--muted);text-align:center;font-size:.9rem}
+    @media(max-width:720px){.page{padding:14px 12px 42px}.hero{border-radius:15px}.grid,.grid3{grid-template-columns:1fr}section{padding:19px 16px}}
+    @media print{body{background:#fff;font-size:10.5pt}.page{max-width:none;padding:0}.hero{background:#fff;color:#111;box-shadow:none;border:1px solid #bbb}.hero p,.eyebrow{color:#333}.tags,nav{display:none}.privacy{break-inside:avoid}section{box-shadow:none;break-inside:avoid}.card{break-inside:avoid}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">工程实践路线 · 公开版</p>
+      <h1>嵌入式与 Embedded Linux 工程成长路线</h1>
+      <p>从 C 基础和可测模块起步，逐步延伸到 MCU、RTOS、Linux 设备软件。每一步都以可复现的代码、测试和交付记录作为验收依据。</p>
+      <div class="tags" aria-label="路线主题"><span class="tag">C 与数据结构</span><span class="tag">MCU 与通信</span><span class="tag">RTOS</span><span class="tag">Embedded Linux</span><span class="tag">可选边缘视觉</span></div>
+    </header>
+
+    <aside class="privacy"><strong>公开版说明：</strong>此页只保留通用技术路线，已移除原稿中的个人教育、就业、收入、所在地、财务、备考、目标院校与导师、个人日程及具体设备清单。完整原稿保留在本地项目中，不纳入公开仓库。</aside>
+
+    <nav aria-label="页面目录"><a href="#route">阶段路线</a><a href="#projects">项目实践</a><a href="#quality">工程验收</a><a href="#safety">安全边界</a><a href="#references">资料核对</a></nav>
+
+    <section id="route">
+      <h2>阶段路线</h2>
+      <div class="grid">
+        <article class="card"><span class="stage">阶段一 · C 与基础工程能力</span><h3>先把模块写稳</h3><p>复习指针、内存生命周期、结构体、回调、位操作和常见数据结构。练习环形缓冲区、队列、CRC 与状态机，并为边界条件编写单元测试。</p><p class="muted">验收：能独立说明接口约束、错误处理和测试覆盖的边界。</p></article>
+        <article class="card"><span class="stage">阶段二 · MCU 与实时软件</span><h3>从外设驱动走到可靠通信</h3><p>围绕中断、定时器、DMA、Flash、CAN 或串口通信展开。引入 RTOS 后，记录任务优先级、栈空间、同步方式、超时和故障恢复路径。</p><p class="muted">验收：有可重复的构建、通信日志、异常注入和恢复记录。</p></article>
+        <article class="card"><span class="stage">阶段三 · Embedded Linux</span><h3>建立设备侧系统能力</h3><p>学习交叉编译、设备树、进程与线程、socket、systemd、日志管理和调试工具。先完成一个可运行、可观测、可恢复的后台服务，再按硬件条件扩展界面或外设。</p><p class="muted">验收：写清目标板、SDK、内核和构建环境版本，能复现部署与故障定位。</p></article>
+        <article class="card"><span class="stage">阶段四 · 选修方向</span><h3>根据基础和设备条件扩展</h3><p>可继续做工业网络、系统性能分析或边缘视觉推理。先建立基准数据，再讨论吞吐、延迟、资源占用与精度，避免把硬件未支持的能力写成已实现功能。</p><p class="muted">验收：结论有测试数据、对照条件和适用范围。</p></article>
+      </div>
+      <p class="callout">按顺序完成一个稳定的小系统，比同时启动多个没有测试和文档的演示项目更容易沉淀可复用经验。</p>
+    </section>
+
+    <section id="projects">
+      <h2>项目实践建议</h2>
+      <div class="grid">
+        <article class="card"><h3>1. C 模块与测试基座</h3><p>实现环形缓冲区、消息队列、CRC 和状态机。为满/空、溢出、非法输入、超时和复位场景补测试；使用主机端编译和持续集成降低调试成本。</p></article>
+        <article class="card"><h3>2. MCU 通信节点</h3><p>让控制器接收通信帧、驱动状态机并返回结果。逐步加入错误帧、断线、重试和看门狗恢复；若加入诊断服务或升级功能，单独写明存储与回滚限制。</p></article>
+        <article class="card"><h3>3. 采集设备与可靠网关</h3><p>把传感器或模拟设备的数据送入本地服务，处理断网缓存、重连、日志轮转和进程异常恢复。用脚本模拟输入和网络故障，保存采集到上报的完整记录。</p></article>
+        <article class="card"><h3>4. Linux 板卡与设备接口</h3><p>先确认目标板的镜像、SDK、接口原理图和驱动支持，再做交叉编译、服务部署和最小外设验证。显示屏、相机等部件以实际接口和驱动验证结果为准。</p></article>
+        <article class="card"><h3>5. 边缘视觉（选修）</h3><p>在硬件与驱动条件满足后，使用现成模型建立推理基线。记录模型版本、输入来源、准确率、延迟分布、内存占用和冷启动时间，不预设加速器能力。</p></article>
+        <article class="card"><h3>6. 低压电源控制（选修）</h3><p>学习采样、显示、温控和故障状态机时，只使用有认证的隔离低压电源与成熟限流模块，并配置保险和过温保护。高压功率级需要专业实验条件与安全评审。</p></article>
+      </div>
+    </section>
+
+    <section id="quality">
+      <h2>每个工程的验收清单</h2>
+      <div class="table-wrap"><table><thead><tr><th>项目部分</th><th>需要留下的内容</th><th>检查重点</th></tr></thead><tbody>
+        <tr><td>需求与边界</td><td>目标、非目标、硬件版本、外设连接</td><td>没有把未验证的功能写成承诺</td></tr>
+        <tr><td>代码与构建</td><td>模块目录、依赖版本、构建命令、配置说明</td><td>干净环境能够按文档构建</td></tr>
+        <tr><td>测试与故障处理</td><td>测试用例、输入数据、日志、故障注入记录</td><td>异常路径和恢复行为有证据</td></tr>
+        <tr><td>交付与复现</td><td>架构图、接线图、演示记录、已知限制</td><td>其他开发者能重现关键结果</td></tr>
+      </tbody></table></div>
+      <p class="callout">建议保留统一的 <code>src/</code>、<code>include/</code>、<code>tests/</code>、<code>docs/</code>、<code>scripts/</code> 和 <code>README.md</code>，按工程实际删减，不为目录齐全而制造空内容。</p>
+    </section>
+
+    <section id="safety">
+      <h2>硬件与结论边界</h2>
+      <ul>
+        <li>接线前核对准确芯片型号、板卡原理图、电平、供电和接口时序；开发板上能运行不代表具备量产认证。</li>
+        <li>CAN、以太网、相机、显示和存储外设都依赖收发器、引脚复用、驱动与软件版本，逐项验证后再写入项目能力。</li>
+        <li>性能指标必须附带测试环境、样本量和统计方式；不要用一次演示推导长期稳定性或量产能力。</li>
+      </ul>
+      <p class="callout warning"><strong>电气安全：</strong>不要将网页中的电源方案直接接入市电或大电流负载。任何高压和功率级实验都需要合适的隔离、限流、保护装置及专业安全审核。</p>
+    </section>
+
+    <section id="references">
+      <h2>资料核对与更新</h2>
+      <div class="grid3">
+        <article class="card"><h3>芯片与板卡</h3><p>以芯片数据手册、参考手册、板卡原理图和官方 SDK 文档为准，记录版本号和获取日期。</p></article>
+        <article class="card"><h3>构建与运行环境</h3><p>记录编译器、构建工具、内核、驱动和依赖版本，保留可复现的配置文件与命令。</p></article>
+        <article class="card"><h3>持续复核</h3><p>工具链、板卡支持和上游组件会变化。升级后重新执行构建、测试和关键性能测量。</p></article>
+      </div>
+    </section>
+
+    <footer>本页面为通用工程学习路线。设备适配、性能和安全结论以实测及官方资料为准。</footer>
+  </main>
+</body>
+</html>

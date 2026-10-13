@@ -1,0 +1,86 @@
+site_name: 阿德小屋
+site_description: 嵌入式开发、系统软件学习笔记与项目实践
+site_url: https://d49229815-art.github.io/my-blog/
+repo_name: d49229815-art/my-blog
+repo_url: https://github.com/d49229815-art/my-blog
+use_directory_urls: true
+
+theme:
+  name: material
+  language: zh
+  font: false
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: amber
+    - scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色主题
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - 首页: index.md
+  - 编程语言:
+      - 分类总览: 编程语言/index.md
+      - C 语言: 编程语言/C语言/index.md
+      - Python:
+          - 学习总览: 编程语言/Python/index.md
+          - Python 基础与进阶:
+              - 课程总览: 编程语言/Python/Python基础与进阶/index.md
+              - 学习笔记总览: 编程语言/Python/Python基础与进阶/学习笔记总览.md
+              - 学习进度: 编程语言/Python/Python基础与进阶/学习进度.md
+              - 基础语法: 编程语言/Python/Python基础与进阶/01 基础语法/基础语法.md
+              - 逻辑判断: 编程语言/Python/Python基础与进阶/02 逻辑判断/逻辑判断.md
+              - 循环语句: 编程语言/Python/Python基础与进阶/03 循环语句/循环语句.md
+              - 函数: 编程语言/Python/Python基础与进阶/04 函数/函数.md
+              - 数据容器: 编程语言/Python/Python基础与进阶/05 数据容器/数据容器.md
+              - 函数进阶: 编程语言/Python/Python基础与进阶/06 函数进阶/函数进阶.md
+              - 文件操作: 编程语言/Python/Python基础与进阶/07 文件操作/文件操作.md
+              - 异常、模块与包: 编程语言/Python/Python基础与进阶/08 异常、模块与包/异常、模块与包.md
+          - Python 基础补充: 编程语言/Python/基础补充/index.md
+          - 课程说明: 编程语言/Python/基础补充/课程说明.md
+          - 基础目录: 编程语言/Python/基础补充/01 python基础/index.md
+          - 补充笔记: 编程语言/Python/基础补充/Study_Note.md
+      - Linux 基础:
+          - 分类总览: 编程语言/Linux基础/index.md
+          - 课程说明: 编程语言/Linux基础/课程说明.md
+          - 学习笔记: 编程语言/Linux基础/Study_Note.md
+          - 操作系统概述: 编程语言/Linux基础/操作系统概述/index.md
+  - 项目实战:
+      - 项目索引: 项目实战/index.md
+  - 职业成长:
+      - 规划入口: 职业成长/index.md
+      - 个人规划原版: 职业成长/embedded_career_plan_V3_2026_2029.html
