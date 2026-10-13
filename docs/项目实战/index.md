@@ -1,23 +1,10 @@
 # 项目实战
 
-按项目查看嵌入式设备方案、实现资料和调试记录。每个入口对应一项完整实践，方便从目标和硬件平台进入细节。
+从项目目标和平台进入资料。页面覆盖嵌入式边缘计算设备，以及 ESP32-S3 便携式数控电源。
 
-<div class="grid cards" markdown>
+<div class="topic-list">
 
--   :material-devices: **嵌入式边缘计算**
-
-    ---
-
-    查看边缘计算设备的项目背景、系统组成与实现思路。
-
-    [打开项目指南](嵌入式边缘计算项目实战指南.html)
-
--   :material-flash: **ESP32-S3 数控可调电源**
-
-    ---
-
-    基于 ESP32-S3 与 EG1163S 的便携式电源项目资料。
-
-    [查看项目资料](基于ESP32-S3+EG1163S便携式数控可调电源.html)
+<a href="嵌入式边缘计算项目实战指南.html"><span>嵌入式边缘计算</span><small>系统组成与实现思路</small></a>
+<a href="基于ESP32-S3+EG1163S便携式数控可调电源.html"><span>ESP32-S3 数控可调电源</span><small>ESP32-S3 · EG1163S</small></a>
 
 </div>

@@ -1,5 +1,5 @@
 site_name: 阿德小屋
-site_description: 嵌入式开发、系统软件学习笔记与项目实践
+site_description: 嵌入式开发记录、学习笔记与项目实践
 site_url: https://d49229815-art.github.io/my-blog/
 repo_name: d49229815-art/my-blog
 repo_url: https://github.com/d49229815-art/my-blog
@@ -11,21 +11,29 @@ theme:
   font: false
   features:
     - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
     - navigation.sections
     - navigation.tabs
     - navigation.top
+    - navigation.footer
+    - toc.follow
     - search.highlight
     - search.suggest
+    - search.share
     - content.code.copy
   palette:
     - scheme: default
-      primary: blue grey
-      accent: amber
-    - scheme: slate
-      primary: indigo
-      accent: amber
+      primary: white
+      accent: teal
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-night
+        name: 切换到深色主题
+    - scheme: slate
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
         name: 切换到浅色主题
 
 plugins:
@@ -53,7 +61,10 @@ extra_css:
 
 nav:
   - 首页: index.md
-  - 编程语言:
+  - 内容索引: 内容索引/index.md
+  - 项目实战:
+      - 项目索引: 项目实战/index.md
+  - 学习笔记:
       - 分类总览: 编程语言/index.md
       - C 语言: 编程语言/C语言/index.md
       - Python:
@@ -79,8 +90,6 @@ nav:
           - 课程说明: 编程语言/Linux基础/课程说明.md
           - 学习笔记: 编程语言/Linux基础/Study_Note.md
           - 操作系统概述: 编程语言/Linux基础/操作系统概述/index.md
-  - 项目实战:
-      - 项目索引: 项目实战/index.md
   - 职业成长:
       - 规划入口: 职业成长/index.md
       - 个人规划原版: 职业成长/embedded_career_plan_V3_2026_2029.html

@@ -1,31 +1,11 @@
-# 编程语言与系统基础
+# 学习笔记
 
-C、Python 与 Linux 学习资料按主题归档。Python 课程的章节笔记与示例代码一一对应，Linux 内容覆盖基础命令和操作系统概念。
+按语言和系统主题浏览。Python 课程按章节组织，笔记与示例代码对应；Linux 部分整理基础知识和操作系统概念。
 
-<div class="grid cards" markdown>
+<div class="topic-list">
 
--   :material-language-c: **C 语言**
-
-    ---
-
-    指针、内存、编译和常用语言特性，适合嵌入式开发查阅。
-
-    [查看 C 语言笔记](C语言/index.md)
-
--   :material-language-python: **Python**
-
-    ---
-
-    基础课程、补充笔记和按章节整理的可运行示例。
-
-    [查看 Python 总览](Python/index.md)
-
--   :material-linux: **Linux 基础**
-
-    ---
-
-    Linux 学习记录与操作系统基础概念。
-
-    [查看 Linux 笔记](Linux基础/index.md)
+<a href="C语言/"><span>C 语言</span><small>指针、内存与常用语法</small></a>
+<a href="Python/"><span>Python</span><small>基础课程与代码示例</small></a>
+<a href="Linux基础/"><span>Linux 基础</span><small>命令与操作系统概念</small></a>
 
 </div>
