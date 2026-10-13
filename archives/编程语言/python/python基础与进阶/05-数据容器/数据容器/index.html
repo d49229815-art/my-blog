@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f7fa"><meta name="description" content="五、数据容器 - 一种可以容纳多份数据的数据类型，容纳的每一份数据称之为1个元素 - 每一个元素，都可以是任意类型的数据，如字符串、数字、布尔等 - 数据容器分为：列表(list)、元组(tuple)、字符串(str)、集合(set)、字典(dict) Python 五大核心数据容器对比表 特性 列表 (list) 元组 (tuple) 字符串 (str) "><meta property="og:type" content="website"><meta property="og:title" content="Python 数据容器 · 阿德小屋"><meta property="og:description" content="五、数据容器 - 一种可以容纳多份数据的数据类型，容纳的每一份数据称之为1个元素 - 每一个元素，都可以是任意类型的数据，如字符串、数字、布尔等 - 数据容器分为：列表(list)、元组(tuple)、字符串(str)、集合(set)、字典(dict) Python 五大核心数据容器对比表 特性 列表 (list) 元组 (tuple) 字符串 (str) "><meta property="og:url" content="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/05-%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/05-%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/"><link rel="alternate" type="application/rss+xml" title="阿德小屋 RSS" href="/my-blog/rss.xml"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/my-blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"><title>Python 数据容器 · 阿德小屋</title><script>
+      try {
+        const mode = localStorage.getItem('argon-mode');
+        if (mode === 'dark' || (!mode && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script><link rel="stylesheet" href="/my-blog/_astro/about.jEj5IoJy.css"></head> <body> <aside class="sidebar" id="site-sidebar" aria-label="站点侧栏"> <div class="sidebar-scroll"> <a class="brand-mark" href="/my-blog/" aria-label="阿德小屋首页"> <span class="avatar">阿</span> <span class="brand-copy"><strong>阿德小屋</strong><small>嵌入式开发记录</small></span> </a> <section class="profile-card"> <span class="profile-kicker">PERSONAL NOTES</span> <p class="profile-motto">从板级调试，到系统实践。</p> <p class="profile-description">记录 C、MCU、Linux 和项目开发中的方案、代码与排错过程。</p> <div class="social-row"> <a href="https://github.com/d49229815-art" aria-label="GitHub" title="GitHub" target="_blank" rel="noreferrer"><i class="fa fa-github"></i></a> <a href="/my-blog/rss.xml" aria-label="RSS 订阅" title="RSS"><i class="fa fa-rss"></i></a>  </div> </section> <nav class="primary-nav" aria-label="主导航"> <a class="nav-link" href="/my-blog/"><i class="fa fa-home"></i><span>首页</span></a> <a class="nav-link is-active" href="/my-blog/archives/"><i class="fa fa-archive"></i><span>归档</span></a> <a class="nav-link" href="/my-blog/categories/"><i class="fa fa-folder-open-o"></i><span>分类</span></a> <a class="nav-link" href="/my-blog/tags/"><i class="fa fa-tags"></i><span>标签</span></a> <a class="nav-link" href="/my-blog/about/"><i class="fa fa-user-o"></i><span>关于</span></a> <a class="nav-link" href="/my-blog/links/"><i class="fa fa-link"></i><span>友链</span></a> </nav> <section class="sidebar-widget toc-widget"> <div class="widget-heading"><span>本文目录</span><small>ON THIS PAGE</small></div> <nav class="toc-list" aria-label="文章目录"> <a class="toc-link" href="#五数据容器"><span>五、数据容器</span></a><a class="toc-link toc-child" href="#python-五大核心数据容器对比表"><span>Python 五大核心数据容器对比表</span></a><a class="toc-link toc-child" href="#1-列表-list"><span>1. 列表 (list)</span></a><a class="toc-link toc-child" href="#2️⃣-tuple元组"><span>2️⃣ tuple（元组）</span></a><a class="toc-link toc-child" href="#3️⃣-str字符串"><span>3️⃣ str（字符串）</span></a><a class="toc-link toc-child" href="#序列的切片"><span>序列的切片</span></a><a class="toc-link toc-child" href="#4️⃣-set集合"><span>4️⃣ set（集合）</span></a><a class="toc-link toc-child" href="#5️⃣-dict字典"><span>5️⃣ dict（字典）</span></a><a class="toc-link toc-child" href="#6-数据容器通用操作"><span>6. 数据容器通用操作</span></a> </nav> </section> <div class="sidebar-footnote"><span class="status-dot"></span>静态生成 · 持续记录</div> </div> </aside> <div class="main-area"> <header class="topbar"> <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航菜单" aria-expanded="false"><i class="fa fa-bars"></i></button> <a class="topbar-brand" href="/my-blog/">阿德小屋<span> / 嵌入式开发记录</span></a> <div class="topbar-actions"> <button class="search-launch" id="search-open" aria-label="打开搜索"><i class="fa fa-search"></i><span>搜索文章与笔记</span><kbd>Ctrl K</kbd></button> <button class="icon-button" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题"><i class="fa fa-moon-o"></i></button> </div> </header> <main class="page-content has-aside"> <div class="content-column"> <header class="article-header"> <nav class="breadcrumb"><a href="/my-blog/">首页</a><span>/</span><a href="/my-blog/archives/">归档</a><span>/</span><span>Python</span></nav> <h1>Python 数据容器</h1> <p class="article-summary">五、数据容器 - 一种可以容纳多份数据的数据类型，容纳的每一份数据称之为1个元素 - 每一个元素，都可以是任意类型的数据，如字符串、数字、布尔等 - 数据容器分为：列表(list)、元组(tuple)、字符串(str)、集合(set)、字典(dict) Python 五大核心数据容器对比表 特性 列表 (list) 元组 (tuple) 字符串 (str) </p> <div class="article-meta"><span><i class="fa fa-folder-o"></i>Python</span><span><i class="fa fa-calendar-o"></i>日期未记录</span><a class="tag-chip" href="/my-blog/tags/Python/">Python</a></div> </header> <article class="post-prose"><h1 id="python-数据容器">Python 数据容器</h1>
+<h2 id="五数据容器">五、数据容器</h2>
+<ul>
+<li>一种可以容纳多份数据的数据类型，容纳的每一份数据称之为1个元素</li>
+<li>每一个元素，都可以是任意类型的数据，如字符串、数字、布尔等</li>
+<li>数据容器分为：列表(list)、元组(tuple)、字符串(str)、集合(set)、字典(dict)</li>
+</ul>
+<h3 id="python-五大核心数据容器对比表">Python 五大核心数据容器对比表</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>特性</th><th>列表 (list)</th><th>元组 (tuple)</th><th>字符串 (str)</th><th>集合 (set)</th><th>字典 (dict)</th></tr></thead><tbody><tr><td><strong>定义符号</strong></td><td>方括号 <code>[]</code></td><td>圆括号 <code>()</code>（可省略）</td><td>单/双/三引号 <code>''</code>/<code>""</code>/<code>"""</code></td><td>花括号 <code>{}</code>（无键值）</td><td>花括号 <code>{key:value}</code></td></tr><tr><td><strong>可变性</strong></td><td>可变（增删改元素）</td><td>不可变（创建后无法修改）</td><td>不可变（无法修改单个字符）</td><td>可变（增删元素）</td><td>可变（增删改键值对）</td></tr><tr><td><strong>有序性</strong></td><td>有序（按插入顺序排列）</td><td>有序（按插入顺序排列）</td><td>有序（字符有固定顺序）</td><td>无序（3.7+版本按插入序）</td><td>有序（3.7+版本按插入序）</td></tr><tr><td><strong>索引方式</strong></td><td>数字索引（从0开始）</td><td>数字索引（从0开始）</td><td>数字索引（从0开始）</td><td>无索引（不能通过下标访问）</td><td>键索引（通过key访问value）</td></tr><tr><td><strong>重复元素</strong></td><td>允许重复元素</td><td>允许重复元素</td><td>允许重复字符</td><td>不允许重复元素（自动去重）</td><td>键唯一，值可重复</td></tr><tr><td><strong>元素类型</strong></td><td>可混合类型（int/str/list等）</td><td>可混合类型（int/str/tuple等）</td><td>仅字符（Unicode）</td><td>可哈希类型（不可变对象）</td><td>键：可哈希类型；值：任意类型</td></tr><tr><td><strong>核心方法</strong></td><td>append()/pop()/sort()</td><td>count()/index()</td><td>split()/replace()/strip()</td><td>add()/remove()/union()</td><td>keys()/values()/items()</td></tr><tr><td><strong>是否可哈希</strong></td><td>不可哈希（不能作为字典键）</td><td>可哈希（可作为字典键）</td><td>可哈希（可作为字典键）</td><td>不可哈希（不能作为字典键）</td><td>不可哈希（不能作为字典键）</td></tr><tr><td><strong>内存占用</strong></td><td>中等</td><td>低（比列表更节省内存）</td><td>低</td><td>高（哈希表结构）</td><td>较高（键值对哈希表）</td></tr><tr><td><strong>典型使用场景</strong></td><td>动态存储数据、临时列表</td><td>固定数据、函数返回多值</td><td>文本处理、字符串拼接</td><td>去重、集合运算（交集/并集）</td><td>键值映射、快速查找数据</td></tr></tbody></table>
+<h3 id="1-列表-list">1. 列表 (list)</h3>
+<h4 id="1-定义方式">1. 定义方式</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">定义语法[元素1, 元素2, 元素3...]</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">lst </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> [[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">4</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 5</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 6</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]]</span></span></code></pre>
+<h4 id="2-下标索引">2. 下标索引</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">语法[下表索引值]</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">**下标从默认0开始从左至右；也可以从右至左从-1~-n递减**</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[   </span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  4</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  5</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">    0</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">  4</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">   正向下标</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">    -</span><span style="color:#1976D2;--shiki-dark:#79B8FF">5</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#D32F2F;--shiki-dark:#F97583"> -</span><span style="color:#1976D2;--shiki-dark:#79B8FF">4</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#D32F2F;--shiki-dark:#F97583"> -</span><span style="color:#1976D2;--shiki-dark:#79B8FF">3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#D32F2F;--shiki-dark:#F97583"> -</span><span style="color:#1976D2;--shiki-dark:#79B8FF">2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#D32F2F;--shiki-dark:#F97583"> -</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">  反向下标</span></span></code></pre>
+<h4 id="3-嵌套列表">3. 嵌套列表</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">语法[下表索引值]</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">**下标从默认0开始从左至右；也可以从右至左从-1~-n递减**</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">lst </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> [[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">4</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 5</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 6</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]]</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">lst</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]  </span><span style="color:#C2C3C5;--shiki-dark:#6A737D">#结果为1</span></span></code></pre>
+<h4 id="4-列表的方法">4. 列表的方法</h4>
+<ul>
+<li>定义为class（类）的成员，则函数称为：方法</li>
+<li>列表本质上是一个class</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> [</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"itheima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'itcast'</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'anson'</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(my_list.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">index</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'itheima'</span><span style="color:#212121;--shiki-dark:#E1E4E8">))</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">     #查询itheima在my_list中的下标</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#D32F2F;--shiki-dark:#F97583"> =</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'heima'</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                #修改my_list中的itheima为heima</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">insert</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"heima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">           #在my_list中itheima后插入heima</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">append</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"heima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">             #在my_list末尾添加heima，仅追加一个</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">extend</span><span style="color:#212121;--shiki-dark:#E1E4E8">([</span><span style="color:#1976D2;--shiki-dark:#79B8FF">4</span><span style="color:#212121;--shiki-dark:#E1E4E8">, </span><span style="color:#1976D2;--shiki-dark:#79B8FF">5</span><span style="color:#212121;--shiki-dark:#E1E4E8">, </span><span style="color:#1976D2;--shiki-dark:#79B8FF">6</span><span style="color:#212121;--shiki-dark:#E1E4E8">])</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">           #将4，5，6以此追加到my_list末尾，可追加多个</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">del</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                      #删除my_list中的itheima</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">pop</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                      #删除my_list中的itheima,但可返回被删掉的元素</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">remove</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"itheima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">           #删除my_list中itheima的第一个匹配项，即如有多个itheima，也只删除第一个</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">clear</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                     #清空列表</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> []                        </span><span style="color:#C2C3C5;--shiki-dark:#6A737D">#清空列表</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_list</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">count</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"itheima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">            #统计my_list中itheima的个数</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">len</span><span style="color:#212121;--shiki-dark:#E1E4E8">(my_list)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                        #统计my_list中元素的个数</span></span></code></pre>
+<h4 id="5-遍历列表">5. 遍历列表</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">lst </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> [</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 4</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">index </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 0</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">while</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> index </span><span style="color:#D32F2F;--shiki-dark:#F97583">&#x3C;</span><span style="color:#6F42C1;--shiki-dark:#79B8FF"> len</span><span style="color:#212121;--shiki-dark:#E1E4E8">(lst):</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">    print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(lst[index])</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">    index </span><span style="color:#D32F2F;--shiki-dark:#F97583">+=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">for</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> x </span><span style="color:#D32F2F;--shiki-dark:#F97583">in</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> lst</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">    print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(x)</span></span></code></pre>
+<hr>
+<h3 id="2️⃣-tuple元组">2️⃣ tuple（元组）</h3>
+<ul>
+<li>和list基本相同，唯一区别为定义完成后不可修改</li>
+</ul>
+<h4 id="1-定义方式-1">1. 定义方式</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">定义语法(元素1, 元素2, 元素3...)</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">t </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> (</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">s </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> tuple</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span></span></code></pre>
+<h4 id="2-嵌套元组">2. 嵌套元组</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">语法[下表索引值]</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">**下标从默认0开始从左至右；也可以从右至左从-1~-n递减**</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">t1 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> ((</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">)</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> (</span><span style="color:#1976D2;--shiki-dark:#79B8FF">4</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 5</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 6</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">t1</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]  </span><span style="color:#C2C3C5;--shiki-dark:#6A737D">#结果为1</span></span></code></pre>
+<h4 id="3-元组的方法">3. 元组的方法</h4>
+<ul>
+<li>元组定义完成后不可修改</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_tuple </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> (</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"itheima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'itcast'</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'anson'</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(my_tuple.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">index</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'itheima'</span><span style="color:#212121;--shiki-dark:#E1E4E8">))</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">     #查询itheima在my_tuple中的下标</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_tuple</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">count</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'itheima'</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">            #统计my_tuple中itheima出现的次数</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">len</span><span style="color:#212121;--shiki-dark:#E1E4E8">(my_tuple)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                        #统计元组的长度</span></span></code></pre>
+<h4 id="4-遍历元组">4. 遍历元组</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_tuple </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> (</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"itheima"</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'itcast'</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'anson'</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">for</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> x </span><span style="color:#D32F2F;--shiki-dark:#F97583">in</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> my_tuple</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">    print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(x)</span></span></code></pre>
+<hr>
+<h3 id="3️⃣-str字符串">3️⃣ str（字符串）</h3>
+<ul>
+<li>不可变字符序列，基本用法和tuple相同，但只能存放字符</li>
+</ul>
+<h4 id="1-定义字符串">1. 定义字符串</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "ansonkeji667"</span></span></code></pre>
+<h4 id="2-字符串的方法">2. 字符串的方法</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "| 周杰伦 | 王力宏 | 刘德华 |"</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">index</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'力'</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                  #查询n在my_str中的下标</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">replace</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'|'</span><span style="color:#212121;--shiki-dark:#E1E4E8">, </span><span style="color:#22863A;--shiki-dark:#9ECBFF">"，"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">           #将my_str中的'|'修改为'，'，只返回修改后的新字符串，并未对原有字符串做修改</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">lst </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">split</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'|'</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">             #按指定分隔符将字符串分割出多份，并返回新的list</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">strip</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                      #去除字符串的前后空格和换行符，并返回新的字符串</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">strip</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"|"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                   #去除字符串的前后指定的字符，并返回新的字符串</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">count</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">'v'</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                   #统计my_str中'|'出现的次数</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">len</span><span style="color:#212121;--shiki-dark:#E1E4E8">(my_str)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                         #统计my_str中的字符个数</span></span></code></pre>
+<h4 id="3-遍历字符串">3. 遍历字符串</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_str </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "| 周杰伦 | 王力宏 | 刘德华 |"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">for</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> x </span><span style="color:#D32F2F;--shiki-dark:#F97583">in</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> my_str</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">    print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(x)</span></span></code></pre>
+<h3 id="序列的切片">序列的切片</h3>
+<h4 id="1-序列">1. 序列</h4>
+<ul>
+<li>序列：指内容连续、有序、可使用下标索引的一类数据容器（列表、元组、字符串）</li>
+<li>切片：从一个序列中，取出一个子序列</li>
+<li>语法：序列[起始下标:结束下标:步长]    #均可省略，省略则视为默认值，从头:到尾:1</li>
+</ul>
+<h4 id="2-示例">2. 示例</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">lst </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> [</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 4</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 5</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 6</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 7</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(lst[::])</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                      #按序取出列表中所有元素</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(lst[::</span><span style="color:#D32F2F;--shiki-dark:#F97583">-</span><span style="color:#1976D2;--shiki-dark:#79B8FF">1</span><span style="color:#212121;--shiki-dark:#E1E4E8">])</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                    #按反序取出列表中所有元素</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(lst[</span><span style="color:#1976D2;--shiki-dark:#79B8FF">3</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF">5</span><span style="color:#212121;--shiki-dark:#E1E4E8">:])</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                    #取出3，4两个元素</span></span></code></pre>
+<hr>
+<h3 id="4️⃣-set集合">4️⃣ set（集合）</h3>
+<ul>
+<li>类型可混装</li>
+<li>自带去重，且内容无序，无法通过下标访问</li>
+</ul>
+<h4 id="1-集合定义">1. 集合定义</h4>
+<ul>
+<li>语法：{元素，元素，元素} / set()</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 4</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> set</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">              #定义空集合</span></span></code></pre>
+<h4 id="2-集合的方法">2. 集合的方法</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 4</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">set2 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 7</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 9</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 10</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">add</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">5</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                   #添加一个元素，插入位置不确定</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">remove</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">4</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                #移除指定元素</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">pop</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                    #随机取出一个元素</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">clear</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                  #清空集合</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">difference</span><span style="color:#212121;--shiki-dark:#E1E4E8">(set2)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">         #取差集并返回一个新的集合,(my_set有但set2没有的元素)</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">difference_update</span><span style="color:#212121;--shiki-dark:#E1E4E8">(set2)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">  #删除my_set中和set2相同的元素</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">union</span><span style="color:#212121;--shiki-dark:#E1E4E8">(set2)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">              #集合并集，返回新的集合</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">len</span><span style="color:#212121;--shiki-dark:#E1E4E8">(my_set)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                     #统计元素数量</span></span></code></pre>
+<h4 id="3-遍历集合">3. 遍历集合</h4>
+<ul>
+<li>仅可使用for，无法使用while</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">my_set </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 4</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">for</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> x </span><span style="color:#D32F2F;--shiki-dark:#F97583">in</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> my_set</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">    print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(x)</span></span></code></pre>
+<hr>
+<h3 id="5️⃣-dict字典">5️⃣ dict（字典）</h3>
+<ul>
+<li>键唯一，值可重复，有序，无下标，使用key进行查询操作</li>
+<li>key不可是数据容器，value可是任意类型</li>
+<li>key重复添加会覆盖原有数据</li>
+</ul>
+<h4 id="1-字典定义">1. 字典定义</h4>
+<ul>
+<li>语法：{key: value, key: value, ……, key:value} / set() / {}</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d1 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"name"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "Tom"</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 18</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d2 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {}</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                             #定义空字典</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d3 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> set</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                          #定义空字典</span></span></code></pre>
+<h4 id="2-字典嵌套">2. 字典嵌套</h4>
+<ul>
+<li>key不可为字典（通常使用整数/字符串）</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d1 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"Tom"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:{</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 18</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "gender"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "man"</span><span style="color:#212121;--shiki-dark:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#9ECBFF">      "Wie"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:{</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 12</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "gender"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "woman"</span><span style="color:#212121;--shiki-dark:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#9ECBFF">      "Sea"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:{</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 11</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "gender"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "woman"</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#212121;--shiki-dark:#E1E4E8">      }</span></span></code></pre>
+<h4 id="3-字典的方法">3. 字典的方法</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"name"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "Tom"</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 18</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"name"</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#D32F2F;--shiki-dark:#F97583"> =</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "Tim"</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">               #新增/修改元素, 若key存在则修改，key不存在则新增</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">pop</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"name"</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                   #删除某个key,并返回其对应的value</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">clear</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                       #清空字典</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">keys</span><span style="color:#212121;--shiki-dark:#E1E4E8">()</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                        #获取字典的全部key</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">len</span><span style="color:#212121;--shiki-dark:#E1E4E8">(d)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                          #计算字典中键值对的数量</span></span></code></pre>
+<h4 id="4-遍历字典">4. 遍历字典</h4>
+<ul>
+<li>仅可使用for，无法使用while</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">d1 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#212121;--shiki-dark:#E1E4E8"> {</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"Tom"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:{</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 18</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "gender"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "man"</span><span style="color:#212121;--shiki-dark:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#9ECBFF">      "Wie"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:{</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 12</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "gender"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "woman"</span><span style="color:#212121;--shiki-dark:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#9ECBFF">      "Sea"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:{</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"age"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 11</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "gender"</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "woman"</span><span style="color:#212121;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#212121;--shiki-dark:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">for</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> key </span><span style="color:#D32F2F;--shiki-dark:#F97583">in</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> d1</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">    print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#D32F2F;--shiki-dark:#F97583">f</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"</span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#212121;--shiki-dark:#E1E4E8">d1</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">:</span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#212121;--shiki-dark:#E1E4E8">d1[key]</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span></code></pre>
+<h4 id="5-字典练习">5. 字典练习</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">定义如下信息，打印字典内容，并将所有等级为1的员工工资上涨1000，等级加1</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">employees_info = {  "王力宏":{ "department": "科技部", "wage": 3000, "level": 1},</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">                    "周杰伦":{ "department": "市场部", "wage": 5000, "level": 2},</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">                    "林俊杰":{ "department": "市场部", "wage": 7000, "level": 3},</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">                    "张学友":{ "department": "科技部", "wage": 4000, "level": 1},</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">                    "刘德华":{ "department": "市场部", "wage": 6000, "level": 2}</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">                  }</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"全体员工当前信息如下："</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(employees_info)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"全体员工级别为1的员工完成升值加薪操作，操作后："</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">for</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> employee </span><span style="color:#D32F2F;--shiki-dark:#F97583">in</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> employees_info</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#F97583">    if</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> employees_info</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">employee</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"level"</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">] </span><span style="color:#D32F2F;--shiki-dark:#F97583">==</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1</span><span style="color:#212121;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">        employees_info</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">employee</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"level"</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">] </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 2</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">        employees_info</span><span style="color:#212121;--shiki-dark:#E1E4E8">[</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">employee</span><span style="color:#212121;--shiki-dark:#E1E4E8">]</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">[</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"wage"</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">] </span><span style="color:#D32F2F;--shiki-dark:#F97583">+=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1000</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(employees_info)</span></span></code></pre>
+<h3 id="6-数据容器通用操作">6. 数据容器通用操作</h3>
+<ul>
+<li>除遍历外，数据容器均可寻求最大最小值</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">max</span><span style="color:#212121;--shiki-dark:#E1E4E8">(数据容器)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">min</span><span style="color:#212121;--shiki-dark:#E1E4E8">(数据容器)</span></span></code></pre>
+<ul>
+<li>除字典外，数据容器均可相互转换；</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">tuple</span><span style="color:#212121;--shiki-dark:#E1E4E8">(容器)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                       #字典转换为tuple时只保留key</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">list</span><span style="color:#212121;--shiki-dark:#E1E4E8">(容器)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                        #字典转换为list时只保留key</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">str</span><span style="color:#212121;--shiki-dark:#E1E4E8">(容器)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                         #字典可整体转为字符串</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">set</span><span style="color:#212121;--shiki-dark:#E1E4E8">(容器)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">                         #字典转换为set时只保留key，其余数据容器会去重</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">sorted</span><span style="color:#212121;--shiki-dark:#E1E4E8">(容器, [reverse = Ture])</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">    #将给定容器进行排序，返回列表对象，默认升序</span></span></code></pre>
+<hr></article> <nav class="article-nav" aria-label="上一篇和下一篇"> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/02-%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD/%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD/"><small>上一篇</small><strong>Python 逻辑判断</strong></a> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/07-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"><small>下一篇</small><strong>Python 文件操作</strong></a> </nav><section class="comments-section"> <div class="section-eyebrow">DISCUSSION</div> <h2>留言讨论</h2> <p>留言通过 GitHub Issues 维护。首次使用时，GitHub 可能会要求授权 Utterances 应用访问此公开仓库。</p> <script src="https://utteranc.es/client.js" repo="d49229815-art/my-blog" issue-term="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/05-%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/" label="blog-comment" theme="github-light" crossorigin="anonymous" async>
+  </script> </section></div> <aside class="right-rail"><section class="aside-card author-card"> <div class="author-avatar">阿</div> <span class="aside-label">ABOUT THE AUTHOR</span> <h2>阿德</h2> <p>嵌入式软件工程师的学习与项目记录。记录方案、调试过程，也留下一些复盘。</p> <a class="text-link" href="/my-blog/about/">了解更多 <span>↗</span></a> </section> <section class="aside-card notice-card"> <span class="aside-label">站点说明</span> <p>内容来自原有学习笔记与项目资料，持续补充。文章日期未记录时不补造时间。</p> </section> <section class="aside-card related-card"> <span class="aside-label">继续阅读</span> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6/">📘 Python 学习笔记<small>Python</small></a><a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/study_note/">📘 Python 学习笔记<small>Python</small></a><a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/">📘 Python 学习笔记<small>Python</small></a> </section></aside> </main> <footer class="site-footer"> <span>© 2026 阿德小屋</span> <span>用清晰的记录，留住解决问题的过程。</span> </footer> </div> <div class="sidebar-scrim" id="sidebar-scrim"></div> <dialog class="search-dialog" id="search-dialog" aria-label="站内搜索"> <div class="search-dialog-head"> <i class="fa fa-search"></i> <input id="global-search" type="search" placeholder="搜索标题、芯片、外设、函数或关键词…" autocomplete="off"> <button class="dialog-close" id="search-close" type="button" aria-label="关闭搜索">ESC</button> </div> <div class="search-hint" id="search-hint">输入关键词，搜索文章和学习笔记</div> <div class="search-results" id="global-results"></div> </dialog> <button class="back-to-top" id="back-to-top" aria-label="回到顶部"><i class="fa fa-arrow-up"></i></button> <script type="module" src="/my-blog/_astro/SiteLayout.astro_astro_type_script_index_0_lang.D8XBEo7l.js"></script> </body> </html>

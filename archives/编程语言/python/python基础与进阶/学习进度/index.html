@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f7fa"><meta name="description" content="- 目前课程为黑马程序员Python+AI大模型零基础到项目实战(python部分) - 本笔记只记录Python基本用法，后续会可能会通过其他课程深学python语言 -: ------------------------------------- 语言 Python 3.x 更新时间 2026年1月20日 当前课程 黑马程序员Python+AI大模型零基"><meta property="og:type" content="website"><meta property="og:title" content="📘 Python 学习笔记 · 阿德小屋"><meta property="og:description" content="- 目前课程为黑马程序员Python+AI大模型零基础到项目实战(python部分) - 本笔记只记录Python基本用法，后续会可能会通过其他课程深学python语言 -: ------------------------------------- 语言 Python 3.x 更新时间 2026年1月20日 当前课程 黑马程序员Python+AI大模型零基"><meta property="og:url" content="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6/"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6/"><link rel="alternate" type="application/rss+xml" title="阿德小屋 RSS" href="/my-blog/rss.xml"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/my-blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"><title>📘 Python 学习笔记 · 阿德小屋</title><script>
+      try {
+        const mode = localStorage.getItem('argon-mode');
+        if (mode === 'dark' || (!mode && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script><link rel="stylesheet" href="/my-blog/_astro/about.jEj5IoJy.css"></head> <body> <aside class="sidebar" id="site-sidebar" aria-label="站点侧栏"> <div class="sidebar-scroll"> <a class="brand-mark" href="/my-blog/" aria-label="阿德小屋首页"> <span class="avatar">阿</span> <span class="brand-copy"><strong>阿德小屋</strong><small>嵌入式开发记录</small></span> </a> <section class="profile-card"> <span class="profile-kicker">PERSONAL NOTES</span> <p class="profile-motto">从板级调试，到系统实践。</p> <p class="profile-description">记录 C、MCU、Linux 和项目开发中的方案、代码与排错过程。</p> <div class="social-row"> <a href="https://github.com/d49229815-art" aria-label="GitHub" title="GitHub" target="_blank" rel="noreferrer"><i class="fa fa-github"></i></a> <a href="/my-blog/rss.xml" aria-label="RSS 订阅" title="RSS"><i class="fa fa-rss"></i></a>  </div> </section> <nav class="primary-nav" aria-label="主导航"> <a class="nav-link" href="/my-blog/"><i class="fa fa-home"></i><span>首页</span></a> <a class="nav-link is-active" href="/my-blog/archives/"><i class="fa fa-archive"></i><span>归档</span></a> <a class="nav-link" href="/my-blog/categories/"><i class="fa fa-folder-open-o"></i><span>分类</span></a> <a class="nav-link" href="/my-blog/tags/"><i class="fa fa-tags"></i><span>标签</span></a> <a class="nav-link" href="/my-blog/about/"><i class="fa fa-user-o"></i><span>关于</span></a> <a class="nav-link" href="/my-blog/links/"><i class="fa fa-link"></i><span>友链</span></a> </nav> <section class="sidebar-widget toc-widget"> <div class="widget-heading"><span>本文目录</span><small>ON THIS PAGE</small></div> <nav class="toc-list" aria-label="文章目录"> <a class="toc-link" href="#-学习概览"><span>📅 学习概览</span></a> </nav> </section> <div class="sidebar-footnote"><span class="status-dot"></span>静态生成 · 持续记录</div> </div> </aside> <div class="main-area"> <header class="topbar"> <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航菜单" aria-expanded="false"><i class="fa fa-bars"></i></button> <a class="topbar-brand" href="/my-blog/">阿德小屋<span> / 嵌入式开发记录</span></a> <div class="topbar-actions"> <button class="search-launch" id="search-open" aria-label="打开搜索"><i class="fa fa-search"></i><span>搜索文章与笔记</span><kbd>Ctrl K</kbd></button> <button class="icon-button" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题"><i class="fa fa-moon-o"></i></button> </div> </header> <main class="page-content has-aside"> <div class="content-column"> <header class="article-header"> <nav class="breadcrumb"><a href="/my-blog/">首页</a><span>/</span><a href="/my-blog/archives/">归档</a><span>/</span><span>Python</span></nav> <h1>📘 Python 学习笔记</h1> <p class="article-summary">- 目前课程为黑马程序员Python+AI大模型零基础到项目实战(python部分) - 本笔记只记录Python基本用法，后续会可能会通过其他课程深学python语言 -: ------------------------------------- 语言 Python 3.x 更新时间 2026年1月20日 当前课程 黑马程序员Python+AI大模型零基</p> <div class="article-meta"><span><i class="fa fa-folder-o"></i>Python</span><span><i class="fa fa-calendar-o"></i>日期未记录</span><a class="tag-chip" href="/my-blog/tags/Python/">Python</a></div> </header> <article class="post-prose"><h1 id="-python-学习笔记">📘 Python 学习笔记</h1>
+<ul>
+<li>目前课程为黑马程序员Python+AI大模型零基础到项目实战(python部分)</li>
+<li>本笔记只记录Python基本用法，后续会可能会通过其他课程深学python语言</li>
+</ul>
+<hr>
+<h2 id="-学习概览">📅 学习概览</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">项目</th><th>内容</th></tr></thead><tbody><tr><td align="center">语言</td><td>Python 3.x</td></tr><tr><td align="center">更新时间</td><td>2026年1月20日</td></tr><tr><td align="center">当前课程</td><td>黑马程序员Python+AI大模型零基础到项目实战(python部分)</td></tr><tr><td align="center">当前进度</td><td>76044秒 / 76044秒（100%）</td></tr><tr><td align="center">最新完成</td><td>安装第三方包✅</td></tr></tbody></table>
+<hr></article> <nav class="article-nav" aria-label="上一篇和下一篇"> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/"><small>上一篇</small><strong>📘 Linux 学习笔记</strong></a> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/study_note/"><small>下一篇</small><strong>📘 Python 学习笔记</strong></a> </nav><section class="comments-section"> <div class="section-eyebrow">DISCUSSION</div> <h2>留言讨论</h2> <p>留言通过 GitHub Issues 维护。首次使用时，GitHub 可能会要求授权 Utterances 应用访问此公开仓库。</p> <script src="https://utteranc.es/client.js" repo="d49229815-art/my-blog" issue-term="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6/" label="blog-comment" theme="github-light" crossorigin="anonymous" async>
+  </script> </section></div> <aside class="right-rail"><section class="aside-card author-card"> <div class="author-avatar">阿</div> <span class="aside-label">ABOUT THE AUTHOR</span> <h2>阿德</h2> <p>嵌入式软件工程师的学习与项目记录。记录方案、调试过程，也留下一些复盘。</p> <a class="text-link" href="/my-blog/about/">了解更多 <span>↗</span></a> </section> <section class="aside-card notice-card"> <span class="aside-label">站点说明</span> <p>内容来自原有学习笔记与项目资料，持续补充。文章日期未记录时不补造时间。</p> </section> <section class="aside-card related-card"> <span class="aside-label">继续阅读</span> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/study_note/">📘 Python 学习笔记<small>Python</small></a><a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/">📘 Python 学习笔记<small>Python</small></a><a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/04-%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0/">Python 函数<small>Python</small></a> </section></aside> </main> <footer class="site-footer"> <span>© 2026 阿德小屋</span> <span>用清晰的记录，留住解决问题的过程。</span> </footer> </div> <div class="sidebar-scrim" id="sidebar-scrim"></div> <dialog class="search-dialog" id="search-dialog" aria-label="站内搜索"> <div class="search-dialog-head"> <i class="fa fa-search"></i> <input id="global-search" type="search" placeholder="搜索标题、芯片、外设、函数或关键词…" autocomplete="off"> <button class="dialog-close" id="search-close" type="button" aria-label="关闭搜索">ESC</button> </div> <div class="search-hint" id="search-hint">输入关键词，搜索文章和学习笔记</div> <div class="search-results" id="global-results"></div> </dialog> <button class="back-to-top" id="back-to-top" aria-label="回到顶部"><i class="fa fa-arrow-up"></i></button> <script type="module" src="/my-blog/_astro/SiteLayout.astro_astro_type_script_index_0_lang.D8XBEo7l.js"></script> </body> </html>

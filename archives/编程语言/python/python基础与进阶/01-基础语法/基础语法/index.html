@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f7fa"><meta name="description" content="一、基础语法 1、基础概念 1. 字面量（Literal） 字面量是 直接写在代码中的固定值 ，程序运行期间不会发生改变。 类型 示例 ---- ---- 整数 10, -5 浮点数 3.14 字符串 &#34;hello&#34; 布尔 True / False 空值 None ---: :-------------: :----------------: 字面量 直接写"><meta property="og:type" content="website"><meta property="og:title" content="Python 基础语法 · 阿德小屋"><meta property="og:description" content="一、基础语法 1、基础概念 1. 字面量（Literal） 字面量是 直接写在代码中的固定值 ，程序运行期间不会发生改变。 类型 示例 ---- ---- 整数 10, -5 浮点数 3.14 字符串 &#34;hello&#34; 布尔 True / False 空值 None ---: :-------------: :----------------: 字面量 直接写"><meta property="og:url" content="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/01-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/01-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><link rel="alternate" type="application/rss+xml" title="阿德小屋 RSS" href="/my-blog/rss.xml"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/my-blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"><title>Python 基础语法 · 阿德小屋</title><script>
+      try {
+        const mode = localStorage.getItem('argon-mode');
+        if (mode === 'dark' || (!mode && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script><link rel="stylesheet" href="/my-blog/_astro/about.jEj5IoJy.css"></head> <body> <aside class="sidebar" id="site-sidebar" aria-label="站点侧栏"> <div class="sidebar-scroll"> <a class="brand-mark" href="/my-blog/" aria-label="阿德小屋首页"> <span class="avatar">阿</span> <span class="brand-copy"><strong>阿德小屋</strong><small>嵌入式开发记录</small></span> </a> <section class="profile-card"> <span class="profile-kicker">PERSONAL NOTES</span> <p class="profile-motto">从板级调试，到系统实践。</p> <p class="profile-description">记录 C、MCU、Linux 和项目开发中的方案、代码与排错过程。</p> <div class="social-row"> <a href="https://github.com/d49229815-art" aria-label="GitHub" title="GitHub" target="_blank" rel="noreferrer"><i class="fa fa-github"></i></a> <a href="/my-blog/rss.xml" aria-label="RSS 订阅" title="RSS"><i class="fa fa-rss"></i></a>  </div> </section> <nav class="primary-nav" aria-label="主导航"> <a class="nav-link" href="/my-blog/"><i class="fa fa-home"></i><span>首页</span></a> <a class="nav-link is-active" href="/my-blog/archives/"><i class="fa fa-archive"></i><span>归档</span></a> <a class="nav-link" href="/my-blog/categories/"><i class="fa fa-folder-open-o"></i><span>分类</span></a> <a class="nav-link" href="/my-blog/tags/"><i class="fa fa-tags"></i><span>标签</span></a> <a class="nav-link" href="/my-blog/about/"><i class="fa fa-user-o"></i><span>关于</span></a> <a class="nav-link" href="/my-blog/links/"><i class="fa fa-link"></i><span>友链</span></a> </nav> <section class="sidebar-widget toc-widget"> <div class="widget-heading"><span>本文目录</span><small>ON THIS PAGE</small></div> <nav class="toc-list" aria-label="文章目录"> <a class="toc-link" href="#一基础语法"><span>一、基础语法</span></a><a class="toc-link toc-child" href="#1基础概念"><span>1、基础概念</span></a><a class="toc-link toc-child" href="#2注释"><span>2、注释</span></a><a class="toc-link toc-child" href="#3数据类型系统"><span>3、数据类型系统</span></a><a class="toc-link toc-child" href="#4类型转换"><span>4、类型转换</span></a><a class="toc-link toc-child" href="#5运算符"><span>5、运算符</span></a><a class="toc-link toc-child" href="#6字符串str"><span>6、字符串（str）</span></a> </nav> </section> <div class="sidebar-footnote"><span class="status-dot"></span>静态生成 · 持续记录</div> </div> </aside> <div class="main-area"> <header class="topbar"> <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航菜单" aria-expanded="false"><i class="fa fa-bars"></i></button> <a class="topbar-brand" href="/my-blog/">阿德小屋<span> / 嵌入式开发记录</span></a> <div class="topbar-actions"> <button class="search-launch" id="search-open" aria-label="打开搜索"><i class="fa fa-search"></i><span>搜索文章与笔记</span><kbd>Ctrl K</kbd></button> <button class="icon-button" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题"><i class="fa fa-moon-o"></i></button> </div> </header> <main class="page-content has-aside"> <div class="content-column"> <header class="article-header"> <nav class="breadcrumb"><a href="/my-blog/">首页</a><span>/</span><a href="/my-blog/archives/">归档</a><span>/</span><span>Python</span></nav> <h1>Python 基础语法</h1> <p class="article-summary">一、基础语法 1、基础概念 1. 字面量（Literal） 字面量是 直接写在代码中的固定值 ，程序运行期间不会发生改变。 类型 示例 ---- ---- 整数 10, -5 浮点数 3.14 字符串 &quot;hello&quot; 布尔 True / False 空值 None ---: :-------------: :----------------: 字面量 直接写</p> <div class="article-meta"><span><i class="fa fa-folder-o"></i>Python</span><span><i class="fa fa-calendar-o"></i>日期未记录</span><a class="tag-chip" href="/my-blog/tags/Python/">Python</a></div> </header> <article class="post-prose"><h1 id="python-基础语法">Python 基础语法</h1>
+<h2 id="一基础语法">一、基础语法</h2>
+<h3 id="1基础概念">1、基础概念</h3>
+<h4 id="1-字面量literal">1. 字面量（Literal）</h4>
+<p>字面量是<strong>直接写在代码中的固定值</strong>，程序运行期间不会发生改变。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>示例</th></tr></thead><tbody><tr><td>整数</td><td>10, -5</td></tr><tr><td>浮点数</td><td>3.14</td></tr><tr><td>字符串</td><td>“hello”</td></tr><tr><td>布尔</td><td>True / False</td></tr><tr><td>空值</td><td>None</td></tr></tbody></table>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">10</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"hello"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">True</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">None</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span></code></pre>
+<hr>
+<h4 id="2-变量variable">2. 变量（Variable）</h4>
+<p>变量是<strong>对象的引用名称</strong>，并不保存数据本身。</p>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 10</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "hello"</span></span></code></pre>
+<p>📌 特点：</p>
+<ul>
+<li>变量本身无类型</li>
+<li>数据对象有类型</li>
+<li>可反复赋值</li>
+</ul>
+<h4 id="3-字面量与变量variable">3. 字面量与变量（Variable）</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">概念</th><th align="center">说明</th><th align="center">注意事项</th></tr></thead><tbody><tr><td align="center">字面量</td><td align="center">直接写在代码中的固定值</td><td align="center">尽量避免直接使用，优先使用变量</td></tr><tr><td align="center">变量</td><td align="center">存储运行过程中数据的容器</td><td align="center">可重复使用、可修改、命名需规范</td></tr></tbody></table>
+<hr>
+<h3 id="2注释">2、注释</h3>
+<h4 id="1-单行注释">1. 单行注释</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 单行注释</span></span></code></pre>
+<h4 id="2-多行注释--文档字符串">2. 多行注释 / 文档字符串</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">通常用于函数、类、模块说明</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#9ECBFF">"""</span></span></code></pre>
+<hr>
+<h3 id="3数据类型系统">3、数据类型系统</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>名称</th><th>是否可变</th></tr></thead><tbody><tr><td>int</td><td>整型</td><td>❌</td></tr><tr><td>float</td><td>浮点型</td><td>❌</td></tr><tr><td>str</td><td>字符串</td><td>❌</td></tr><tr><td>bool</td><td>布尔</td><td>❌</td></tr><tr><td>NoneType</td><td>空值</td><td>❌</td></tr></tbody></table>
+<h4 id="重要特性">重要特性：</h4>
+<ul>
+<li>使用type()函数查看数据类型：print(type(变量))</li>
+<li>int可处理任意大整数，无溢出问题</li>
+<li>浮点数精度问题：0.1 + 0.2 != 0.3（二进制表示问题）</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">type</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">123</span><span style="color:#212121;--shiki-dark:#E1E4E8">))</span></span></code></pre>
+<hr>
+<h3 id="4类型转换">4、类型转换</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>函数</th><th>说明</th></tr></thead><tbody><tr><td>int(x)</td><td>转整数</td></tr><tr><td>float(x)</td><td>转浮点</td></tr><tr><td>str(x)</td><td>转字符串</td></tr><tr><td>bool(x)</td><td>转布尔</td></tr></tbody></table>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">bool</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#1976D2;--shiki-dark:#79B8FF">0</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">bool</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#22863A;--shiki-dark:#9ECBFF">""</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#79B8FF">bool</span><span style="color:#212121;--shiki-dark:#E1E4E8">([])</span></span></code></pre>
+<hr>
+<h3 id="5运算符">5、运算符</h3>
+<h4 id="1-算术运算符">1. 算术运算符</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">运算符</th><th align="center">名称</th><th align="center">示例</th><th align="center">结果</th></tr></thead><tbody><tr><td align="center">+</td><td align="center">加</td><td align="center">5 + 3</td><td align="center">8</td></tr><tr><td align="center">-</td><td align="center">减</td><td align="center">10 - 4</td><td align="center">6</td></tr><tr><td align="center">*</td><td align="center">乘</td><td align="center">3 * 4</td><td align="center">12</td></tr><tr><td align="center">/</td><td align="center">除</td><td align="center">10 / 3</td><td align="center">3.333…</td></tr><tr><td align="center">//</td><td align="center">整除</td><td align="center">10 // 3</td><td align="center">3</td></tr><tr><td align="center">%</td><td align="center">取模</td><td align="center">10 % 3</td><td align="center">1</td></tr><tr><td align="center">**</td><td align="center">幂运算</td><td align="center">2 ** 3</td><td align="center">8</td></tr></tbody></table>
+<hr>
+<h4 id="2-比较运算符">2. 比较运算符</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">运算符</th><th align="center">描述</th><th align="center">示例</th><th align="center">结果</th></tr></thead><tbody><tr><td align="center">==</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">!=</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">></td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">&#x3C;</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">>=</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">&#x3C;=</td><td align="center"></td><td align="center"></td><td align="center"></td></tr></tbody></table>
+<hr>
+<h4 id="3-逻辑运算符">3. 逻辑运算符</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">运算符</th><th align="center">描述</th><th align="center">示例</th><th align="center">结果</th></tr></thead><tbody><tr><td align="center">AND</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">OR</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="center">NOT</td><td align="center"></td><td align="center"></td><td align="center"></td></tr></tbody></table>
+<h4 id="4-赋值运算符">4. 赋值运算符</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="http"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 基础赋值</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x = 10</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 复合赋值（增强赋值）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x += 5      # x = x + 5</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x -= 3      # x = x - 3</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x *= 2      # x = x * 2</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x /= 4      # x = x / 4</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x //= 3     # x = x // 3</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x %= 2      # x = x % 2</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x **= 2     # x = x ** 2</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 链式赋值</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">a = b = c = 0</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 多重赋值</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x, y, z = 1, 2, 3</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 交换变量值（Python特有）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">x, y = y, x  # 无需临时变量</span></span></code></pre>
+<hr>
+<h3 id="6字符串str">6、字符串（str）</h3>
+<h4 id="1-定义方式">1. 定义方式</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">s1 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> 'hello'</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">s2 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "world"</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">s3 </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> """多行字符串"""</span></span></code></pre>
+<h4 id="2-常用转义字符">2. 常用转义字符</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">转义符</th><th align="center">含义</th><th align="center">示例</th></tr></thead><tbody><tr><td align="center">\n</td><td align="center">换行</td><td align="center">“Line1\nLine2”</td></tr><tr><td align="center">\t</td><td align="center">制表符</td><td align="center">“Name\tAge”</td></tr><tr><td align="center">\</td><td align="center">反斜杠</td><td align="center">“C:\Windows”</td></tr><tr><td align="center">’</td><td align="center">单引号</td><td align="center">‘It’s OK’</td></tr><tr><td align="center">”</td><td align="center">双引号</td><td align="center">“He said “Hello""</td></tr><tr><td align="center">\r</td><td align="center">回车</td><td align="center">“Loading…\rDone”</td></tr></tbody></table>
+<hr>
+<h4 id="3-字符串格式化">3. 字符串格式化</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 1. 拼接</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">name </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "Alice"</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">greeting </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "Hello, "</span><span style="color:#D32F2F;--shiki-dark:#F97583"> +</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> name </span><span style="color:#D32F2F;--shiki-dark:#F97583">+</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "!"</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 2. 重复</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">divider </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "-"</span><span style="color:#D32F2F;--shiki-dark:#F97583"> *</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 30</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">  # "------------------------------"</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 3. 格式化（三种方式）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">price </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 19.99</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">quantity </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 方式1: %格式化（旧式）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">message </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "单价: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">%.2f</span><span style="color:#22863A;--shiki-dark:#9ECBFF">元，数量: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">%d</span><span style="color:#22863A;--shiki-dark:#9ECBFF">，总价: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">%.2f</span><span style="color:#22863A;--shiki-dark:#9ECBFF">元"</span><span style="color:#D32F2F;--shiki-dark:#F97583"> %</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> (price</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> quantity</span><span style="color:#212121;--shiki-dark:#E1E4E8">,</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> price </span><span style="color:#D32F2F;--shiki-dark:#F97583">*</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> quantity)</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 方式2: format方法（推荐）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">message </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#22863A;--shiki-dark:#9ECBFF"> "单价: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#D32F2F;--shiki-dark:#F97583">:.2f</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">元，数量: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">{}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">，总价: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#D32F2F;--shiki-dark:#F97583">:.2f</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">元"</span><span style="color:#212121;--shiki-dark:#E1E4E8">.</span><span style="color:#6F42C1;--shiki-dark:#E1E4E8">format</span><span style="color:#212121;--shiki-dark:#E1E4E8">(price, quantity, price </span><span style="color:#D32F2F;--shiki-dark:#F97583">*</span><span style="color:#212121;--shiki-dark:#E1E4E8"> quantity)</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 方式3: f-string（Python 3.6+，最简洁）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">message </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#D32F2F;--shiki-dark:#F97583"> f</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"单价: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">price</span><span style="color:#D32F2F;--shiki-dark:#F97583">:.2f</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">元，数量: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">quantity</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">，总价: </span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8">price </span><span style="color:#D32F2F;--shiki-dark:#F97583">*</span><span style="color:#24292EFF;--shiki-dark:#E1E4E8"> quantity</span><span style="color:#D32F2F;--shiki-dark:#F97583">:.2f</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">元"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># 格式化语法细节</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D"># {变量:格式说明符}</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D">#   :.2f  - 保留2位小数</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D">#   :8d   - 宽度8，右对齐整数</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D">#   :&#x3C;10s - 宽度10，左对齐字符串</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D">#   :^10s - 宽度10，居中对齐字符串</span></span>
+<span class="line"><span style="color:#C2C3C5;--shiki-dark:#6A737D">#   :,    - 千位分隔符（仅数字）</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#E1E4E8">num </span><span style="color:#D32F2F;--shiki-dark:#F97583">=</span><span style="color:#1976D2;--shiki-dark:#79B8FF"> 1000000</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#79B8FF">print</span><span style="color:#212121;--shiki-dark:#E1E4E8">(</span><span style="color:#D32F2F;--shiki-dark:#F97583">f</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"</span><span style="color:#1976D2;--shiki-dark:#79B8FF">{</span><span style="color:#212121;--shiki-dark:#E1E4E8">num</span><span style="color:#D32F2F;--shiki-dark:#F97583">:,</span><span style="color:#1976D2;--shiki-dark:#79B8FF">}</span><span style="color:#22863A;--shiki-dark:#9ECBFF">"</span><span style="color:#212121;--shiki-dark:#E1E4E8">)</span><span style="color:#C2C3C5;--shiki-dark:#6A737D">  # 输出: 1,000,000</span></span></code></pre>
+<hr></article> <nav class="article-nav" aria-label="上一篇和下一篇"> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/06-%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/"><small>上一篇</small><strong>Python 函数进阶</strong></a> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/02-%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD/%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD/"><small>下一篇</small><strong>Python 逻辑判断</strong></a> </nav><section class="comments-section"> <div class="section-eyebrow">DISCUSSION</div> <h2>留言讨论</h2> <p>留言通过 GitHub Issues 维护。首次使用时，GitHub 可能会要求授权 Utterances 应用访问此公开仓库。</p> <script src="https://utteranc.es/client.js" repo="d49229815-art/my-blog" issue-term="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/01-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" label="blog-comment" theme="github-light" crossorigin="anonymous" async>
+  </script> </section></div> <aside class="right-rail"><section class="aside-card author-card"> <div class="author-avatar">阿</div> <span class="aside-label">ABOUT THE AUTHOR</span> <h2>阿德</h2> <p>嵌入式软件工程师的学习与项目记录。记录方案、调试过程，也留下一些复盘。</p> <a class="text-link" href="/my-blog/about/">了解更多 <span>↗</span></a> </section> <section class="aside-card notice-card"> <span class="aside-label">站点说明</span> <p>内容来自原有学习笔记与项目资料，持续补充。文章日期未记录时不补造时间。</p> </section> <section class="aside-card related-card"> <span class="aside-label">继续阅读</span> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6/">📘 Python 学习笔记<small>Python</small></a><a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/study_note/">📘 Python 学习笔记<small>Python</small></a><a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/">📘 Python 学习笔记<small>Python</small></a> </section></aside> </main> <footer class="site-footer"> <span>© 2026 阿德小屋</span> <span>用清晰的记录，留住解决问题的过程。</span> </footer> </div> <div class="sidebar-scrim" id="sidebar-scrim"></div> <dialog class="search-dialog" id="search-dialog" aria-label="站内搜索"> <div class="search-dialog-head"> <i class="fa fa-search"></i> <input id="global-search" type="search" placeholder="搜索标题、芯片、外设、函数或关键词…" autocomplete="off"> <button class="dialog-close" id="search-close" type="button" aria-label="关闭搜索">ESC</button> </div> <div class="search-hint" id="search-hint">输入关键词，搜索文章和学习笔记</div> <div class="search-results" id="global-results"></div> </dialog> <button class="back-to-top" id="back-to-top" aria-label="回到顶部"><i class="fa fa-arrow-up"></i></button> <script type="module" src="/my-blog/_astro/SiteLayout.astro_astro_type_script_index_0_lang.D8XBEo7l.js"></script> </body> </html>

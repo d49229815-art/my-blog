@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f7fa"><meta name="description" content="- 目前课程为黑马程序员Python+AI大模型零基础到项目实战（Linux部分） - 本笔记只记录Linux基本用法，后续会可能会通过其他课程深学Linux 📅 学习概览 项目 内容 :----: ------------------------------------ 语言 Python 3.x 更新时间 2026年1月20日 当前课程 黑马程序员Py"><meta property="og:type" content="website"><meta property="og:title" content="📘 Linux 学习笔记 · 阿德小屋"><meta property="og:description" content="- 目前课程为黑马程序员Python+AI大模型零基础到项目实战（Linux部分） - 本笔记只记录Linux基本用法，后续会可能会通过其他课程深学Linux 📅 学习概览 项目 内容 :----: ------------------------------------ 语言 Python 3.x 更新时间 2026年1月20日 当前课程 黑马程序员Py"><meta property="og:url" content="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/study_note/"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/study_note/"><link rel="alternate" type="application/rss+xml" title="阿德小屋 RSS" href="/my-blog/rss.xml"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/my-blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"><title>📘 Linux 学习笔记 · 阿德小屋</title><script>
+      try {
+        const mode = localStorage.getItem('argon-mode');
+        if (mode === 'dark' || (!mode && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script><link rel="stylesheet" href="/my-blog/_astro/about.jEj5IoJy.css"></head> <body> <aside class="sidebar" id="site-sidebar" aria-label="站点侧栏"> <div class="sidebar-scroll"> <a class="brand-mark" href="/my-blog/" aria-label="阿德小屋首页"> <span class="avatar">阿</span> <span class="brand-copy"><strong>阿德小屋</strong><small>嵌入式开发记录</small></span> </a> <section class="profile-card"> <span class="profile-kicker">PERSONAL NOTES</span> <p class="profile-motto">从板级调试，到系统实践。</p> <p class="profile-description">记录 C、MCU、Linux 和项目开发中的方案、代码与排错过程。</p> <div class="social-row"> <a href="https://github.com/d49229815-art" aria-label="GitHub" title="GitHub" target="_blank" rel="noreferrer"><i class="fa fa-github"></i></a> <a href="/my-blog/rss.xml" aria-label="RSS 订阅" title="RSS"><i class="fa fa-rss"></i></a>  </div> </section> <nav class="primary-nav" aria-label="主导航"> <a class="nav-link" href="/my-blog/"><i class="fa fa-home"></i><span>首页</span></a> <a class="nav-link is-active" href="/my-blog/archives/"><i class="fa fa-archive"></i><span>归档</span></a> <a class="nav-link" href="/my-blog/categories/"><i class="fa fa-folder-open-o"></i><span>分类</span></a> <a class="nav-link" href="/my-blog/tags/"><i class="fa fa-tags"></i><span>标签</span></a> <a class="nav-link" href="/my-blog/about/"><i class="fa fa-user-o"></i><span>关于</span></a> <a class="nav-link" href="/my-blog/links/"><i class="fa fa-link"></i><span>友链</span></a> </nav> <section class="sidebar-widget toc-widget"> <div class="widget-heading"><span>本文目录</span><small>ON THIS PAGE</small></div> <nav class="toc-list" aria-label="文章目录"> <a class="toc-link" href="#-学习概览"><span>📅 学习概览</span></a><a class="toc-link" href="#一操作系统概述"><span>一、操作系统概述</span></a><a class="toc-link toc-child" href="#1基础概念"><span>1、基础概念</span></a><a class="toc-link toc-child" href="#2linux入门"><span>2、Linux入门</span></a><a class="toc-link" href="#二在虚拟机安装ubuntu系统"><span>二、在虚拟机安装Ubuntu系统</span></a><a class="toc-link toc-child" href="#1在官网下载ubuntu镜像和vmware"><span>1、在官网下载Ubuntu镜像和VMware</span></a><a class="toc-link toc-child" href="#2在ubuntu环境下安装ssh以便通过moba远程"><span>2、在Ubuntu环境下安装ssh，以便通过Moba远程</span></a><a class="toc-link" href="#三linux目录结构"><span>三、Linux目录结构</span></a><a class="toc-link" href="#四命令行"><span>四、命令行</span></a><a class="toc-link toc-child" href="#1基础概念-1"><span>1、基础概念</span></a><a class="toc-link toc-child" href="#2具体命令"><span>2、具体命令</span></a> </nav> </section> <div class="sidebar-footnote"><span class="status-dot"></span>静态生成 · 持续记录</div> </div> </aside> <div class="main-area"> <header class="topbar"> <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航菜单" aria-expanded="false"><i class="fa fa-bars"></i></button> <a class="topbar-brand" href="/my-blog/">阿德小屋<span> / 嵌入式开发记录</span></a> <div class="topbar-actions"> <button class="search-launch" id="search-open" aria-label="打开搜索"><i class="fa fa-search"></i><span>搜索文章与笔记</span><kbd>Ctrl K</kbd></button> <button class="icon-button" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题"><i class="fa fa-moon-o"></i></button> </div> </header> <main class="page-content has-aside"> <div class="content-column"> <header class="article-header"> <nav class="breadcrumb"><a href="/my-blog/">首页</a><span>/</span><a href="/my-blog/archives/">归档</a><span>/</span><span>Linux</span></nav> <h1>📘 Linux 学习笔记</h1> <p class="article-summary">- 目前课程为黑马程序员Python+AI大模型零基础到项目实战（Linux部分） - 本笔记只记录Linux基本用法，后续会可能会通过其他课程深学Linux 📅 学习概览 项目 内容 :----: ------------------------------------ 语言 Python 3.x 更新时间 2026年1月20日 当前课程 黑马程序员Py</p> <div class="article-meta"><span><i class="fa fa-folder-o"></i>Linux</span><span><i class="fa fa-calendar-o"></i>日期未记录</span><a class="tag-chip" href="/my-blog/tags/Linux/">Linux</a></div> </header> <article class="post-prose"><h1 id="-linux-学习笔记">📘 Linux 学习笔记</h1>
+<ul>
+<li>目前课程为黑马程序员Python+AI大模型零基础到项目实战（Linux部分）</li>
+<li>本笔记只记录Linux基本用法，后续会可能会通过其他课程深学Linux</li>
+</ul>
+<h2 id="-学习概览">📅 学习概览</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">项目</th><th>内容</th></tr></thead><tbody><tr><td align="center">语言</td><td>Python 3.x</td></tr><tr><td align="center">更新时间</td><td>2026年1月20日</td></tr><tr><td align="center">当前课程</td><td>黑马程序员Python+AI大模型零基础到项目实战(Linux部分)</td></tr><tr><td align="center">当前进度</td><td>25313秒 / 25313秒（100%）</td></tr><tr><td align="center">最新完成</td><td>vim编辑器✅</td></tr></tbody></table>
+<hr>
+<h2 id="一操作系统概述">一、操作系统概述</h2>
+<h3 id="1基础概念">1、基础概念</h3>
+<ul>
+<li>计算机由硬件和软件组成，操作系统属于软件的一类，用于协助用户调度硬件工作</li>
+<li>常见操作系统：Windows、Linux、MacOS、Android、鸿蒙等</li>
+</ul>
+<h3 id="2linux入门">2、Linux入门</h3>
+<ul>
+<li>Linux内核是免费开源的，任何人都可以查看内核的源代码，甚至是贡献源代码。</li>
+<li>在内核之上，封装系统级应用程序，组合在一起就称之为Linux发行版。</li>
+<li>内核提供了Linux系统的主要功能，如硬件调度管理的能力；内核无法被用户直接使用，需要配合应用程序才能被用户使用。</li>
+</ul>
+<h2 id="二在虚拟机安装ubuntu系统">二、在虚拟机安装Ubuntu系统</h2>
+<h3 id="1在官网下载ubuntu镜像和vmware">1、在官网下载Ubuntu镜像和VMware</h3>
+<ul>
+<li>Ubuntu下载地址：<a href="https://cn.ubuntu.com/download">https://cn.ubuntu.com/download</a></li>
+<li>VMware下载地址：<a href="https://vmwareoc.waltzsy.com/?bd_vid=11827811714261235814">https://vmwareoc.waltzsy.com/?bd_vid=11827811714261235814</a></li>
+<li>搜索教程进行安装，此处不进行赘述</li>
+</ul>
+<h3 id="2在ubuntu环境下安装ssh以便通过moba远程">2、在Ubuntu环境下安装ssh，以便通过Moba远程</h3>
+<ul>
+<li>命令 sudo apt install openssh-server -y （安装ssh）</li>
+<li>命令 sudo systemctl status ssh （检查ssh是否运行）</li>
+<li>命令 ip addr （查看UbuntuIP，通过Moba连接）</li>
+</ul>
+<h2 id="三linux目录结构">三、Linux目录结构</h2>
+<ul>
+<li>Linux没有盘符概念，有且仅有一个根目录，层级关系使用/表示</li>
+<li>相对路径：以当前目录为起点，描述路径的一种写法，路径描述无需以/开头</li>
+<li>绝对路径：以根目录为起点,描述路径的一种写法,路径描述以/开头</li>
+<li>特殊路径符：
+<ul>
+<li>. 表示当前目录；.. 表示上一级目录； ~ 表示HOME/Desktop目录； - 表示回退到上一操作</li>
+</ul>
+</li>
+</ul>
+<h2 id="四命令行">四、命令行</h2>
+<h3 id="1基础概念-1">1、基础概念</h3>
+<ul>
+<li>学习Linux，本质上是学习在命令行下熟练使用Linux的各类命令。</li>
+<li>命令行：即Linux终端，可以提供字符化的操作页面供命令执行</li>
+<li>基础格式：command [-options] [parameter]
+<ul>
+<li><code>command</code>命令本身</li>
+<li><code>-options</code>命令的一些选项，可以通过选项控制命令的行为细节</li>
+<li><code>parameter</code>命令的参数，多数用于命令的指向目标</li>
+</ul>
+</li>
+</ul>
+<h3 id="2具体命令">2、具体命令</h3>
+<ul>
+<li>ls [-a -l -h] [Linux路径]
+<ul>
+<li>在命令行中，以平铺的形式，展示当前工作目录下的（非隐藏）内容</li>
+<li><code>-a</code>显示隐藏内容 <code>-l</code>列表展示详细文件信息 <code>-h</code>更人性化展示文件大小</li>
+</ul>
+</li>
+<li>cd [Linux路径]
+<ul>
+<li>切换当前工作目录到指定Linux路径下</li>
+</ul>
+</li>
+<li>pwd
+<ul>
+<li>查看当前所在的工作目录</li>
+</ul>
+</li>
+<li>mkdir [-p] Linux路径
+<ul>
+<li>创建文件夹</li>
+<li><code>-p</code>表示自动创建不存在的父目录，是用于创建连续多层级的目录</li>
+</ul>
+</li>
+<li>touch Linux路径
+<ul>
+<li>创建空白文件</li>
+</ul>
+</li>
+<li>cat Linux路径
+<ul>
+<li>查看文件内容，将内容全部显示出来</li>
+</ul>
+</li>
+<li>more Linux路径
+<ul>
+<li>查看文件内容，支持翻页，可以一页页展示，按空格翻页，按<code>q</code> 退出查看</li>
+</ul>
+</li>
+<li>cp [-r] 参数1 参数2
+<ul>
+<li>复制文件和文件夹</li>
+<li><code>-r</code>用于文件夹复制 <code>参数1</code>被复制的 <code>参数2</code>要复制去的地方</li>
+</ul>
+</li>
+<li>mv 参数1 参数2
+<ul>
+<li>移动文件和文件夹（Windows中的剪切）</li>
+<li><code>参数1</code>被移动的 <code>参数2</code>要移动去的地方,如果不存在则改名</li>
+</ul>
+</li>
+<li>rm [-r -f] 参数1 参数2 … 参数N
+<ul>
+<li>删除文件和文件夹</li>
+<li><code>-r</code>删除文件夹 <code>-f</code>强制删除 <code>参数</code>被删除的文件或文件夹</li>
+<li>rm -rf *.txt  <code>*</code> 表示通配符，表示 删除全部以<code>.txt</code>结尾的</li>
+</ul>
+</li>
+<li>sudo -su
+<ul>
+<li>切换root用户（超级管理员）</li>
+</ul>
+</li>
+<li>which 命令
+<ul>
+<li>查看在Linux系统中所有可执行的命令的文件本地所在。</li>
+</ul>
+</li>
+<li>find 起始路径 -name “被查找的文件名”
+<ul>
+<li>按文件名查找符合条件的文件所在</li>
+</ul>
+</li>
+<li>find 起始路径 -size +|-n(k|M|G)
+<ul>
+<li>按文件大小查找符合条件的文件所在</li>
+<li><code>+</code>表示大于 <code>-</code>表示小于 <code>n</code>表示数字 <code>k M G</code>表示大小单位，k KB  M MB  G GB</li>
+</ul>
+</li>
+<li>grep [-n] “关键字” 输入内容
+<ul>
+<li><code>-n</code> 显示过滤后的内容，在原始输入内容中的行号</li>
+</ul>
+</li>
+</ul></article> <nav class="article-nav" aria-label="上一篇和下一篇"> <span></span> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/"><small>下一篇</small><strong>📘 Linux 学习笔记</strong></a> </nav><section class="comments-section"> <div class="section-eyebrow">DISCUSSION</div> <h2>留言讨论</h2> <p>留言通过 GitHub Issues 维护。首次使用时，GitHub 可能会要求授权 Utterances 应用访问此公开仓库。</p> <script src="https://utteranc.es/client.js" repo="d49229815-art/my-blog" issue-term="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/study_note/" label="blog-comment" theme="github-light" crossorigin="anonymous" async>
+  </script> </section></div> <aside class="right-rail"><section class="aside-card author-card"> <div class="author-avatar">阿</div> <span class="aside-label">ABOUT THE AUTHOR</span> <h2>阿德</h2> <p>嵌入式软件工程师的学习与项目记录。记录方案、调试过程，也留下一些复盘。</p> <a class="text-link" href="/my-blog/about/">了解更多 <span>↗</span></a> </section> <section class="aside-card notice-card"> <span class="aside-label">站点说明</span> <p>内容来自原有学习笔记与项目资料，持续补充。文章日期未记录时不补造时间。</p> </section> <section class="aside-card related-card"> <span class="aside-label">继续阅读</span> <a href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/">📘 Linux 学习笔记<small>Linux</small></a> </section></aside> </main> <footer class="site-footer"> <span>© 2026 阿德小屋</span> <span>用清晰的记录，留住解决问题的过程。</span> </footer> </div> <div class="sidebar-scrim" id="sidebar-scrim"></div> <dialog class="search-dialog" id="search-dialog" aria-label="站内搜索"> <div class="search-dialog-head"> <i class="fa fa-search"></i> <input id="global-search" type="search" placeholder="搜索标题、芯片、外设、函数或关键词…" autocomplete="off"> <button class="dialog-close" id="search-close" type="button" aria-label="关闭搜索">ESC</button> </div> <div class="search-hint" id="search-hint">输入关键词，搜索文章和学习笔记</div> <div class="search-results" id="global-results"></div> </dialog> <button class="back-to-top" id="back-to-top" aria-label="回到顶部"><i class="fa fa-arrow-up"></i></button> <script type="module" src="/my-blog/_astro/SiteLayout.astro_astro_type_script_index_0_lang.D8XBEo7l.js"></script> </body> </html>

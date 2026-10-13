@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f7fa"><meta name="description" content="🚀💎🎯⚠️🚨❓❗🔍🧠💭📝🖥️⌨️💻🖥️🐛🐞🔧⚙️🛠️📦🔗🔄🧪🧹📊🔢① ② ③ ... ⑩ ❶ ❷ ❸ ... ❿1️⃣ 2️⃣ 3️⃣ ... 🔟🔴 ❶ ❷ ❸🟢 ❶ ❷ ❸◀ ▶ ▲ ▼ ✅✅☑️✔️❌❎⭕ 🔘📅📅⏰🕒⏱️⏲️🗓️📆🎨🎉🎈🎁🍀☘️✨🌈🎨🖌️✂️🔨🔣➡️⬅️⬆️"><meta property="og:type" content="website"><meta property="og:title" content="C 语言进阶笔记 · 阿德小屋"><meta property="og:description" content="🚀💎🎯⚠️🚨❓❗🔍🧠💭📝🖥️⌨️💻🖥️🐛🐞🔧⚙️🛠️📦🔗🔄🧪🧹📊🔢① ② ③ ... ⑩ ❶ ❷ ❸ ... ❿1️⃣ 2️⃣ 3️⃣ ... 🔟🔴 ❶ ❷ ❸🟢 ❶ ❷ ❸◀ ▶ ▲ ▼ ✅✅☑️✔️❌❎⭕ 🔘📅📅⏰🕒⏱️⏲️🗓️📆🎨🎉🎈🎁🍀☘️✨🌈🎨🖌️✂️🔨🔣➡️⬅️⬆️"><meta property="og:url" content="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c%E8%AF%AD%E8%A8%80/"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://d49229815-art.github.io/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c%E8%AF%AD%E8%A8%80/"><link rel="alternate" type="application/rss+xml" title="阿德小屋 RSS" href="/my-blog/rss.xml"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/my-blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"><title>C 语言进阶笔记 · 阿德小屋</title><script>
+      try {
+        const mode = localStorage.getItem('argon-mode');
+        if (mode === 'dark' || (!mode && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script><link rel="stylesheet" href="/my-blog/_astro/about.jEj5IoJy.css"></head> <body> <aside class="sidebar" id="site-sidebar" aria-label="站点侧栏"> <div class="sidebar-scroll"> <a class="brand-mark" href="/my-blog/" aria-label="阿德小屋首页"> <span class="avatar">阿</span> <span class="brand-copy"><strong>阿德小屋</strong><small>嵌入式开发记录</small></span> </a> <section class="profile-card"> <span class="profile-kicker">PERSONAL NOTES</span> <p class="profile-motto">从板级调试，到系统实践。</p> <p class="profile-description">记录 C、MCU、Linux 和项目开发中的方案、代码与排错过程。</p> <div class="social-row"> <a href="https://github.com/d49229815-art" aria-label="GitHub" title="GitHub" target="_blank" rel="noreferrer"><i class="fa fa-github"></i></a> <a href="/my-blog/rss.xml" aria-label="RSS 订阅" title="RSS"><i class="fa fa-rss"></i></a>  </div> </section> <nav class="primary-nav" aria-label="主导航"> <a class="nav-link" href="/my-blog/"><i class="fa fa-home"></i><span>首页</span></a> <a class="nav-link is-active" href="/my-blog/archives/"><i class="fa fa-archive"></i><span>归档</span></a> <a class="nav-link" href="/my-blog/categories/"><i class="fa fa-folder-open-o"></i><span>分类</span></a> <a class="nav-link" href="/my-blog/tags/"><i class="fa fa-tags"></i><span>标签</span></a> <a class="nav-link" href="/my-blog/about/"><i class="fa fa-user-o"></i><span>关于</span></a> <a class="nav-link" href="/my-blog/links/"><i class="fa fa-link"></i><span>友链</span></a> </nav> <section class="sidebar-widget"> <div class="widget-tabs" role="tablist" aria-label="侧栏内容"> <button class="widget-tab is-current" type="button" data-tab="recent" role="tab" aria-selected="true">最近文章</button> <button class="widget-tab" type="button" data-tab="categories" role="tab" aria-selected="false">分类</button> </div> <div class="widget-panel is-visible" data-panel="recent"> <a class="widget-post" href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/study_note/">📘 Linux 学习笔记<small>Linux</small></a><a class="widget-post" href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/linux%E5%9F%BA%E7%A1%80/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/">📘 Linux 学习笔记<small>Linux</small></a><a class="widget-post" href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/python%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/%E5%AD%A6%E4%B9%A0%E8%BF%9B%E5%BA%A6/">📘 Python 学习笔记<small>Python</small></a><a class="widget-post" href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/study_note/">📘 Python 学习笔记<small>Python</small></a><a class="widget-post" href="/my-blog/archives/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/%E5%9F%BA%E7%A1%80%E8%A1%A5%E5%85%85/%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/">📘 Python 学习笔记<small>Python</small></a> </div> <div class="widget-panel" data-panel="categories" hidden> <a class="widget-post" href="/my-blog/categories/#Linux">Linux<small>浏览分类</small></a><a class="widget-post" href="/my-blog/categories/#Python">Python<small>浏览分类</small></a> </div> </section> <div class="sidebar-footnote"><span class="status-dot"></span>静态生成 · 持续记录</div> </div> </aside> <div class="main-area"> <header class="topbar"> <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航菜单" aria-expanded="false"><i class="fa fa-bars"></i></button> <a class="topbar-brand" href="/my-blog/">阿德小屋<span> / 嵌入式开发记录</span></a> <div class="topbar-actions"> <button class="search-launch" id="search-open" aria-label="打开搜索"><i class="fa fa-search"></i><span>搜索文章与笔记</span><kbd>Ctrl K</kbd></button> <button class="icon-button" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题"><i class="fa fa-moon-o"></i></button> </div> </header> <main class="page-content"> <div class="content-column"> <header class="article-header"> <nav class="breadcrumb"><a href="/my-blog/">首页</a><span>/</span><a href="/my-blog/archives/">归档</a><span>/</span><span>C 语言</span></nav> <h1>C 语言进阶笔记</h1> <p class="article-summary">🚀💎🎯⚠️🚨❓❗🔍🧠💭📝🖥️⌨️💻🖥️🐛🐞🔧⚙️🛠️📦🔗🔄🧪🧹📊🔢① ② ③ ... ⑩ ❶ ❷ ❸ ... ❿1️⃣ 2️⃣ 3️⃣ ... 🔟🔴 ❶ ❷ ❸🟢 ❶ ❷ ❸◀ ▶ ▲ ▼ ✅✅☑️✔️❌❎⭕ 🔘📅📅⏰🕒⏱️⏲️🗓️📆🎨🎉🎈🎁🍀☘️✨🌈🎨🖌️✂️🔨🔣➡️⬅️⬆️</p> <div class="article-meta"><span><i class="fa fa-folder-o"></i>C 语言</span><span><i class="fa fa-calendar-o"></i>日期未记录</span><a class="tag-chip" href="/my-blog/tags/C%20%E8%AF%AD%E8%A8%80/">C 语言</a></div> </header> <article class="post-prose"><h1 id="c-语言进阶笔记">C 语言进阶笔记</h1>
+<p>🚀💎🎯⚠️🚨❓❗🔍🧠💭📝🖥️⌨️💻🖥️🐛🐞🔧⚙️🛠️📦🔗🔄🧪🧹📊🔢① ② ③ … ⑩
+❶ ❷ ❸ … ❿1️⃣ 2️⃣ 3️⃣ … 🔟🔴 ❶ ❷ ❸🟢 ❶ ❷ ❸◀ ▶ ▲ ▼	✅✅☑️✔️❌❎⭕
+🔘📅📅⏰🕒⏱️⏲️🗓️📆🎨🎉🎈🎁🍀☘️✨🌈🎨🖌️✂️🔨🔣➡️⬅️⬆️⬇️🔁🔃🚫💬💭🔒🔓
+🗝️📎✏️🖍️📏🧲🧬🧮💻🅒🅒++🐍☕🟨🟦🧩🌐📡🧠</p>
+<h2 id="环境搭建">🧩环境搭建</h2>
+<h3 id="1-安装c编译器">1. 安装C编译器</h3>
+<h4 id="111-安装gcc">1.1.1 安装GCC</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>1. 安装GCC</span></span>
+<span class="line"><span>    1. 从GCC官网下载GCC安装包</span></span>
+<span class="line"><span>    2. 运行安装包，选择默认选项即可</span></span></code></pre>
+<h4 id="112-安装mingw">1.1.2 安装MinGW</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>1. 安装MinGW</span></span>
+<span class="line"><span>    1. 从MinGW官网下载MinGW安装包</span></span>
+<span class="line"><span>        这里是MinGW的github下载地址：https://github.com/msys2/msys2-installer/releases/</span></span>
+<span class="line"><span>    2. 运行安装包，选择默认选项即可</span></span>
+<span class="line"><span>    3. 安装MinGW的工具链</span></span>
+<span class="line"><span>        1. 打开MinGW的命令行    </span></span>
+<span class="line"><span>        2. 输入以下命令安装工具链</span></span>
+<span class="line"><span>            *pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain*</span></span>
+<span class="line"><span>2. 配置环境变量</span></span>
+<span class="line"><span>    1. 打开环境变量设置</span></span>
+<span class="line"><span>    2. 点击“环境变量”按钮</span></span>
+<span class="line"><span>    3. 在“系统变量”中，找到“Path”变量，点击“编辑”按钮</span></span>
+<span class="line"><span>    4. 添加MinGW的bin目录（如C:\MinGW\bin）到变量值中</span></span>
+<span class="line"><span>    5. 点击“确定”按钮保存</span></span></code></pre>
+<h4 id="113-安装visual-studio-code">1.1.3 安装Visual Studio Code</h4>
+<pre class="astro-code astro-code-themes min-light github-dark" style="background-color:#ffffff;--shiki-dark-bg:#24292e;color:#24292eff;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>1. 安装Visual Studio Code</span></span>
+<span class="line"><span>    1. 从Visual Studio Code官网下载Visual Studio Code安装包</span></span>
+<span class="line"><span>    2. 运行安装包，选择默认选项即可</span></span>
+<span class="line"><span>2. 配置C++环境，安装插件（如C/C++、C/C++ Extension Pack等）</span></span>
+<span class="line"><span>    1. 打开Visual Studio Code</span></span>
+<span class="line"><span>    2. 点击“扩展”按钮</span></span>
+<span class="line"><span>    3. 搜索“C/C++”插件</span></span>
+<span class="line"><span>    4. 点击“安装”按钮安装</span></span></code></pre>
+<h4 id="114-点击重启按钮重启visual-studio-code">1.1.4 点击“重启”按钮重启Visual Studio Code</h4>
+<ol start="5">
+<li>重启Visual Studio Code
+类型关键字
+char 字符类型 1字节
+short 短整数类型 2字节
+int 整数类型 2/4字节
+long 长整数类型 4/8字节
+long long 超长整数类型 16字节
+float 单精度浮点数类型 4字节
+double 双精度浮点数类型 8字节
+int、long因不同平台导致占用字节规定不同，具体占用字节需使用sizeof函数进行查看
+运算符优先级表格
+<a href="https://keyanchengguo.feishu.cn/wiki/wikcnmjjSbdBdItO77GUIguTbtb#share-U53RdJsbponZ8TxgR4eck4qHnuf">text</a></li>
+</ol>
+<h2 id="模块一指针与内存">📌模块一：指针与内存</h2>
+<h3 id="11-内存模型">1.1 内存模型</h3>
+<h4 id="111-程序的内存分区代码段数据段bss堆栈">1.1.1 程序的内存分区（代码段、数据段、BSS、堆、栈）</h4>
+<h4 id="112-栈帧与函数调用过程">1.1.2 栈帧与函数调用过程</h4>
+<h4 id="113-变量的作用域与生命周期">1.1.3 变量的作用域与生命周期</h4>
+<h3 id="12-指针的本质">1.2 指针的本质</h3>
+<h4 id="121-内存地址与指针变量">1.2.1 内存地址与指针变量</h4>
+<h4 id="122-指针的声明初始化与解引用">1.2.2 指针的声明、初始化与解引用</h4>
+<h4 id="123-指针类型的作用步长访问宽度">1.2.3 指针类型的作用（步长、访问宽度）</h4>
+<h4 id="124-空指针野指针与悬空指针">1.2.4 空指针、野指针与悬空指针</h4>
+<h3 id="13-指针算术运算">1.3 指针算术运算</h3>
+<h4 id="131-指针加减整数">1.3.1 指针加减整数</h4>
+<h4 id="132-指针相减">1.3.2 指针相减</h4>
+<h4 id="133-指针比较">1.3.3 指针比较</h4>
+<h3 id="14-数组与指针">1.4 数组与指针</h3>
+<h4 id="141-数组名的本质退化与例外">1.4.1 数组名的本质（退化与例外）</h4>
+<h4 id="142-下标运算与指针运算的等价性">1.4.2 下标运算与指针运算的等价性</h4>
+<h4 id="143-多维数组的内存布局与指针访问">1.4.3 多维数组的内存布局与指针访问</h4>
+<h4 id="144-指针数组与数组指针">1.4.4 指针数组与数组指针</h4>
+<h3 id="15-指针与函数">1.5 指针与函数</h3>
+<h4 id="151-指针作为函数参数传址调用">1.5.1 指针作为函数参数（传址调用）</h4>
+<h4 id="152-函数指针的定义与使用">1.5.2 函数指针的定义与使用</h4>
+<h4 id="153-回调函数模式">1.5.3 回调函数模式</h4>
+<h4 id="154-返回指针的函数注意生命周期">1.5.4 返回指针的函数（注意生命周期）</h4>
+<h2 id="模块二复杂指针与字符串">模块二：复杂指针与字符串</h2>
+<h3 id="21-多级指针">2.1 多级指针</h3>
+<h4 id="211-二级指针的概念与使用">2.1.1 二级指针的概念与使用</h4>
+<h4 id="212-指针数组与二级指针的关系">2.1.2 指针数组与二级指针的关系</h4>
+<h4 id="213-多级指针的应用场景如main函数的argv">2.1.3 多级指针的应用场景（如main函数的argv）</h4>
+<h3 id="22-字符串">2.2 字符串</h3>
+<h4 id="221-字符串常量与字符数组">2.2.1 字符串常量与字符数组</h4>
+<h4 id="222-字符串的存储方式与结束标志">2.2.2 字符串的存储方式与结束标志</h4>
+<h4 id="223-标准字符串函数strlenstrcpystrcatstrcmp等">2.2.3 标准字符串函数（strlen/strcpy/strcat/strcmp等）</h4>
+<h4 id="224-自己动手实现字符串函数">2.2.4 自己动手实现字符串函数</h4>
+<h4 id="225-字符串指针数组char-argv">2.2.5 字符串指针数组（char *argv[]）</h4>
+<h3 id="23-函数指针高级">2.3 函数指针高级</h3>
+<h4 id="231-复杂函数指针声明解析">2.3.1 复杂函数指针声明解析</h4>
+<h4 id="232-函数指针作为结构体成员模拟c类">2.3.2 函数指针作为结构体成员（模拟C++类）</h4>
+<h4 id="233-函数指针表跳转表">2.3.3 函数指针表（跳转表）</h4>
+<h2 id="模块三结构体与内存管理">模块三：结构体与内存管理</h2>
+<h3 id="31-结构体基础">3.1 结构体基础</h3>
+<h4 id="311-结构体定义与变量声明">3.1.1 结构体定义与变量声明</h4>
+<h4 id="312-结构体成员的访问点操作符与箭头操作符">3.1.2 结构体成员的访问（点操作符与箭头操作符）</h4>
+<h4 id="313-结构体作为函数参数传值-vs-传指针">3.1.3 结构体作为函数参数（传值 vs 传指针）</h4>
+<h4 id="32-内存对齐">3.2 内存对齐</h4>
+<h4 id="321-对齐规则自然对齐pragma-pack">3.2.1 对齐规则（自然对齐、#pragma pack）</h4>
+<h4 id="322-计算结构体大小">3.2.2 计算结构体大小</h4>
+<h4 id="323-使用offsetof宏">3.2.3 使用offsetof宏</h4>
+<h3 id="33-联合体与枚举">3.3 联合体与枚举</h3>
+<h4 id="331-联合体的定义与特点">3.3.1 联合体的定义与特点</h4>
+<h4 id="332-枚举的使用场景">3.3.2 枚举的使用场景</h4>
+<h3 id="34-动态内存管理">3.4 动态内存管理</h3>
+<h4 id="341-malloc--calloc--realloc--free-详解">3.4.1 malloc / calloc / realloc / free 详解</h4>
+<h4 id="342-常见内存错误内存泄漏重复释放越界访问">3.4.2 常见内存错误（内存泄漏、重复释放、越界访问）</h4>
+<h4 id="343-内存调试工具valgrind-入门">3.4.3 内存调试工具（Valgrind 入门）</h4>
+<h4 id="344-避免悬空指针的策略">3.4.4 避免悬空指针的策略</h4>
+<h1 id="模块四数据结构与算法">模块四：数据结构与算法</h1>
+<h3 id="41-线性表">4.1 线性表</h3>
+<h4 id="411-顺序表动态数组">4.1.1 顺序表（动态数组）</h4>
+<h4 id="412-单链表创建插入删除反转">4.1.2 单链表（创建、插入、删除、反转）</h4>
+<h4 id="413-双向链表">4.1.3 双向链表</h4>
+<h4 id="414-循环链表">4.1.4 循环链表</h4>
+<h3 id="42-栈与队列">4.2 栈与队列</h3>
+<h4 id="421-顺序栈">4.2.1 顺序栈</h4>
+<h4 id="422-链式栈">4.2.2 链式栈</h4>
+<h4 id="423-循环队列数组实现">4.2.3 循环队列（数组实现）</h4>
+<h4 id="424-链式队列">4.2.4 链式队列</h4>
+<h3 id="43-排序算法">4.3 排序算法</h3>
+<h4 id="431-冒泡排序">4.3.1 冒泡排序</h4>
+<h4 id="432-选择排序">4.3.2 选择排序</h4>
+<h4 id="433-插入排序">4.3.3 插入排序</h4>
+<h4 id="434-快速排序递归与非递归">4.3.4 快速排序（递归与非递归）</h4>
+<h4 id="435-归并排序">4.3.5 归并排序</h4>
+<h3 id="44-查找算法">4.4 查找算法</h3>
+<h4 id="441-顺序查找">4.4.1 顺序查找</h4>
+<h4 id="442-二分查找迭代与递归">4.4.2 二分查找（迭代与递归）</h4>
+<h2 id="模块五嵌入式常用技术">模块五：嵌入式常用技术</h2>
+<h3 id="51-位运算">5.1 位运算</h3>
+<h4 id="511-基本位操作与或非异或移位">5.1.1 基本位操作（与、或、非、异或、移位）</h4>
+<h4 id="512-置位清零取反">5.1.2 置位、清零、取反</h4>
+<h4 id="513-位域bit-field的使用">5.1.3 位域（bit-field）的使用</h4>
+<h4 id="514-位运算在嵌入式中的应用寄存器操作">5.1.4 位运算在嵌入式中的应用（寄存器操作）</h4>
+<h3 id="52-文件io">5.2 文件IO</h3>
+<h4 id="521-标准c文件操作fopenfclosefreadfwritefprintf">5.2.1 标准C文件操作（fopen/fclose/fread/fwrite/fprintf）</h4>
+<h4 id="522-文本文件与二进制文件">5.2.2 文本文件与二进制文件</h4>
+<h4 id="523-文件指针定位fseekftellrewind">5.2.3 文件指针定位（fseek/ftell/rewind）</h4>
+<h4 id="524-系统调用与标准io的区别">5.2.4 系统调用与标准IO的区别</h4>
+<h3 id="53-预处理与编译链接">5.3 预处理与编译链接</h3>
+<h4 id="531-宏定义带参数宏特殊符号和">5.3.1 宏定义（带参数宏、特殊符号#和##）</h4>
+<h4 id="532-条件编译ifdef--ifndef--if">5.3.2 条件编译（#ifdef / #ifndef / #if）</h4>
+<h4 id="533-头文件保护符pragma-once-vs-ifndef">5.3.3 头文件保护符（#pragma once vs #ifndef）</h4>
+<h4 id="534-多文件编译与makefile基础">5.3.4 多文件编译与Makefile基础</h4>
+<h4 id="535-静态库与动态库的制作">5.3.5 静态库与动态库的制作</h4>
+<h2 id="模块六综合项目实践">模块六：综合项目实践</h2>
+<h3 id="61-项目简易嵌入式任务调度器">6.1 项目：简易嵌入式任务调度器</h3>
+<h4 id="611-项目需求分析">6.1.1 项目需求分析</h4>
+<h4 id="612-任务控制块tcb设计">6.1.2 任务控制块（TCB）设计</h4>
+<h4 id="613-任务调度算法轮询优先级">6.1.3 任务调度算法（轮询/优先级）</h4>
+<h4 id="614-上下文切换模拟">6.1.4 上下文切换模拟</h4>
+<h4 id="615-内存管理任务栈分配">6.1.5 内存管理（任务栈分配）</h4>
+<h4 id="616-项目总结与改进">6.1.6 项目总结与改进</h4>
+<h3 id="62-其他项目备选可根据兴趣选择">6.2 其他项目备选（可根据兴趣选择）</h3>
+<h4 id="621-基于c的图书管理系统链表文件">6.2.1 基于C的图书管理系统（链表+文件）</h4>
+<h4 id="622-简易http服务器socket编程">6.2.2 简易HTTP服务器（socket编程）</h4>
+<h4 id="623-贪吃蛇游戏控制台图形化">6.2.3 贪吃蛇游戏（控制台图形化）</h4>
+<h4 id="624-学生成绩管理系统结构体文件">6.2.4 学生成绩管理系统（结构体+文件）</h4></article> </div>  </main> <footer class="site-footer"> <span>© 2026 阿德小屋</span> <span>用清晰的记录，留住解决问题的过程。</span> </footer> </div> <div class="sidebar-scrim" id="sidebar-scrim"></div> <dialog class="search-dialog" id="search-dialog" aria-label="站内搜索"> <div class="search-dialog-head"> <i class="fa fa-search"></i> <input id="global-search" type="search" placeholder="搜索标题、芯片、外设、函数或关键词…" autocomplete="off"> <button class="dialog-close" id="search-close" type="button" aria-label="关闭搜索">ESC</button> </div> <div class="search-hint" id="search-hint">输入关键词，搜索文章和学习笔记</div> <div class="search-results" id="global-results"></div> </dialog> <button class="back-to-top" id="back-to-top" aria-label="回到顶部"><i class="fa fa-arrow-up"></i></button> <script type="module" src="/my-blog/_astro/SiteLayout.astro_astro_type_script_index_0_lang.D8XBEo7l.js"></script> </body> </html>
