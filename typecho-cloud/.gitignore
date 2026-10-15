@@ -1,0 +1,9 @@
+/site/config.inc.php
+/site/usr/uploads/
+/site/var/cache/
+/.deploy-secrets/
+/.env
+/.env.*
+*.sql.gz
+*.pem
+*.key
