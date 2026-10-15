@@ -70,17 +70,8 @@ nav:
       - Python:
           - 学习总览: 编程语言/Python/index.md
           - Python 基础与进阶:
-              - 课程总览: 编程语言/Python/Python基础与进阶/index.md
+              - 课程目录: 编程语言/Python/Python基础与进阶/index.md
               - 学习笔记总览: 编程语言/Python/Python基础与进阶/学习笔记总览.md
-              - 学习进度: 编程语言/Python/Python基础与进阶/学习进度.md
-              - 基础语法: 编程语言/Python/Python基础与进阶/01 基础语法/基础语法.md
-              - 逻辑判断: 编程语言/Python/Python基础与进阶/02 逻辑判断/逻辑判断.md
-              - 循环语句: 编程语言/Python/Python基础与进阶/03 循环语句/循环语句.md
-              - 函数: 编程语言/Python/Python基础与进阶/04 函数/函数.md
-              - 数据容器: 编程语言/Python/Python基础与进阶/05 数据容器/数据容器.md
-              - 函数进阶: 编程语言/Python/Python基础与进阶/06 函数进阶/函数进阶.md
-              - 文件操作: 编程语言/Python/Python基础与进阶/07 文件操作/文件操作.md
-              - 异常、模块与包: 编程语言/Python/Python基础与进阶/08 异常、模块与包/异常、模块与包.md
           - Python 基础补充: 编程语言/Python/基础补充/index.md
           - 课程说明: 编程语言/Python/基础补充/课程说明.md
           - 基础目录: 编程语言/Python/基础补充/01 python基础/index.md
