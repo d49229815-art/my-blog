@@ -29,6 +29,7 @@ TRASH_STATUSES = {
     18: "publish",
     20: "hidden",
     21: "hidden",
+    23: "publish",
     24: "hidden",
 }
 
@@ -71,7 +72,7 @@ def main() -> None:
             "ON DUPLICATE KEY UPDATE value = VALUES(value);",
             "UPDATE typecho_contents "
             "SET status = 'deleted', modified = UNIX_TIMESTAMP() "
-            "WHERE cid IN (10,11,12,13,14,15,16,17,18,20,21,24) "
+            "WHERE cid IN (10,11,12,13,14,15,16,17,18,20,21,23,24) "
             "AND type IN ('post','post_draft') AND status <> 'deleted';",
             "-- Recalculate counts for categories and tags related to these posts.",
             "UPDATE typecho_metas AS m "
@@ -81,11 +82,11 @@ def main() -> None:
             "WHERE r.mid = m.mid AND c.type = 'post' AND c.status = 'publish'"
             ") WHERE m.type IN ('category','tag') AND m.mid IN ("
             "SELECT DISTINCT mid FROM typecho_relationships "
-            "WHERE cid IN (10,11,12,13,14,15,16,17,18,20,21,24));",
+            "WHERE cid IN (10,11,12,13,14,15,16,17,18,20,21,23,24));",
             "COMMIT;",
             "SELECT cid, title, status, CHAR_LENGTH(text) AS chars "
             "FROM typecho_contents "
-            "WHERE cid IN (4,9,10,11,12,13,14,15,16,17,18,19,20,22) "
+            "WHERE cid IN (4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24) "
             "ORDER BY cid;",
         ]
     )

@@ -1,4 +1,5 @@
-<!--markdown-->这里收录 Python 基础课程之外的补充资料，保留官方课程笔记，并提供课程总览入口。
+<!--markdown-->Python 基础补充内容已并入课程总览，下面的入口可直接跳到对象拷贝和常用内置函数章节。
 
-- [Python 官方课程学习笔记](/post/23/)
-- [Python 学习笔记总览](/post/19/)
+- [对象引用与浅拷贝、深拷贝](/post/19/#py-copy-and-reference)
+- [常用内置函数](/post/19/#py-builtin-functions)
+- [返回 Python 学习笔记总览](/post/19/)

@@ -15,7 +15,7 @@ The source snapshot omits `site/config.inc.php`, `site/usr/uploads/`, and `site/
 
 The eight course chapters on syntax, conditions, loops, functions, containers, advanced functions, files, and exceptions/modules are consolidated into the overview. The separate course pages that duplicated those sections are moved to the site's trash after the overview is updated. The Python materials index is retained and points to the overview and the existing “Python 基础补充” material.
 
-The “Python 基础补充” page and its official-course note remain available. The overview is assigned to the existing “编程语言” category with the `Python` tag.
+The “Python 基础补充” page remains as an index to the supplemental sections now included in the overview. Its old official-course page was moved to the trash after its unique copy and built-in-function lessons were corrected and merged. The overview remains in the “编程语言” category with the `Python` tag.
 
 ## Cloud backup
 

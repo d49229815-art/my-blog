@@ -13,6 +13,8 @@
 - [六、函数进阶](#py-function-advanced)
 - [七、文件操作](#py-files)
 - [八、异常、模块与包](#py-exceptions-modules)
+- [九、对象引用与拷贝](#py-copy-and-reference)
+- [十、常用内置函数](#py-builtin-functions)
 - [参考资料](#py-references)
 
 <a id="py-basic-syntax"></a>
@@ -590,9 +592,62 @@ my_package/
 python -m pip install 包名
 ~~~
 
+<a id="py-copy-and-reference"></a>
+## 九、对象引用与拷贝
+
+赋值不会复制对象，而是让另一个变量名也指向同一个对象。对象可变时，通过任一名称修改它，另一名称看到的也是修改后的对象。
+
+~~~python
+source = [1, [2, 3]]
+alias = source
+alias[0] = 10
+print(source)  # [10, [2, 3]]
+~~~
+
+浅拷贝会创建新的外层容器，但内部元素仍引用原对象；深拷贝会递归复制内部对象。深拷贝可能复制过多数据，通常只在确实需要相互独立的嵌套结构时使用。
+
+~~~python
+import copy
+
+source = [1, [2, 3]]
+shallow = copy.copy(source)
+deep = copy.deepcopy(source)
+
+source[0] = 10
+source[1].append(4)
+print(shallow)  # [1, [2, 3, 4]]：外层独立，嵌套列表共享
+print(deep)     # [1, [2, 3]]：嵌套列表也已复制
+~~~
+
+列表、字典和集合也分别提供 `.copy()` 浅拷贝方法。是否需要深拷贝，取决于嵌套对象是否也必须独立。
+
+<a id="py-builtin-functions"></a>
+## 十、常用内置函数
+
+内置函数可直接调用，不需要先导入。`abs()` 返回绝对值；`sum()` 对数值可迭代对象求和；`min()` 与 `max()` 分别查找最小值和最大值。
+
+~~~python
+print(abs(-10))       # 10
+print(sum([1, 2, 3])) # 6
+print(min(5, 4, 6))   # 4
+print(max(5, 4, 6))   # 6
+~~~
+
+`zip()` 按位置组合多个可迭代对象，返回迭代器。默认在最短的输入耗尽时停止；需要查看全部结果时，可用 `list()` 将结果转换为列表。
+
+~~~python
+numbers = [1, 2, 3]
+letters = ["a", "b", "c"]
+print(list(zip(numbers, letters)))
+# [(1, 'a'), (2, 'b'), (3, 'c')]
+~~~
+
+可用 `dir(builtins)` 查看内置命名空间中的名称；日常编程通常直接查阅文档或使用所需函数即可。
+
 <a id="py-references"></a>
 ## 参考资料
 
 - [Python 官方教程](https://docs.python.org/3/tutorial/)
 - [内置类型参考](https://docs.python.org/3/library/stdtypes.html)
 - [内置函数参考](https://docs.python.org/3/library/functions.html)
+- [copy 模块：浅拷贝与深拷贝](https://docs.python.org/3/library/copy.html)
